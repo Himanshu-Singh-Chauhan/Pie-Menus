@@ -39,10 +39,10 @@ class Window(QtWidgets.QWidget):
         super().__init__()
         self._menu = None
         # following line for window less app
-        self.setWindowFlags(QtCore.Qt.FramelessWindowHint | QtCore.Qt.WindowStaysOnTopHint)
+        self.setWindowFlags(QtCore.Qt.FramelessWindowHint | QtCore.Qt.WindowStaysOnTopHint | QtCore.Qt.Tool)
         # following line for transparent background
         self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
-        # self.showMaximized()
+        self.showMaximized()
 
     def showMenu(self, openPieMenu):
         if self._menu:
@@ -101,9 +101,9 @@ class RadialMenu(QtWidgets.QWidget):
         self._summonPosition = QtCore.QPoint(summonPosition.x(), summonPosition.y())
         self._currentMousePos = QtCore.QPoint(self._summonPosition)
 
-        self.timer = QTimer()
-        self.timer.timeout.connect(self.globalMouseMoveEvent)
-        self.timer.start(25)
+        self.global_mouse_timer = QTimer()
+        self.global_mouse_timer.timeout.connect(self.globalMouseMoveEvent)
+        self.global_mouse_timer.start(5)
 
         for i in range(int(openPieMenu["numSlices"])):
             self.addButton(f'{openPieMenu["pies"][i]["label"]}', i)

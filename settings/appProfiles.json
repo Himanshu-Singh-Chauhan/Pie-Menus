@@ -201,7 +201,7 @@
           "pies": [
             {
               "PieNumber": 1,
-              "function": "sendHotKeysAHK",
+              "function": "sendKeys",
               "params": ["him.hackit@gmail.com"],
               "label": "Send A",
               "returnMousePos": 0,
@@ -210,7 +210,7 @@
             },
             {
               "PieNumber": "2",
-              "function": "sendHotKeys",
+              "function": "sendKeys",
               "params": ["boops"],
               "label": "Boops",
               "returnMousePos": 0,
@@ -228,7 +228,7 @@
             },
             {
               "PieNumber": "4",
-              "function": "sendHotKeys",
+              "function": "sendKeys",
               "params": ["d"],
               "label": "Send D",
               "returnMousePos": 0,
@@ -237,7 +237,7 @@
             },
             {
               "PieNumber": "5",
-              "function": "sendHotKeys",
+              "function": "sendKeys",
               "params": ["e"],
               "label": "Send E",
               "returnMousePos": 0,
@@ -246,7 +246,7 @@
             },
             {
               "PieNumber": "6",
-              "function": "sendHotKeys",
+              "function": "sendKeys",
               "params": ["f"],
               "label": "Send F",
               "returnMousePos": 0,
@@ -255,7 +255,7 @@
             },
             {
               "PieNumber": "7",
-              "function": "sendHotKeys",
+              "function": "sendKeys",
               "params": ["f"],
               "label": "Send F",
               "returnMousePos": 0,
@@ -264,7 +264,7 @@
             },
             {
               "PieNumber": "8",
-              "function": "sendHotKeys",
+              "function": "sendKeys",
               "params": ["f"],
               "label": "Send F",
               "returnMousePos": 0,

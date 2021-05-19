@@ -7,7 +7,39 @@ import psutil
 from piemenu_backend import *
 from threading import Thread
 import mousehook
+import re
 # import keyboardhook
+
+
+class WindowMgr:
+    """Encapsulates some calls to the winapi for window management"""
+
+    def __init__ (self):
+        """Constructor"""
+        self._handle = None
+
+    def find_window(self, class_name, window_name=None):
+        """find a window by its class_name"""
+        self._handle = win32gui.FindWindow(class_name, window_name)
+
+    def _window_enum_callback(self, hwnd, wildcard):
+        """Pass to win32gui.EnumWindows() to check all the opened windows"""
+        if re.match(wildcard, str(win32gui.GetWindowText(hwnd))) is not None:
+            self._handle = hwnd
+
+    def find_window_wildcard(self, wildcard):
+        """find a window whose title matches the wildcard regex"""
+        self._handle = None
+        win32gui.EnumWindows(self._window_enum_callback, wildcard)
+
+    def set_foreground(self):
+        """put the window in the foreground"""
+        win32gui.SetForegroundWindow(self._handle)
+
+# active window example calls
+# w = WindowMgr()
+# w.find_window_wildcard(".*Hello.*")
+# w.set_foreground()
 
 # Important Note: As of now Trigger keys cannot be same as hotkeys in a single profile
 
@@ -19,6 +51,8 @@ class ActiveProfile:
     def __init__(self) -> None:
         # Attributes
         self.activeWindow = None
+        self.activeTittle = None
+        self.handle_foreground = None
         self.profile = None
         self.loadedHotkeys = []
         self.loadedTriggerKeys = []
@@ -69,14 +103,15 @@ class ActiveProfile:
         # self.testvar = False
 
 
-    def changeDetected(self, activeWindow):
+    def changeDetected(self, activeWindow, activeTittle, handle_foreground):
         global regApps
-
+        self.handle_foreground = handle_foreground
         if activeWindow not in regApps:
             self.loadGlobal()
             return
             
         self.activeWindow = activeWindow
+        self.activeTittle = activeTittle
         self.loadProfile()
         self.loadHotkeys()
 
@@ -180,6 +215,7 @@ class ActiveProfile:
         if self.isMenuOpen == False and self.HKeyLetgo:
         # if self.isMenuOpen == False:
             window.showFullScreen()
+            win32gui.SetForegroundWindow(self.handle_foreground) 
             self.isMenuOpen = True
             window.showMenu(self.openPieMenu)
             self.initMosPos = mouse.get_position()
@@ -235,9 +271,7 @@ class ActiveProfile:
         self.isLMBup = True
 
     def waitHKeyrelease(self):
-        if self.counter < 100:
-            self.counter += 1
-        print(self.counter, keyboard.is_pressed(self.A_ThisHotkey))
+        if self.counter < 100: self.counter += 1
         if (not keyboard.is_pressed(self.A_ThisHotkey)) and self.counter >= 6:
             self.A_ThisHotkey = None
             self.HKeyLetgo = True
@@ -266,7 +300,8 @@ class ActiveProfile:
         self.counter = 0
         self.HKeyLetgo = False
         self.waitHKey.start(25)
-        window.hide()
+        # window.hide() # this will hide the window after menu is closed.
+        # window.showMinimized()
         # self.keyboardThread.start()
 
 
@@ -300,19 +335,19 @@ def detectWindowChange():
 
     previousActiveWindow = activeProfile.activeWindow
     try:
-        activeTittle = GetWindowText(GetForegroundWindow())
-        pid = GetWindowThreadProcessId(GetForegroundWindow())
+        handle_foreground = GetForegroundWindow()
+        activeTittle = GetWindowText(handle_foreground)
+        pid = GetWindowThreadProcessId(handle_foreground)
         rootExe = psutil.Process(pid[-1]).name()
     except:
         return
 
-    activeWindow = GetClassName(GetForegroundWindow())
+    activeWindow = GetClassName(handle_foreground)
     # print(previousActiveWindow)
     if previousActiveWindow == activeWindow:
-        # print("yo")
         return
     else:
-        activeProfile.changeDetected(activeWindow)
+        activeProfile.changeDetected(activeWindow, activeTittle, handle_foreground)
     
 
 
@@ -360,7 +395,6 @@ timerWinChange.timeout.connect(detectWindowChange)
 
 # Timer starts
 timerWinChange.start(100)
-
 
 # ----------------------END-----------------------------
 # This statement has to stay the last line
