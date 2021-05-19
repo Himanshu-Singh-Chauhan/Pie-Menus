@@ -1,0 +1,32 @@
+keyboard.add_hotkey("a", doNothing, suppress=True)
+def execute():
+    # window = Window()
+    global flag
+    global hold
+    if flag:
+        if not keyboard.is_pressed("a") and not hold:
+            flag = False
+            hold = False
+            keyboard.unblock_key("a")
+            window.killMenu()
+    else:
+        if keyboard.is_pressed("a") and not(flag):
+            keyboard.block_key("a")
+            flag = True
+            sleep(0.12)
+            if not keyboard.is_pressed("a"):
+                hold = True
+            else:
+                hold = False
+            window.showMenu(8)
+        if keyboard.is_pressed("c") and not(flag):
+            flag = True
+            window.showMenu(4)
+    if keyboard.is_pressed("b") and flag:
+        flag = False
+        window.killMenu()
+timer = QTimer()
+timer.timeout.connect(execute)
+timer.start(25)
+# window.showMenu()
+# window.killMenu()

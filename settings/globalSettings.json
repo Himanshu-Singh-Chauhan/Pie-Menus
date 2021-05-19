@@ -1,0 +1,17 @@
+{
+    "globalSettings": {
+        "scriptsPath": "C:\\Place\\Path\\Here\\",
+        "pieTips": false,
+        "functionLaunchMode": 0,
+        "restoreOriginalPosition": false,
+        "returnMousePosOverride": false,
+        "globalFont": false,
+        "globalFontSize": 14,
+        "showIcons": false,
+        "globalRadius": false,
+        "lazyHold": false,
+        "hotkeyIsHeldLatency": false,
+        "latency": false
+
+    }
+}

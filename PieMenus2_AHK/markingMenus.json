@@ -1,0 +1,318 @@
+{
+    "global": {
+      "functionLaunchMode": 0,
+      "fontSize": 14
+    },
+    "markingMenus": [
+      {
+        "name": "Default Profile",
+        "enable": 1,
+        "enablePenTablet": 0,
+        "pieMenus": [
+          {
+            "name": "cut_copy_paste",
+            "hotkey": "`",
+            "radius": 20,
+            "thickness": 5,
+            "holdOpenOverride": 0,
+            "hold": 0,
+            "labelDelay": 5,
+            "enable": 1,
+            "activePie": [
+              {
+                "numSlices": 8,
+                "bgColor": [35, 35, 35, 200],
+                "selColor": [88, 88, 88, 255],
+                "offset": 1,
+                "triggerKeysActive": true,
+                "functions": [
+                  {
+                    "PieNumber": "1",
+                    "function": "continueLastPieMenu",
+                    "params": [""],
+                    "label": "0 RepeatLast (center function label does not show up)",
+                    "returnMousePos": 1,
+                    "icon": "figurethisoutlater.svg",
+                    "triggerKey": "None"
+                  },
+                  {
+                    "PieNumber": "2",
+                    "function": "runScript",
+                    "params": ["%A_ScriptDir%\\Local Scripts\\testscript.ahk"],
+                    "label": "",
+                    "returnMousePos": 0,
+                    "icon": "figurethisoutlater.svg",
+                    "triggerKey": "None"
+                  },
+                  {
+                    "PieNumber":"3",
+                    "function": "sendKey",
+                    "params": [""],
+                    "label": "2 Undo",
+                    "returnMousePos": 0,
+                    "icon": "figurethisoutlater.svg",
+                    "triggerKey": "None"
+                  },
+                  {
+                    "PieNumber":"4",
+                    "function": "moveWindow",
+                    "params": ["^z"],
+                    "label": "3 Move Window",
+                    "returnMousePos": 0,
+                    "icon": "figurethisoutlater.svg",
+                    "triggerKey": "None"
+                  },
+                  {
+                    "PieNumber":"5",
+                    "function": "repeatLastFunction",
+                    "params": [0.5],
+                    "label": "4 Repeat Last Function",
+                    "returnMousePos": 0,
+                    "icon": "figurethisoutlater.svg",
+                    "triggerKey": "None"
+                  },
+                  {
+                    "PieNumber":"6",
+                    "function": "resizeWindow",
+                    "params": ["f"],
+                    "label": "5 Resize Window",
+                    "returnMousePos": 0,
+                    "icon": "figurethisoutlater.svg",
+                    "triggerKey": "None"
+                  },
+                  {
+                    "PieNumber":"7",
+                    "function": "sendKey",
+                    "params": ["F5sasfd"],
+                    "label": "1 Refresh",
+                    "returnMousePos": 0,
+                    "icon": "figurethisoutlater.svg",
+                    "triggerKey": ","
+                  },
+                  {
+                    "PieNumber":"8",
+                    "function": "runMarkingMenu",
+                    "params": ["cut_copy_paste"],
+                    "label": "Lvl 2 M.Menu",
+                    "returnMousePos": 0,
+                    "icon": "figurethisoutlater.svg",
+                    "triggerKey": "2"
+                  },
+                  {
+                    "PieNumber":"9",
+                    "function": "sendKey",
+                    "params": ["This is sample text, you can also send key combinations or run automated scripts"],
+                    "label": "Sample text",
+                    "returnMousePos": 0,
+                    "icon": "figurethisoutlater.svg",
+                    "triggerKey": "None"
+                  },
+                  {
+                    "PieNumber":"10",
+                    "function": "sendKey",
+                    "params": ["f"],
+                    "label": "6 Send F",
+                    "returnMousePos": 0,
+                    "icon": "figurethisoutlater.svg",
+                    "triggerKey": "None"
+                  },
+                  {
+                    "PieNumber":"11",
+                    "function": "sendKey",
+                    "params": ["f"],
+                    "label": "6 Send F",
+                    "returnMousePos": 0,
+                    "icon": "figurethisoutlater.svg",
+                    "triggerKey": "None"
+                  },
+                  {
+                    "PieNumber":"12",
+                    "function": "sendKey",
+                    "params": ["f"],
+                    "label": "6 Send F",
+                    "returnMousePos": 0,
+                    "icon": "figurethisoutlater.svg",
+                    "triggerKey": "None"
+                  },
+                  {
+                    "PieNumber":"13",
+                    "function": "sendKey",
+                    "params": ["f"],
+                    "label": "6 Send F",
+                    "returnMousePos": 0,
+                    "icon": "figurethisoutlater.svg",
+                    "triggerKey": "None"
+                  },
+                  {
+                    "PieNumber":"14",
+                    "function": "sendKey",
+                    "params": ["f"],
+                    "label": "6 Send F",
+                    "returnMousePos": 0,
+                    "icon": "figurethisoutlater.svg",
+                    "triggerKey": "None"
+                  },
+                  {
+                    "PieNumber":"15",
+                    "function": "sendKey",
+                    "params": ["f"],
+                    "label": "6 Send F",
+                    "returnMousePos": 0,
+                    "icon": "figurethisoutlater.svg",
+                    "triggerKey": "None"
+                  },
+                  {
+                    "PieNumber":"16",
+                    "function": "sendKey",
+                    "params": ["f"],
+                    "label": "6 Send F",
+                    "returnMousePos": 0,
+                    "icon": "figurethisoutlater.svg",
+                    "triggerKey": "None"
+                  },
+                  {
+                    "PieNumber":"17",
+                    "function": "sendKey",
+                    "params": ["f"],
+                    "label": "6 Send F",
+                    "returnMousePos": 0,
+                    "icon": "figurethisoutlater.svg",
+                    "triggerKey": "None"
+                  }
+                ]
+              },
+              {
+                "enable": 0,
+                "numSlices": 6,
+                "bgColor": [35, 35, 35, 255],
+                "selColor": [161, 52, 235, 255],
+                "offset": 1,
+                "triggerKeysActive": true,
+                "functions": [
+                  {
+                    "PieNumber":"1",
+                    "function": "sendKey",
+                    "params": ["a"],
+                    "label": "Send A",
+                    "returnMousePos": 0,
+                    "icon": "figurethisoutlater.svg",
+                    "triggerKey": "l"
+                  },
+                  {
+                    "PieNumber":"2",
+                    "function": "sendKey",
+                    "params": ["b"],
+                    "label": "Send B",
+                    "returnMousePos": 0,
+                    "icon": "figurethisoutlater.svg",
+                    "triggerKey": "f"
+                  },
+                  {
+                    "PieNumber":"3",
+                    "function": "sendKey",
+                    "params": ["him.hackit@gmail.com"],
+                    "label": "Email",
+                    "returnMousePos": 0,
+                    "icon": "figurethisoutlater.svg",
+                    "triggerKey": "8"
+                  },
+                  {
+                    "PieNumber":"4",
+                    "function": "sendKey",
+                    "params": ["d"],
+                    "label": "Send D",
+                    "returnMousePos": 0,
+                    "icon": "figurethisoutlater.svg",
+                    "triggerKey": "/"
+                  },
+                  {
+                    "PieNumber":"5",
+                    "function": "sendKey",
+                    "params": ["e"],
+                    "label": "Send E",
+                    "returnMousePos": 0,
+                    "icon": "figurethisoutlater.svg",
+                    "triggerKey": "None"
+                  },
+                  {
+                    "PieNumber":"6",
+                    "function": "sendKey",
+                    "params": ["f"],
+                    "label": "Send F",
+                    "returnMousePos": 0,
+                    "icon": "figurethisoutlater.svg",
+                    "triggerKey": "None"
+                  }
+                ]
+              },
+              {
+                "enable": 1,
+                "numSlices": 3,
+                "bgColor": [35, 35, 35, 255],
+                "selColor": [204, 57, 57, 255],
+                "offset": 1,
+                "triggerKeysActive": true,
+                "functions": [
+                  {
+                    "PieNumber":"1",
+                    "function": "SendKey",
+                    "params": ["himanshu"],
+                    "label": "Send A",
+                    "returnMousePos": 0,
+                    "icon": "figurethisoutlater.svg",
+                    "triggerKey": "None"
+                  },
+                  {
+                    "PieNumber":"2",
+                    "function": "runScript",
+                    "params": ["C:\\Users\\beaug\\Desktop\\blah.ahk"],
+                    "label": "Run Function",
+                    "returnMousePos": 0,
+                    "icon": "figurethisoutlater.svg",
+                    "triggerKey": "None"
+                  },
+                  {
+                    "PieNumber":"3",
+                    "function": "SendKey",
+                    "params": ["c"],
+                    "label": "Send C",
+                    "returnMousePos": 0,
+                    "icon": "figurethisoutlater.svg",
+                    "triggerKey": "None"
+                  },
+                  {
+                    "PieNumber":"4",
+                    "function": "SendKey",
+                    "params": ["d"],
+                    "label": "Send D",
+                    "returnMousePos": 0,
+                    "icon": "figurethisoutlater.svg",
+                    "triggerKey": "None"
+                  },
+                  {
+                    "PieNumber":"5",
+                    "function": "SendKey",
+                    "params": ["e"],
+                    "label": "Send E",
+                    "returnMousePos": 0,
+                    "icon": "figurethisoutlater.svg",
+                    "triggerKey": "None"
+                  },
+                  {
+                    "PieNumber":"6",
+                    "function": "SendKey",
+                    "params": ["f"],
+                    "label": "Send F",
+                    "returnMousePos": 0,
+                    "icon": "figurethisoutlater.svg",
+                    "triggerKey": "None"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+  
