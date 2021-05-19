@@ -10,7 +10,6 @@ import mousehook
 import re
 # import keyboardhook
 
-# this comment is to learn git
 class WindowMgr:
     """Encapsulates some calls to the winapi for window management"""
 
