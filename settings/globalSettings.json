@@ -11,7 +11,9 @@
         "globalRadius": false,
         "lazyHold": false,
         "hotkeyIsHeldLatency": false,
-        "latency": false
+        "latency": false,
 
+        "useArcOnHover": false,
+        "useLineOnHover": true
     }
 }

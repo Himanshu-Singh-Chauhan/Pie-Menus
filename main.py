@@ -374,12 +374,13 @@ app_icon = "C:\\Users\\S\\Downloads\\pexels-pixabay-38537.jpg"
 tray_icon = QtGui.QIcon(os.path.join(script_dir, "icons/tray_icon.png"))
 
 # tray icon attribution : # icon type 2: <div>Icons made by <a href="https://www.flaticon.com/authors/ultimatearm" title="ultimatearm">ultimatearm</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+# tray icon link : https://www.flaticon.com/free-icon/pie_1411020?term=pies&related_id=1411020
 
 trayWidgetQT = QWidget()
 trayWidget = SystemTrayIcon(QtGui.QIcon(tray_icon), trayWidgetQT)
 trayWidget.show()
 
-window = Window()
+window = Window(settings, globalSettings["globalSettings"])
 
 # *****IMPORTANT********: # get the mouse pos here by itself to increase accuracy of opening position.
 

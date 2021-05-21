@@ -35,9 +35,12 @@ def getWidgetCenterPos(widget):
 
 
 class Window(QtWidgets.QWidget):
-    def __init__(self):
+    def __init__(self, settings, globalSettings):
         super().__init__()
         self._menu = None
+
+        self.settings = settings
+        self.globalSettings = globalSettings
         # following line for window less app
         self.setWindowFlags(QtCore.Qt.FramelessWindowHint | QtCore.Qt.WindowStaysOnTopHint | QtCore.Qt.Tool)
         # following line for transparent background
@@ -48,7 +51,7 @@ class Window(QtWidgets.QWidget):
         if self._menu:
             self._menu.kill()
             return
-        self._menu = RadialMenu(self, GetMousePos(), openPieMenu)
+        self._menu = RadialMenu(self, GetMousePos(), openPieMenu, self.settings, self.globalSettings)
         self._menu.show()
 
     def killMenu(self):
@@ -81,10 +84,11 @@ class Window(QtWidgets.QWidget):
             return False
 
 class RadialMenu(QtWidgets.QWidget):
-    def __init__(self, parent, summonPosition, openPieMenu):
+    def __init__(self, parent, summonPosition, openPieMenu, settings, globalSettings):
         super().__init__(parent=parent)
         self.setMouseTracking(True)
-
+        self.settings = settings
+        self.globalSettings = globalSettings
         self.setGeometry(self.parent().rect())
         # self._outRadius = 100
         # self._inRadius = 15
@@ -288,7 +292,12 @@ class RadialMenu(QtWidgets.QWidget):
         # Draw Forebround circle
         if angle and not mouseInCircle:
             painter.setPen(fgCirclePen)
-            painter.drawArc(circleRect, int(angle-arcSize/2)*16, arcSize*16)
+            if self.globalSettings["useArcOnHover"]:
+                painter.drawArc(circleRect, int(angle-arcSize/2)*16, arcSize*16)
+            if self.globalSettings["useLineOnHover"]:
+                fgCirclePen.setCapStyle(Qt.RoundCap)
+                painter.setPen(fgCirclePen)
+                painter.drawLine(self._summonPosition, self._currentMousePos)
 
         
         if targetBtn and self._animFinished is True and not mouseInCircle:
