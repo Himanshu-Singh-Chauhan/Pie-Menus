@@ -1,10 +1,10 @@
 import os
 import json
-from typing import final
 from win32gui import GetWindowText, GetForegroundWindow, GetClassName
 from win32process import GetWindowThreadProcessId
 import psutil
 from piemenu_backend import *
+from systemTrayIcon import SystemTrayIcon
 from threading import Thread
 import mousehook
 import re
@@ -366,10 +366,17 @@ except:
 
 
 # ------------------------------------ MAIN ---------------------------------
-app = QtWidgets.QApplication()
-widget = QWidget()
+app = QtWidgets.QApplication(sys.argv)
+app.setQuitOnLastWindowClosed(False)
 # mainWindow = QMainWindow(widget)
-tray_icon = "C:\\Users\\S\\Downloads\\pexels-pixabay-38537.jpg"
+
+app_icon = "C:\\Users\\S\\Downloads\\pexels-pixabay-38537.jpg"
+tray_icon = os.path.join(script_dir, "icons/tray_icon.ico")
+
+trayWidgetQT = QWidget()
+trayWidget = SystemTrayIcon(QtGui.QIcon(tray_icon), trayWidgetQT)
+trayWidget.show()
+
 window = Window()
 
 # *****IMPORTANT********: # get the mouse pos here by itself to increase accuracy of opening position.
