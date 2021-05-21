@@ -371,7 +371,9 @@ app.setQuitOnLastWindowClosed(False)
 # mainWindow = QMainWindow(widget)
 
 app_icon = "C:\\Users\\S\\Downloads\\pexels-pixabay-38537.jpg"
-tray_icon = os.path.join(script_dir, "icons/tray_icon.ico")
+tray_icon = QtGui.QIcon(os.path.join(script_dir, "icons/tray_icon.png"))
+
+# tray icon attribution : # icon type 2: <div>Icons made by <a href="https://www.flaticon.com/authors/ultimatearm" title="ultimatearm">ultimatearm</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
 
 trayWidgetQT = QWidget()
 trayWidget = SystemTrayIcon(QtGui.QIcon(tray_icon), trayWidgetQT)
