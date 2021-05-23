@@ -378,6 +378,7 @@ tray_icon = QtGui.QIcon(os.path.join(script_dir, "icons/tray_icon.png"))
 
 trayWidgetQT = QWidget()
 trayWidget = SystemTrayIcon(QtGui.QIcon(tray_icon), trayWidgetQT)
+trayWidgetQT.setStyleSheet(pie_themes.QMenu)
 trayWidget.show()
 
 window = Window(settings, globalSettings["globalSettings"])

@@ -295,6 +295,7 @@ class RadialMenu(QtWidgets.QWidget):
             if self.globalSettings["useArcOnHover"]:
                 painter.drawArc(circleRect, int(angle-arcSize/2)*16, arcSize*16)
             if self.globalSettings["useLineOnHover"]:
+                # tracking line
                 fgCirclePen.setCapStyle(Qt.RoundCap)
                 painter.setPen(fgCirclePen)
                 painter.drawLine(self._summonPosition, self._currentMousePos)

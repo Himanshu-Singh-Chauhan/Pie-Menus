@@ -1,5 +1,7 @@
+import sys
+
 from PySide2.QtWidgets import QMessageBox
-from PySide2 import QtWidgets, QtCore
+from PySide2 import QtWidgets, QtCore, QtGui
 
 class SystemTrayIcon(QtWidgets.QSystemTrayIcon):
 
@@ -7,13 +9,10 @@ class SystemTrayIcon(QtWidgets.QSystemTrayIcon):
         # Qt stuff
         QtWidgets.QSystemTrayIcon.__init__(self, icon, parent)
         menu = QtWidgets.QMenu(parent)
-        menu.setAttribute(QtCore.Qt.WA_TranslucentBackground, on=True)
-        menu.setWindowFlags(menu.windowFlags() | QtCore.Qt.FramelessWindowHint | QtCore.Qt.NoDropShadowWindowHint)
+
         # To quit the app
-        exit_app = menu.addAction("Exit Pie Menus")
-        exit_app.triggered.connect(self.exit)
-        
-        menu.addSeparator()
+        exit = menu.addAction("Exit Pie Menus")
+        exit.triggered.connect(self.exit)
 
         settings = menu.addAction("Settings")
         settings.triggered.connect(self.showDialog)
@@ -27,7 +26,6 @@ class SystemTrayIcon(QtWidgets.QSystemTrayIcon):
         msgBox.setText("TEST Message Box")
         msgBox.setWindowTitle("testing context menu items")
         msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
-        msgBox.setDefaultButton(QMessageBox.Ok)
         msgBox.buttonClicked.connect(self.msgButtonClick)
 
         returnValue = msgBox.exec()
@@ -38,4 +36,14 @@ class SystemTrayIcon(QtWidgets.QSystemTrayIcon):
         print("Button clicked is:", event.text())
 
     def exit(self):
+        print("asdf")
         QtCore.QCoreApplication.exit()
+
+
+image ="C:\\Users\\S\\Downloads\\pexels-pixabay-38537.jpg"
+app = QtWidgets.QApplication(sys.argv)
+w = QtWidgets.QWidget()
+trayIcon = SystemTrayIcon(QtGui.QIcon(image), w)
+trayIcon.show()
+app.setQuitOnLastWindowClosed(False)
+sys.exit(app.exec_())

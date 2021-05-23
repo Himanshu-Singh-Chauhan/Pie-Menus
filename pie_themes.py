@@ -57,3 +57,34 @@ dhalu_theme = """
                     }
         
         """
+
+
+# Try to apply this QMenu css to only tray qmenu and rename this style to tray_menu
+QMenu = """
+            QMenu {
+                background-color: rgba(255, 255, 255, 255);
+                border: none;
+                border-radius: 10px;
+            }
+
+            QMenu::item {
+                border-radius: 4px;
+                padding: 8px 48px 8px 36px;
+                background-color: transparent;
+                margin: 10px;
+            }
+            QMenu::item:selected {
+                border-radius: 10px;
+                background-color: rgba(232, 232, 232, 232);
+            }
+            QMenu::item:disabled {
+                background-color: transparent;
+            }
+            QMenu::icon {
+                left: 15px;
+            }
+            QMenu::separator {
+                height: 2px;
+                background-color: rgb(232, 236, 243);
+            }
+"""
