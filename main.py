@@ -62,7 +62,6 @@ class ActiveProfile:
         self.sameTKeyHKey = None
 
         self.keyHeld = False
-        # self.keyHeld = True
         self.isMenuOpen = False
         self.openPieMenu = None
 
@@ -104,7 +103,6 @@ class ActiveProfile:
         # keyboardhook.HKeyReleaseHandlers.append(self.test)
 
         self.HKeyLetgo = True
-        # self.testvar = False
 
 
     def changeDetected(self, activeWindow, activeTittle, handle_foreground):
@@ -236,7 +234,6 @@ class ActiveProfile:
         self.menu_open_pos = GetMousePos()
         self.menu_open_pos = QtCore.QPoint(self.menu_open_pos.x(), self.menu_open_pos.y())
         self.menu_open_time = datetime.datetime.now()
-        # self.i = 0
         self.timer_checkKeyHeld.start(194)
 
     def checkKeyHeld(self):
@@ -245,7 +242,6 @@ class ActiveProfile:
             self.timer_checkKeyHeld.stop()
             return
         # time_elapsed = datetime.datetime.now() - self.menu_open_time
-        # self.i+=1
         # fast_out( time_elapsed.total_seconds())
         # if time_elapsed.total_seconds() < 0.2:
             # return
@@ -320,32 +316,16 @@ class ActiveProfile:
         self.unloadTriggerKeys()
         self.timerKeyHeld.stop()
         self.keyHeld = False
-        # self.keyHeld = True
         self.isMenuOpen = False
         self.openPieMenu = None
         self.A_TriggerKey = None
         self.sameTKeyHKey = None
         self.HKeyLetgo = False
-        # self.A_ThisHotkey = None
+        # self.A_ThisHotkey = set to None in waitHKeyrelease method
         self.counter = 0
         self.HKeyLetgo = False
         self.waitHKey.start(25)
         # window.hide() # this will hide the window after menu is closed.
-        # window.showMinimized()
-        # self.keyboardThread.start()
-
-
-# ----Obselete method---------
-    # def RMBhotkeystart(self):
-    #     if self.testvar is False and self.isMenuOpen:
-    #         RMBhotkey.start()  #  Start listening for hotkey ahk
-    #         self.testvar = True
-    #         return
-    #     else:
-    #         RMBhotkey.stop()
-    #         self.testvar = False
-    #         self.RMBTimer.stop()
-
 # -------------------------------Class End--------------------------------------
 
 # Global varibals:
@@ -399,7 +379,6 @@ except:
 # ------------------------------------ MAIN ---------------------------------
 app = QtWidgets.QApplication(sys.argv)
 app.setQuitOnLastWindowClosed(False)
-# mainWindow = QMainWindow(widget)
 
 app_icon = "C:\\Users\\S\\Downloads\\pexels-pixabay-38537.jpg"
 tray_icon = QtGui.QIcon(os.path.join(script_dir, "icons/tray_icon.png"))
