@@ -12,11 +12,11 @@ Any contributions are most welcome.
 
 Screenshots:
 
-![screen 1](C:\Users\S\Desktop\Project Pie Menus Qt\media\screen 1.png)
+<a href="https://ibb.co/fMXngsr"><img src="https://i.ibb.co/31TM3nS/screen-1.png" alt="screen-1" border="0"></a>
 
-![screen 2](C:\Users\S\Desktop\Project Pie Menus Qt\media\screen 2.png)
 
-![image-20210525193951379](C:\Users\S\Desktop\Project Pie Menus Qt\media\screen 3.png)
+
+<a href="https://ibb.co/QbcyWtF"><img src="https://i.ibb.co/cgv4WVc/screen-2.png" alt="screen-2" border="0"></a>
 
 ##### How to run from source code
 
