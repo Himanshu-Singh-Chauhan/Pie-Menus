@@ -12,7 +12,9 @@ Any contributions are most welcome.
 
 Screenshots:
 
+![image-20210525192439887](C:\Users\S\AppData\Roaming\Typora\typora-user-images\image-20210525192439887.png)
 
+![image-20210525192520951](C:\Users\S\AppData\Roaming\Typora\typora-user-images\image-20210525192520951.png)
 
 ##### How to run from source code
 
