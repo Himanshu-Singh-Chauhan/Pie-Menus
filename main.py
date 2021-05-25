@@ -10,7 +10,7 @@ import mousehook
 import datetime
 import re
 # import keyboardhook
-
+from fastIO import *
 class WindowMgr:
     """Encapsulates some calls to the winapi for window management"""
 
@@ -236,16 +236,19 @@ class ActiveProfile:
         self.menu_open_pos = GetMousePos()
         self.menu_open_pos = QtCore.QPoint(self.menu_open_pos.x(), self.menu_open_pos.y())
         self.menu_open_time = datetime.datetime.now()
-        self.timer_checkKeyHeld.start(2)
+        # self.i = 0
+        self.timer_checkKeyHeld.start(194)
 
     def checkKeyHeld(self):
         # sleep(2.15)
         if self.menu_open_time == None:
             self.timer_checkKeyHeld.stop()
             return
-        time_elapsed = datetime.datetime.now() - self.menu_open_time
-        if time_elapsed.total_seconds() < 0.2:
-            return
+        # time_elapsed = datetime.datetime.now() - self.menu_open_time
+        # self.i+=1
+        # fast_out( time_elapsed.total_seconds())
+        # if time_elapsed.total_seconds() < 0.2:
+            # return
 
         pos = GetMousePos()
         currentMousePos = QtCore.QPoint(pos.x(), pos.y())
