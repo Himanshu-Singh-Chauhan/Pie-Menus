@@ -162,8 +162,6 @@ class RadialMenu(QtWidgets.QWidget):
 
     def animFinished(self):
         self._animFinished=True
-        for btn in self._btnList:
-            btn.setEnabled(True)
 
     def setButtonsPositions(self):
         counter = 0
@@ -301,7 +299,8 @@ class RadialMenu(QtWidgets.QWidget):
                 painter.drawLine(self._summonPosition, self._currentMousePos)
 
         
-        if targetBtn and self._animFinished is True and not mouseInCircle:
+        # if targetBtn and self._animFinished is True and not mouseInCircle:
+        if targetBtn and not mouseInCircle:
             self._selectedBtn = targetBtn
             self._selectedBtn.setHover(True)
             if self._mousePressed is True:
@@ -337,7 +336,9 @@ class Button(QtWidgets.QPushButton):
         self._pressEnabled = False
         self.opacityEffect = QtWidgets.QGraphicsOpacityEffect(self, opacity=1.0)
         self.setGraphicsEffect(self.opacityEffect)
-        self.setEnabled(False)
+        # keep the buttons always enabled even before the animation to speed up things
+        # so don't uncomment the following line
+        # self.setEnabled(False)
         self.targetPos = self.pos()
 
         self.pieSlice = openPieMenu["pies"][i]

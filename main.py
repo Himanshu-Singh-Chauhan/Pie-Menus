@@ -7,6 +7,7 @@ from piemenu_backend import *
 from systemTrayIcon import SystemTrayIcon
 from threading import Thread
 import mousehook
+import datetime
 import re
 # import keyboardhook
 
@@ -61,6 +62,7 @@ class ActiveProfile:
         self.sameTKeyHKey = None
 
         self.keyHeld = False
+        # self.keyHeld = True
         self.isMenuOpen = False
         self.openPieMenu = None
 
@@ -91,7 +93,10 @@ class ActiveProfile:
 
 
         # Beta variables
-
+        self.menu_open_pos = None
+        self.menu_open_time = None
+        self.timer_checkKeyHeld = QTimer()
+        self.timer_checkKeyHeld.timeout.connect(self.checkKeyHeld)
         self.waitHKey = QTimer()
         self.waitHKey.timeout.connect(self.waitHKeyrelease)
         self.counter = 0
@@ -210,30 +215,50 @@ class ActiveProfile:
 
         
     def hotkeyEvent(self):
-        # print(f"hotkey pressed : {self.A_ThisHotkey}")
         if self.isMenuOpen == False and self.HKeyLetgo:
         # if self.isMenuOpen == False:
-            window.showFullScreen()
-            win32gui.SetForegroundWindow(self.handle_foreground) 
-            self.isMenuOpen = True
-            window.showMenu(self.openPieMenu)
-            self.initMosPos = mouse.get_position()
-            # keyboard.send(self.A_ThisHotkey, do_release=True)
-            self.loadTriggerKeys()
-
+            self.launch_pie_menus()
             # keep the following call as it is, do not run it on seperate thread(no problems though in doing that, just saving some CPU power).
-            self.checkKeyHeld()
+            # self.checkKeyHeld()
+
+    def launch_pie_menus(self):
+        window.showFullScreen()
+        win32gui.SetForegroundWindow(self.handle_foreground) 
+        self.isMenuOpen = True
+        window.showMenu(self.openPieMenu)
+        self.initMosPos = mouse.get_position()
+        self.loadTriggerKeys()
+
+        self.timerKeyHeld.start(25)
+        self.mouseThread = Thread(target = mousehook.mouseHook, args = [self.keyHeld] )
+        self.mouseThread.start()
+
+        self.menu_open_pos = GetMousePos()
+        self.menu_open_pos = QtCore.QPoint(self.menu_open_pos.x(), self.menu_open_pos.y())
+        self.menu_open_time = datetime.datetime.now()
+        self.timer_checkKeyHeld.start(2)
 
     def checkKeyHeld(self):
-        sleep(0.15)
+        # sleep(2.15)
+        if self.menu_open_time == None:
+            self.timer_checkKeyHeld.stop()
+            return
+        time_elapsed = datetime.datetime.now() - self.menu_open_time
+        if time_elapsed.total_seconds() < 0.2:
+            return
+
+        pos = GetMousePos()
+        currentMousePos = QtCore.QPoint(pos.x(), pos.y())
+        mouseInCircle = (currentMousePos.x() - self.menu_open_pos.x())**2 + (currentMousePos.y() - self.menu_open_pos.y())**2 < self.openPieMenu["inRadius"]**2
+
         if keyboard.is_pressed(self.A_ThisHotkey):
+            self.keyHeld = True
+        elif not mouseInCircle:
             self.keyHeld = True
         else:
             self.keyHeld = False
             self.loadFinalTriggerKey()
-        self.timerKeyHeld.start(25)
-        self.mouseThread = Thread(target = mousehook.mouseHook, args = [self.keyHeld] )
-        self.mouseThread.start()
+        self.timer_checkKeyHeld.stop()
         # self.keyboardThread = Thread(target = keyboardhook.keyboardHook, args=self.A_ThisHotkey)
 
         
@@ -282,6 +307,8 @@ class ActiveProfile:
     #     #     self.waitHKey.stop()
 
     def resetAttributesOnMenuClose(self):
+        self.menu_open_pos = None
+        self.menu_open_time = None
         self.initMosPos = None
         self.isLMBup = False
         self.isRMBup = False
@@ -290,6 +317,7 @@ class ActiveProfile:
         self.unloadTriggerKeys()
         self.timerKeyHeld.stop()
         self.keyHeld = False
+        # self.keyHeld = True
         self.isMenuOpen = False
         self.openPieMenu = None
         self.A_TriggerKey = None
