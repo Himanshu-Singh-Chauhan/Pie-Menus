@@ -12,9 +12,11 @@ Any contributions are most welcome.
 
 Screenshots:
 
-![image-20210525192439887](C:\Users\S\AppData\Roaming\Typora\typora-user-images\image-20210525192439887.png)
+![screen 1](C:\Users\S\Desktop\Project Pie Menus Qt\media\screen 1.png)
 
-![image-20210525192520951](C:\Users\S\AppData\Roaming\Typora\typora-user-images\image-20210525192520951.png)
+![screen 2](C:\Users\S\Desktop\Project Pie Menus Qt\media\screen 2.png)
+
+![image-20210525193951379](C:\Users\S\Desktop\Project Pie Menus Qt\media\screen 3.png)
 
 ##### How to run from source code
 
