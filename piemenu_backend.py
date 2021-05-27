@@ -110,7 +110,10 @@ class RadialMenu(QtWidgets.QWidget):
         self.global_mouse_timer.start(5)
 
         for i in range(int(openPieMenu["numSlices"])):
-            self.addButton(f'{openPieMenu["pies"][i]["label"]}', i)
+            pie_label = f'{openPieMenu["pies"][i]["label"]}'
+            if globalSettings["showTKeyHint"] and not (openPieMenu["pies"][i]["triggerKey"] == "None"):
+                pie_label += ' '*2 + f'( {openPieMenu["pies"][i]["triggerKey"]} )'
+            self.addButton(pie_label, i)
 
     def addButton(self, name, i):
         btn = Button(name, self.openPieMenu, i, parent=self)

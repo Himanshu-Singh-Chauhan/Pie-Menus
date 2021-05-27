@@ -14,6 +14,7 @@
         "latency": false,
 
         "useArcOnHover": false,
-        "useLineOnHover": true
+        "useLineOnHover": true,
+        "showTKeyHint": false
     }
 }
