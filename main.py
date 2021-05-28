@@ -8,7 +8,7 @@ from systemTrayIcon import SystemTrayIcon
 from threading import Thread
 import mousehook
 import datetime
-import re
+from re import match as re_match
 # import keyboardhook
 from fastIO import *
 class WindowMgr:
@@ -24,7 +24,7 @@ class WindowMgr:
 
     def _window_enum_callback(self, hwnd, wildcard):
         """Pass to win32gui.EnumWindows() to check all the opened windows"""
-        if re.match(wildcard, str(win32gui.GetWindowText(hwnd))) is not None:
+        if re_match(wildcard, str(win32gui.GetWindowText(hwnd))) is not None:
             self._handle = hwnd
 
     def find_window_wildcard(self, wildcard):
