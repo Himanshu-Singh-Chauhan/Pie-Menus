@@ -9,7 +9,7 @@ import mouse
 from ctypes import *
 import pieFunctions
 from time import sleep
-import pie_themes
+from settings import pie_themes
 
 
 transparent = QtGui.QColor(255, 255, 255, 0)
