@@ -1,0 +1,1 @@
+pyinstaller -i "C:\Users\S\Desktop\Project Pie Menus Qt\resources\icons\tray_icon.ico" -n "Pie Menus" -w --clean main.py
