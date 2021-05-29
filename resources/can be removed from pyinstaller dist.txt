@@ -6,3 +6,8 @@ Svg
 websockets.dll
 opengl32sw.dll
 Qt5Quick.dll
+d3dcompiler 47.dll
+libcrypto-1_1.dll
+libGLESv2.dll
+ucrtbase.dll
+libssl
