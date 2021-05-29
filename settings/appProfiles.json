@@ -373,8 +373,8 @@
             {
               "PieNumber": 1,
               "function": "sendKeys",
-              "params": ["him.hackit@gmail.com"],
-              "label": "Send A",
+              "params": ["Hope you liked Pie Menus"],
+              "label": "type some text",
               "returnMousePos": 0,
               "icon": "figurethisoutlater.svg",
               "triggerKey": "1"
@@ -382,8 +382,8 @@
             {
               "PieNumber": "2",
               "function": "sendKeys",
-              "params": ["boops"],
-              "label": "Boops",
+              "params": ["sample text"],
+              "label": "sample text",
               "returnMousePos": 0,
               "icon": "figurethisoutlater.svg",
               "triggerKey": "2"
@@ -400,8 +400,8 @@
             {
               "PieNumber": "4",
               "function": "sendKeys",
-              "params": ["d"],
-              "label": "Send D",
+              "params": ["sample text"],
+              "label": "sample text",
               "returnMousePos": 0,
               "icon": "figurethisoutlater.svg",
               "triggerKey": "None"
@@ -410,7 +410,7 @@
               "PieNumber": "5",
               "function": "sendKeys",
               "params": ["e"],
-              "label": "Send E",
+              "label": "type E",
               "returnMousePos": 0,
               "icon": "figurethisoutlater.svg",
               "triggerKey": "None"
@@ -419,7 +419,7 @@
               "PieNumber": "6",
               "function": "sendKeys",
               "params": ["f"],
-              "label": "Send F",
+              "label": "type F",
               "returnMousePos": 0,
               "icon": "figurethisoutlater.svg",
               "triggerKey": "None"
@@ -427,8 +427,8 @@
             {
               "PieNumber": "7",
               "function": "sendKeys",
-              "params": ["f"],
-              "label": "Send F",
+              "params": ["z"],
+              "label": "type z",
               "returnMousePos": 0,
               "icon": "figurethisoutlater.svg",
               "triggerKey": "None"
@@ -436,8 +436,8 @@
             {
               "PieNumber": "8",
               "function": "sendKeys",
-              "params": ["f"],
-              "label": "Send F",
+              "params": ["your.email@gmail.com"],
+              "label": "type email",
               "returnMousePos": 0,
               "icon": "figurethisoutlater.svg",
               "triggerKey": "None"
