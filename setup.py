@@ -3,7 +3,7 @@ import os
 from cx_Freeze import executable, setup, Executable
 
 # Add files
-files = ['piemenu_backend.py']
+files = ['piemenu_backend.py', "fastIO.py", "keyboardhook.py", "mousehook.py", "pieFunctions.py", "systemTrayIcon.py", "resources/", "settings/"]
 
 # Target
 target = Executable(

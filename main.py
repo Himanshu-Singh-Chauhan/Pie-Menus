@@ -1,5 +1,6 @@
 import os
 import json
+import pywintypes
 from win32gui import GetWindowText, GetForegroundWindow, GetClassName
 from win32process import GetWindowThreadProcessId
 import psutil

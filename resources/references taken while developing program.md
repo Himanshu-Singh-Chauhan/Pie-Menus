@@ -26,3 +26,4 @@ https://www.geeksforgeeks.org/handling-a-threads-exception-in-the-caller-thread-
 
 [This is a pure python (or as close as possible) keyboard hook module. · GitHub](https://gist.github.com/ethanhs/80f0a7cc5c7881f5921f)
 
+[python - Can't load pywin32 library win32gui - Stack Overflow](https://stackoverflow.com/questions/3956178/cant-load-pywin32-library-win32gui)
