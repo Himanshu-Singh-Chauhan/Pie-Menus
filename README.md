@@ -6,17 +6,23 @@
 
 Blender like pie menus for windows, its not limited or confined to app, you can set up pie menu for any app or window on your system.
 
+
+
+Quick **Getting Started** : After install and running, press tilde key  `  on keyboard to call pie menus, then use mouse to select menu, you can also hold the tilde key, and then just hover on the menu you want to activate and then let go the tilde key. Pressing 'e' in a notepad opens up another pie menus, which is assigned to notepad and will only open in notepad. As of now only these pie menus are available, but you add more yourself by editing appProfiles.json file. More stock menus will be added soon. you exit from tray icon.
+
+
+
 ###### More features coming soon, if you have any feature request put it in Issues as of now.
 
 Any contributions are most welcome.
 
 Screenshots:
 
-<a href="https://ibb.co/fMXngsr"><img src="https://i.ibb.co/31TM3nS/screen-1.png" alt="screen-1" border="0"></a>
+<a><img src="https://github.com/Himanshu-Singh-Chauhan/Pie-Menus/blob/main/resources/pie_screenshots/screen%201.png" alt="Pie Menus screen shots" style="border-radius:20px"></a>
 
 
 
-<a href="https://ibb.co/QbcyWtF"><img src="https://i.ibb.co/cgv4WVc/screen-2.png" alt="screen-2" border="0"></a>
+<a><img src="https://github.com/Himanshu-Singh-Chauhan/Pie-Menus/blob/main/resources/pie_screenshots/screen%203.png" alt="Pie Menus screen shots" style="border-radius:20px"></a>
 
 ##### How to run from source code
 
