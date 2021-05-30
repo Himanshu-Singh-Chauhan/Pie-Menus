@@ -30,3 +30,11 @@ Screenshots:
 - install python v3 or above and PySide2 from pip.
 - run "main.py" directly or from any code editor
 - to exit app, exit from hidden icon in tray
+
+<br><br>
+
+## want to *Support* the project
+
+<p align = "left"><img src="https://github.com/Himanshu-Singh-Chauhan/Pie-Menus/blob/main/resources/buymeacoffee.png" alt="Donation Link to Buy Me a Coffee"></p>
+
+##### 
