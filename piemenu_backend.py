@@ -3,9 +3,6 @@ from PySide2.QtCore import QTimer, QVariantAnimation, Qt
 from PySide2.QtGui import QColor, QPainter
 from PySide2.QtWidgets import QWidget
 from PySide2 import QtGui, QtWidgets, QtCore
-# from PySide2.QtCore import *
-# from PySide2.QtGui import *
-# from PySide2.QtWidgets import *
 import sys
 import win32gui
 import keyboard

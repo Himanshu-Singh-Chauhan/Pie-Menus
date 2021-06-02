@@ -68,14 +68,12 @@ QMenu = """
             }
 
             QMenu::item {
-                border-radius: 4px;
-                padding: 8px 48px 8px 36px;
+                padding: 8px 78px 8px 36px;
                 background-color: transparent;
-                margin: 10px;
+                margin: 10px 0 10px 0;
             }
             QMenu::item:selected {
-                border-radius: 10px;
-                background-color: rgba(232, 232, 232, 232);
+                background-color: rgba(75, 116, 255, 130);
             }
             QMenu::item:disabled {
                 background-color: transparent;
@@ -86,5 +84,13 @@ QMenu = """
             QMenu::separator {
                 height: 2px;
                 background-color: rgb(232, 236, 243);
+            }
+"""
+
+qmenu_danger = """
+            QMenu::item:selected {
+                color: white;
+                font-weight: bold;
+                background-color: rgb(255, 0, 12);
             }
 """

@@ -1,0 +1,3 @@
+instad of showing maximised everytimg, show it on all dekstops at once, it will better maybe.
+
+detect Trigger key which is same as hotkey in old way, by cheking its keypress when the pie menu is on hold, or quick detection when mouse is in center of circle.
