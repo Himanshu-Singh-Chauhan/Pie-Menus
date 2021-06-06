@@ -1,5 +1,6 @@
 import os
 import json
+from PySide2.QtGui import QCursor
 import pywintypes
 from win32gui import GetWindowText, GetForegroundWindow, GetClassName
 from win32process import GetWindowThreadProcessId
@@ -12,6 +13,11 @@ import datetime
 from re import match as re_match
 # import keyboardhook
 from fastIO import *
+
+# allow only single instance to run
+from tendo import singleton
+me = singleton.SingleInstance() # will sys.exit(-1) if other instance is running
+
 class WindowMgr:
     """Encapsulates some calls to the winapi for window management"""
 
@@ -45,8 +51,7 @@ class WindowMgr:
 # Important Note: As of now Trigger keys cannot be same as hotkeys in a single profile
 
 WM_QUIT = 0x0012
-thread_id = None
-# kernel32 = ctypes.windll.kernel32
+IS_MULTI_MONITOR_SETUP = False
 
 class ActiveProfile:
     def __init__(self) -> None:
@@ -93,7 +98,7 @@ class ActiveProfile:
 
 
         # Beta variables
-        self.menu_open_pos = None
+        # self.menu_open_pos = None
         self.menu_open_time = None
         self.timer_checkKeyHeld = QTimer()
         self.timer_checkKeyHeld.timeout.connect(self.checkKeyHeld)
@@ -221,21 +226,34 @@ class ActiveProfile:
             # self.checkKeyHeld()
 
     def launch_pie_menus(self):
+        cursorpos = QCursor.pos()
+        self.init_cursorpos = cursorpos
+
+        if IS_MULTI_MONITOR_SETUP:
+            mon_manager.move_to_active_screen(cursorpos, window)
         window.showFullScreen()
+        # following is multi monitor stuff -----
+        # taskBarSize = 32
+        # allScreens = app.desktop().geometry()
+        # widgetSize = allScreens.adjusted(-10, -taskBarSize, 10, taskBarSize)
+        # window.setGeometry(widgetSize) 
+        # --------
         win32gui.SetForegroundWindow(self.handle_foreground) 
         self.isMenuOpen = True
-        window.showMenu(self.openPieMenu)
-        self.initMosPos = mouse.get_position()
+        window.showMenu(self.openPieMenu, cursorpos)
         self.loadTriggerKeys()
 
         self.timerKeyHeld.start(25)
         self.mouseThread = Thread(target = mousehook.mouseHook, args = [self.keyHeld] )
         self.mouseThread.start()
 
-        self.menu_open_pos = GetMousePos()
-        self.menu_open_pos = QtCore.QPoint(self.menu_open_pos.x(), self.menu_open_pos.y())
+        # self.menu_open_pos = GetMousePos()
+        # self.menu_open_pos = QtCore.QPoint(self.menu_open_pos.x(), self.menu_open_pos.y())
+        # self.menu_open_pos = cursorpos
         self.menu_open_time = datetime.datetime.now()
-        self.timer_checkKeyHeld.start(194)
+        
+        # 194 is special value, do not change unless you what you are doing
+        self.timer_checkKeyHeld.start(194) 
 
     def checkKeyHeld(self):
         # sleep(2.15)
@@ -247,9 +265,10 @@ class ActiveProfile:
         # if time_elapsed.total_seconds() < 0.2:
             # return
 
-        pos = GetMousePos()
-        currentMousePos = QtCore.QPoint(pos.x(), pos.y())
-        mouseInCircle = (currentMousePos.x() - self.menu_open_pos.x())**2 + (currentMousePos.y() - self.menu_open_pos.y())**2 < self.openPieMenu["inRadius"]**2
+        # pos = GetMousePos()
+        # currentMousePos = QtCore.QPoint(pos.x(), pos.y())
+        currentMousePos = QCursor.pos()
+        mouseInCircle = (currentMousePos.x() - self.init_cursorpos.x())**2 + (currentMousePos.y() - self.init_cursorpos.y())**2 < self.openPieMenu["inRadius"]**2
 
         if keyboard.is_pressed(self.A_ThisHotkey):
             self.keyHeld = True
@@ -307,9 +326,9 @@ class ActiveProfile:
     #     #     self.waitHKey.stop()
 
     def resetAttributesOnMenuClose(self):
-        self.menu_open_pos = None
+        # self.menu_open_pos = None
         self.menu_open_time = None
-        self.initMosPos = None
+        self.init_cursorpos = None
         self.isLMBup = False
         self.isRMBup = False
         windll.user32.PostThreadMessageW(self.mouseThread.ident, WM_QUIT, 0, 0)
@@ -375,11 +394,48 @@ try:
     globalSettings = json.load(globalSettings)
 except:
     print("could not locate or load the json globalSettings - globalSettings")
+# /END Json loading ------------------
+
+
+# Qt warning message handler callback
+def qt_message_handler(mode, context, message):
+
+    """This method handles warning messages, sometimes, it might eat up 
+       some warning which won't be printed, so it is good to disable this
+       when developing, debuging and testing."""
+    
+    if "QWindowsWindow::setGeometry: Unable to set geometry" in message:
+
+        """This is ignore the warning message when changing the 
+           screen on which app is shown on multi monitor systems.
+           Qt automatically decides best size, that's I have ignored it here."""
+           
+        return
+
+    if mode == QtCore.QtInfoMsg: mode = 'INFO'
+    elif mode == QtCore.QtWarningMsg: mode = 'WARNING'
+    elif mode == QtCore.QtCriticalMsg: mode = 'CRITICAL'
+    elif mode == QtCore.QtFatalMsg: mode = 'FATAL'
+    else: mode = 'DEBUG'
+    print(f'qt_message_handler: line: {context.line}, func: {context.function}(), file: {context.file}')
+    print(f'{mode}: {message}')
+
 
 
 # ------------------------------------ MAIN ---------------------------------
 app = QtWidgets.QApplication(sys.argv)
 app.setQuitOnLastWindowClosed(False)
+
+
+# High DPI stuff
+# QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True) #enable highdpi scaling
+# QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True) #use highdpi icons
+# or below one in sequence
+# https://stackoverflow.com/questions/41331201/pyqt-5-and-4k-screen
+# os.environ["QT_AUTO_SCREEN_SCALE_FACTOR"] = "1"
+# qapp = QApplication(sys.argv)
+# qapp.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling)
+# https://stackoverflow.com/questions/22621017/find-and-identify-multiple-display-devices-monitors-using-python
 
 app_icon = "C:\\Users\\S\\Downloads\\pexels-pixabay-38537.jpg"
 tray_icon = QtGui.QIcon(os.path.join(script_dir, "resources/icons/tray_icon.png"))
@@ -394,6 +450,9 @@ trayWidget.show()
 
 window = Window(settings, globalSettings["globalSettings"])
 
+# Qt warning messages handler installing
+QtCore.qInstallMessageHandler(qt_message_handler)
+
 # *****IMPORTANT********: # get the mouse pos here by itself to increase accuracy of opening position.
 
 # Registering the app profiles 
@@ -407,7 +466,15 @@ for profiles in settings["appProfiles"]:
     regApps.append(profiles["ahkHandle"])
 
 
+
+# WARNING : ActiveProfile and Monitor_Manager should only have once instance.
+# I mean, think why do you need two instance, no need, it will cause chaos.
 activeProfile = ActiveProfile()
+
+if len(app.screens()) > 1:
+    IS_MULTI_MONITOR_SETUP = True
+    from monitor_manager import Monitor_Manager
+    mon_manager = Monitor_Manager(app.screens(), app.primaryScreen())
 
 
 # Timers

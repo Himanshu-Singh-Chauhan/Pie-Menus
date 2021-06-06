@@ -1,12 +1,12 @@
 from ctypes import windll
 from PySide2.QtCore import QTimer, QVariantAnimation, Qt
-from PySide2.QtGui import QColor, QPainter
+from PySide2.QtGui import QColor, QCursor, QPainter
 from PySide2.QtWidgets import QWidget
 from PySide2 import QtGui, QtWidgets, QtCore
 import sys
 import win32gui
 import keyboard
-import mouse
+# import mouse
 # from ctypes import *
 import pieFunctions
 from time import sleep
@@ -15,21 +15,24 @@ from settings import pie_themes
 
 transparent = QtGui.QColor(255, 255, 255, 0)
 
-class GetMousePos:
-    def __init__(self):
-        self.xPos, self.yPos = win32gui.GetCursorPos()
+# class GetMousePos:
+#     def __init__(self):
+#         cursorpos = QCursor.pos()
+#         # cursorpos = window.mapFromGlobal(QCursor.pos())
+#         self.xPos = cursorpos.x()
+#         self.yPos = cursorpos.y()
 
-    def x(self):
-        return self.xPos
+#     def x(self):
+#         return self.xPos
 
-    def y(self):
-        return self.yPos
+#     def y(self):
+#         return self.yPos
 
-    def setX(self, xPos):
-        self.xPos = xPos
+#     def setX(self, xPos):
+#         self.xPos = xPos
 
-    def setY(self, yPos):
-        self.yPos = yPos
+#     def setY(self, yPos):
+#         self.yPos = yPos
 
 def getWidgetCenterPos(widget):
     return QtCore.QPoint((widget.rect().width() - widget.rect().x())/2, (widget.rect().height() - widget.rect().y())/2)
@@ -42,17 +45,19 @@ class Window(QtWidgets.QWidget):
 
         self.settings = settings
         self.globalSettings = globalSettings
+
         # following line for window less app
         self.setWindowFlags(QtCore.Qt.FramelessWindowHint | QtCore.Qt.WindowStaysOnTopHint | QtCore.Qt.Tool)
+
         # following line for transparent background
         self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
         self.showMaximized()
 
-    def showMenu(self, openPieMenu):
+    def showMenu(self, openPieMenu, summonPosition):
         if self._menu:
             self._menu.kill()
             return
-        self._menu = RadialMenu(self, GetMousePos(), openPieMenu, self.settings, self.globalSettings)
+        self._menu = RadialMenu(self, summonPosition, openPieMenu, self.settings, self.globalSettings)
         self._menu.show()
 
     def killMenu(self):
@@ -103,7 +108,8 @@ class RadialMenu(QtWidgets.QWidget):
 
         self.openPieMenu = openPieMenu
             
-        self._summonPosition = QtCore.QPoint(summonPosition.x(), summonPosition.y())
+        # self._summonPosition = QtCore.QPoint(summonPosition.x(), summonPosition.y())
+        self._summonPosition = self.parent().mapFromGlobal(summonPosition)
         self._currentMousePos = QtCore.QPoint(self._summonPosition)
 
         self.global_mouse_timer = QTimer()
@@ -193,6 +199,7 @@ class RadialMenu(QtWidgets.QWidget):
 
     def fixSummonPosition(self, pos):
         # return pos
+        print(pos)
         savepadding = 10
         minSpaceToBorder = savepadding + self._outRadius
         maxX = self.rect().width() - minSpaceToBorder
@@ -201,7 +208,9 @@ class RadialMenu(QtWidgets.QWidget):
         # Guess the button position
         # print(self._btnList[0].x())
         _minX = _minY = _maxX = _maxY = self._btnList[0]
+        # print("btn", _minX.pos().x(), _minY.pos().x(), _maxX.pos().x(), _maxY.pos().x())
         for btn in self._btnList:
+            print("btnnn", btn.pos().x(), btn.pos().x(), btn.pos().x(), btn.pos().x())
             if _minX.pos().x() > btn.pos().x():
                 _minX = btn
             if _minY.pos().y() > btn.pos().y():
@@ -224,11 +233,13 @@ class RadialMenu(QtWidgets.QWidget):
             pos.setY(minY)
         if pos.y() > maxY:
             pos.setY(maxY)
+        print(pos)
         return pos
 
     def globalMouseMoveEvent(self):
-        pos = GetMousePos()
-        self._currentMousePos = QtCore.QPoint(pos.x(), pos.y())
+        # pos = GetMousePos()
+        # self._currentMousePos = QtCore.QPoint(pos.x(), pos.y())
+        self._currentMousePos = self.parent().mapFromGlobal(QCursor.pos())
         self.update()
 
 
@@ -248,10 +259,12 @@ class RadialMenu(QtWidgets.QWidget):
     #     self.kill()
 
     def paintEvent(self, event):
+        # print(self._summonPosition)
         angle = None
         circleRect = QtCore.QRect(self._summonPosition.x()-self._inRadius, self._summonPosition.y()-self._inRadius, self._inRadius*2, self._inRadius*2) # The rect of the center circle
         arcSize = 36
         self._selectedBtn = None
+        # print(f"painting:{self._currentMousePos, self._summonPosition}")
         mouseInCircle = (self._currentMousePos.x() - self._summonPosition.x())**2 + (self._currentMousePos.y() - self._summonPosition.y())**2 < self._inRadius**2
         bgCirclePen = QtGui.QPen(QtGui.QColor("#f9e506"), 7)
         fgCirclePen = QtGui.QPen(QtGui.QColor("#FF0044"), 7)  

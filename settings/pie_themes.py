@@ -65,10 +65,11 @@ QMenu = """
                 background-color: rgba(255, 255, 255, 255);
                 border: none;
                 border-radius: 10px;
+                font: 18px;
             }
 
             QMenu::item {
-                padding: 8px 78px 8px 36px;
+                padding: 8px 78px 8px 26px;
                 background-color: transparent;
                 margin: 10px 0 10px 0;
             }

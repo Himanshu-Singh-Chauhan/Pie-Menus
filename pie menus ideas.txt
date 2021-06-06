@@ -3,3 +3,5 @@ instad of showing maximised everytimg, show it on all dekstops at once, it will 
 detect Trigger key which is same as hotkey in old way, by cheking its keypress when the pie menu is on hold, or quick detection when mouse is in center of circle.
 
 https://medium.com/forwardtick/its-time-for-caps-lock-to-die-81c9eaa4dfa7
+
+if no selection color is provided, whiten it a little to make it look like selection
