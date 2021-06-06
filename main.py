@@ -70,6 +70,8 @@ class ActiveProfile:
         self.keyHeld = False
         self.isMenuOpen = False
         self.openPieMenu = None
+        self.menu_open_time = None
+        self.HKeyLetgo = True
 
         self.isRMBup = False
         self.isRMBdown = False
@@ -86,29 +88,24 @@ class ActiveProfile:
         mousehook.rmbUpHandlers.append(self.regRMBup)
         mousehook.lmbUpHandlers.append(self.regLMBup)
 
-        # Aliases
-        # self.chkr = self.checkHeldKeyReleased()
-
         # Timers
         self.timerKeyHeld = QTimer()
         self.timerKeyHeld.timeout.connect(self.checkHeldKeyReleased)
         self.timerKeyHeld.timeout.connect(self.isTKeyEvent)
         self.timerKeyHeld.timeout.connect(self.lmbTrigger)
         self.timerKeyHeld.timeout.connect(self.menuCancel)
-
-
-        # Beta variables
-        # self.menu_open_pos = None
-        self.menu_open_time = None
         self.timer_checkKeyHeld = QTimer()
         self.timer_checkKeyHeld.timeout.connect(self.checkKeyHeld)
         self.waitHKey = QTimer()
         self.waitHKey.timeout.connect(self.waitHKeyrelease)
-        self.counter = 0
-        # self.keyboardThread = Thread(target = keyboardhook.keyboardHook)
-        # keyboardhook.HKeyReleaseHandlers.append(self.test)
+        self.hkey_release_counter = 0
 
-        self.HKeyLetgo = True
+        # Aliases
+        None
+
+        # Beta variables
+        None
+
 
 
     def changeDetected(self, activeWindow, activeTittle, handle_foreground):
@@ -232,12 +229,6 @@ class ActiveProfile:
         if IS_MULTI_MONITOR_SETUP:
             mon_manager.move_to_active_screen(cursorpos, window)
         window.showFullScreen()
-        # following is multi monitor stuff -----
-        # taskBarSize = 32
-        # allScreens = app.desktop().geometry()
-        # widgetSize = allScreens.adjusted(-10, -taskBarSize, 10, taskBarSize)
-        # window.setGeometry(widgetSize) 
-        # --------
         win32gui.SetForegroundWindow(self.handle_foreground) 
         self.isMenuOpen = True
         window.showMenu(self.openPieMenu, cursorpos)
@@ -247,26 +238,24 @@ class ActiveProfile:
         self.mouseThread = Thread(target = mousehook.mouseHook, args = [self.keyHeld] )
         self.mouseThread.start()
 
-        # self.menu_open_pos = GetMousePos()
-        # self.menu_open_pos = QtCore.QPoint(self.menu_open_pos.x(), self.menu_open_pos.y())
-        # self.menu_open_pos = cursorpos
         self.menu_open_time = datetime.datetime.now()
         
         # 194 is special value, do not change unless you what you are doing
         self.timer_checkKeyHeld.start(194) 
 
     def checkKeyHeld(self):
-        # sleep(2.15)
-        if self.menu_open_time == None:
-            self.timer_checkKeyHeld.stop()
-            return
+        # if self.menu_open_time == None:
+        #     self.timer_checkKeyHeld.stop()
+        #     return
         # time_elapsed = datetime.datetime.now() - self.menu_open_time
         # fast_out( time_elapsed.total_seconds())
         # if time_elapsed.total_seconds() < 0.2:
             # return
 
-        # pos = GetMousePos()
-        # currentMousePos = QtCore.QPoint(pos.x(), pos.y())
+        """This function will be called once almost exactly after 2 secs to check 
+           for wheather key is held down or not and quick/speedy gesture activation.
+           above comments are code to test time elapsed."""
+
         currentMousePos = QCursor.pos()
         mouseInCircle = (currentMousePos.x() - self.init_cursorpos.x())**2 + (currentMousePos.y() - self.init_cursorpos.y())**2 < self.openPieMenu["inRadius"]**2
 
@@ -278,7 +267,6 @@ class ActiveProfile:
             self.keyHeld = False
             self.loadFinalTriggerKey()
         self.timer_checkKeyHeld.stop()
-        # self.keyboardThread = Thread(target = keyboardhook.keyboardHook, args=self.A_ThisHotkey)
 
         
     def checkHeldKeyReleased(self):
@@ -314,19 +302,13 @@ class ActiveProfile:
         self.isLMBup = True
 
     def waitHKeyrelease(self):
-        if self.counter < 100: self.counter += 1
-        if (not keyboard.is_pressed(self.A_ThisHotkey)) and self.counter >= 6:
+        if self.hkey_release_counter < 100: self.hkey_release_counter += 1
+        if (not keyboard.is_pressed(self.A_ThisHotkey)) and self.hkey_release_counter >= 6:
             self.A_ThisHotkey = None
             self.HKeyLetgo = True
             self.waitHKey.stop()
-    #     # if self.temp == True:
-    #     #     windll.user32.PostThreadMessageW(self.keyboardThread.ident, WM_QUIT, 0, 0)
-    #     #     self.keyboardThread.join()
-    #     #     self.HKeyLetgo = True
-    #     #     self.waitHKey.stop()
 
     def resetAttributesOnMenuClose(self):
-        # self.menu_open_pos = None
         self.menu_open_time = None
         self.init_cursorpos = None
         self.isLMBup = False
@@ -342,7 +324,7 @@ class ActiveProfile:
         self.sameTKeyHKey = None
         self.HKeyLetgo = False
         # self.A_ThisHotkey = set to None in waitHKeyrelease method
-        self.counter = 0
+        self.hkey_release_counter = 0
         self.HKeyLetgo = False
         self.waitHKey.start(25)
         # window.hide() # this will hide the window after menu is closed.

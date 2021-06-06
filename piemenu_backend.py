@@ -15,24 +15,6 @@ from settings import pie_themes
 
 transparent = QtGui.QColor(255, 255, 255, 0)
 
-# class GetMousePos:
-#     def __init__(self):
-#         cursorpos = QCursor.pos()
-#         # cursorpos = window.mapFromGlobal(QCursor.pos())
-#         self.xPos = cursorpos.x()
-#         self.yPos = cursorpos.y()
-
-#     def x(self):
-#         return self.xPos
-
-#     def y(self):
-#         return self.yPos
-
-#     def setX(self, xPos):
-#         self.xPos = xPos
-
-#     def setY(self, yPos):
-#         self.yPos = yPos
 
 def getWidgetCenterPos(widget):
     return QtCore.QPoint((widget.rect().width() - widget.rect().x())/2, (widget.rect().height() - widget.rect().y())/2)
@@ -198,8 +180,6 @@ class RadialMenu(QtWidgets.QWidget):
             counter += 1
 
     def fixSummonPosition(self, pos):
-        # return pos
-        print(pos)
         savepadding = 10
         minSpaceToBorder = savepadding + self._outRadius
         maxX = self.rect().width() - minSpaceToBorder
@@ -208,9 +188,7 @@ class RadialMenu(QtWidgets.QWidget):
         # Guess the button position
         # print(self._btnList[0].x())
         _minX = _minY = _maxX = _maxY = self._btnList[0]
-        # print("btn", _minX.pos().x(), _minY.pos().x(), _maxX.pos().x(), _maxY.pos().x())
         for btn in self._btnList:
-            print("btnnn", btn.pos().x(), btn.pos().x(), btn.pos().x(), btn.pos().x())
             if _minX.pos().x() > btn.pos().x():
                 _minX = btn
             if _minY.pos().y() > btn.pos().y():
@@ -233,38 +211,35 @@ class RadialMenu(QtWidgets.QWidget):
             pos.setY(minY)
         if pos.y() > maxY:
             pos.setY(maxY)
-        print(pos)
         return pos
 
     def globalMouseMoveEvent(self):
-        # pos = GetMousePos()
-        # self._currentMousePos = QtCore.QPoint(pos.x(), pos.y())
         self._currentMousePos = self.parent().mapFromGlobal(QCursor.pos())
         self.update()
 
 
-# The next two funcs as of now, does not serve any purpose.
-# figure out what they were for initially
-# may be they were something related to a window with background
-    # def mousePressEvent(self, event):
-    #     super().mousePressEvent(event)
-    #     if self._selectedBtn:
-    #         self._mousePressed = True
-    #     # self.kill()
+# Keep the following enabled, although no mouse events will happen
+# as there is not any window shown, but just in case, if something fails, 
+# and window recieves some event, these will trigger up and do the same functinality
+# instead to blocking program or crashing, or missing user action. makes it less error prone.
+# covering all grounds just to be safe.
+    def mousePressEvent(self, event):
+        super().mousePressEvent(event)
+        if self._selectedBtn:
+            self._mousePressed = True
+        # self.kill()
 
-    # def mouseReleaseEvent(self, event):
-    #     super().mouseReleaseEvent(event)
-    #     if self._selectedBtn:
-    #         self._selectedBtn.click()
-    #     self.kill()
+    def mouseReleaseEvent(self, event):
+        super().mouseReleaseEvent(event)
+        if self._selectedBtn:
+            self._selectedBtn.click()
+        self.kill()
 
     def paintEvent(self, event):
-        # print(self._summonPosition)
         angle = None
         circleRect = QtCore.QRect(self._summonPosition.x()-self._inRadius, self._summonPosition.y()-self._inRadius, self._inRadius*2, self._inRadius*2) # The rect of the center circle
         arcSize = 36
         self._selectedBtn = None
-        # print(f"painting:{self._currentMousePos, self._summonPosition}")
         mouseInCircle = (self._currentMousePos.x() - self._summonPosition.x())**2 + (self._currentMousePos.y() - self._summonPosition.y())**2 < self._inRadius**2
         bgCirclePen = QtGui.QPen(QtGui.QColor("#f9e506"), 7)
         fgCirclePen = QtGui.QPen(QtGui.QColor("#FF0044"), 7)  
