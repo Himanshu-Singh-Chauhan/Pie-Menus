@@ -44,7 +44,6 @@ class Monitor_Manager:
             if top_lx <= curosrpos.x() <= bottom_rx:
                 if top_ly <= curosrpos.y() <= bottom_ry:
                     active_screen = screen
-                    # print(active_screen.devicePixelRatio())
                     break
 
         if not active_screen:

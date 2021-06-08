@@ -374,6 +374,7 @@ except:
 try:
     globalSettings = open(os.path.join(script_dir, "settings/globalSettings.json"))
     globalSettings = json.load(globalSettings)
+    globalSettings = globalSettings['globalSettings']
 except:
     print("could not locate or load the json globalSettings - globalSettings")
 # /END Json loading ------------------
@@ -405,19 +406,25 @@ def qt_message_handler(mode, context, message):
 
 
 # ------------------------------------ MAIN ---------------------------------
+
+# High DPI stuff
+# these should be in this sequence 
+# and before creating QApplication
+# https://stackoverflow.com/questions/41331201/pyqt-5-and-4k-screen
+# https://stackoverflow.com/questions/39247342/pyqt-gui-size-on-high-resolution-screens
+os.environ["QT_AUTO_SCREEN_SCALE_FACTOR"] = "2"
+# os.environ["QT_SCREEN_SCALE_FACTORS"] = "1"
+if globalSettings['ScaleFactor'] != False:
+    # following line scales the entire app by the given factor.
+    os.environ["QT_SCALE_FACTOR"] = str(globalSettings['ScaleFactor'])
+    
+QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True) #enable highdpi scaling
+QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True) #use highdpi icons
+
 app = QtWidgets.QApplication(sys.argv)
 app.setQuitOnLastWindowClosed(False)
 
 
-# High DPI stuff
-# QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True) #enable highdpi scaling
-# QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True) #use highdpi icons
-# or below one in sequence
-# https://stackoverflow.com/questions/41331201/pyqt-5-and-4k-screen
-# os.environ["QT_AUTO_SCREEN_SCALE_FACTOR"] = "1"
-# qapp = QApplication(sys.argv)
-# qapp.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling)
-# https://stackoverflow.com/questions/22621017/find-and-identify-multiple-display-devices-monitors-using-python
 
 app_icon = "C:\\Users\\S\\Downloads\\pexels-pixabay-38537.jpg"
 tray_icon = QtGui.QIcon(os.path.join(script_dir, "resources/icons/tray_icon.png"))
@@ -430,12 +437,10 @@ trayWidget = SystemTrayIcon(QtGui.QIcon(tray_icon), trayWidgetQT)
 trayWidgetQT.setStyleSheet(pie_themes.QMenu)
 trayWidget.show()
 
-window = Window(settings, globalSettings["globalSettings"])
+window = Window(settings, globalSettings)
 
 # Qt warning messages handler installing
 QtCore.qInstallMessageHandler(qt_message_handler)
-
-# *****IMPORTANT********: # get the mouse pos here by itself to increase accuracy of opening position.
 
 # Registering the app profiles 
 regApps = []

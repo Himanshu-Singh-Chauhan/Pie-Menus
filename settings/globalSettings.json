@@ -1,6 +1,6 @@
 {
     "globalSettings": {
-        "scriptsPath": "C:\\Place\\Path\\Here\\",
+        "scriptsPath": "C:\\Place\\Path\\Here\\custom scripts",
         "pieTips": false,
         "functionLaunchMode": 0,
         "restoreOriginalPosition": false,
@@ -15,6 +15,20 @@
 
         "useArcOnHover": false,
         "useLineOnHover": true,
-        "showTKeyHint": false
+        "showTKeyHint": false,
+
+
+        "---- ******************* DANGER ZONE ********************": "__comment__",
+
+        "---- READ BELOW COMMENT BEFORE CHANGING -----": "__comment__",
+        "Do Not Touch these settings until you know what you are doing": "__comment__",
+        
+        "padding from window edges, ultimately monitor screen edges": "__comment__",
+        "savePadding" : 10,
+        "scale up entire app by given factor": "__comment__",
+        "ScaleFactor" : false,
+        
+        "---- ******************* /DANGER ZONE ********************": "__comment__"
+
     }
 }

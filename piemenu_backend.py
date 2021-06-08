@@ -180,7 +180,7 @@ class RadialMenu(QtWidgets.QWidget):
             counter += 1
 
     def fixSummonPosition(self, pos):
-        savepadding = 10
+        savepadding = int(self.globalSettings["savePadding"])
         minSpaceToBorder = savepadding + self._outRadius
         maxX = self.rect().width() - minSpaceToBorder
         maxY = self.rect().height() - minSpaceToBorder
@@ -244,8 +244,10 @@ class RadialMenu(QtWidgets.QWidget):
         bgCirclePen = QtGui.QPen(QtGui.QColor("#f9e506"), 7)
         fgCirclePen = QtGui.QPen(QtGui.QColor("#FF0044"), 7)  
         painter = QtGui.QPainter(self)
-        painter.setRenderHint(QtGui.QPainter.Antialiasing)
-        painter.setRenderHint(QtGui.QPainter.HighQualityAntialiasing)
+        painter.setRenderHint(QtGui.QPainter.Antialiasing, on=True)
+        # highqualityantialising is obselete value now and is ignored 
+        # refer this -> https://doc.qt.io/qtforpython-5/PySide2/QtGui/QPainter.html
+        # painter.setRenderHint(QtGui.QPainter.HighQualityAntialiasing, on= True)
         refLine = QtCore.QLineF(self._summonPosition, self._currentMousePos)
 
         # guess the target button

@@ -21,3 +21,11 @@ Implemented trigger keys, but as of now they only work if the menu is holded, th
 Implemented some basic pie function (actions to be performed).
 
 Refactored and redesigned the settings.json - removed unwanted variables, removed go out and come back to centre to change pie menu and 360 degree swirl around.
+
+###### 6 June 2021 - 06062021
+
+Multi monitor support added, cursor position clean up, now it only gets cursor pos one time, and uses it through out the pie menu open life time.
+
+installed message handler to suppress the warning msgs from move method in monitor manager, Qt auto handles the size, that's why this warning is suppressed, So be careful, maybe in future some warning messages might not show up due to this, although this should not happen.
+
+Animated context menu with custom CSS applicable on different menus in it, also added in tray icon.
