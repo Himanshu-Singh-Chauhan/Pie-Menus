@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="bootstrap-5.0.1/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <link href='boxicons-2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="bootstrap_override.css">
+
+    <title>Pie Menus Settings</title>
+</head>
+
+<body class="bg-light">
+    <!-- Option 1: -->
+    <script src="bootstrap-5.0.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
+    -->
+
+
+
+    <div class="container py-5" id="v-pills-tabContent">
+
+        <div class="tab-pane fade show active container" id="global-tab" role="tabpanel" aria-labelledby="global-tab">
+            <div class="text-center mb-4 mx-auto d-block">
+                <h2>Pie Menus Global Settings</h2>
+                <span class="badge bg-primary">These settings apply to every pie menus, if set.</span>
+                
+            </div>
+            <!-- <p class="lead py-2">These settings apply to every pie menus, if set.</p> -->
+            
+        </div>
+        <div class="mb-4">
+            <button class="btn btn-primary btn-lg btn-block">Save Global Settings</button>
+        </div>
+        
+        <div class="">
+
+            <form novalidate>
+                <!-- <h4>Custom Scripts Directory</h4> -->
+                <label for="custom_scripts" class="form-label">Custom Scripts Directory</label>
+                <span class="badge bg-warning text-dark">Advised to not change</span>
+                <input id="custom_scripts" type="text" class="form-control"
+                    placeholder="C:/Program Files/Pie Menus/Custom Scripts">
+                <div class="invalid-feedback">this is test validation of bootstrap5 forms</div>
+
+            </form>
+        </div>
+
+        
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class=" my-4">
+                    <form novalidate>
+                        <!-- <h4>Custom Scripts Directory</h4> -->
+                        <label for="globalfont" class="form-label">Global Font</label>
+                        <span class="badge bg-primary">Put exact font name installed in your system</span>
+                        <input id="globalfont" type="text" class="form-control" placeholder="Poppins, Sans Serif">
+                        <div class="invalid-feedback">this is test validation of bootstrap5 forms</div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="container my-4">
+                    <form novalidate>
+                        <!-- <h4>Custom Scripts Directory</h4> -->
+                        <label for="globalfont" class="form-label">Font Size</label>
+                        <input id="globalfont" type="text" class="form-control"
+                            placeholder="for example. 14, font will be rounded to integer 17.7 becomes 17">
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class=" my-4">
+                    <form novalidate>
+                        <!-- <h4>Custom Scripts Directory</h4> -->
+                        <label for="globalfont" class="form-label">Global Inner Radius</label>
+                        <input id="globalfont" type="text" class="form-control" placeholder="example. 4">
+                    </form>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="container my-4">
+                    <form novalidate>
+                        <!-- <h4>Custom Scripts Directory</h4> -->
+                        <label for="globalfont" class="form-label">Global Outer Radius</label>
+                        <input id="globalfont" type="text" class="form-control"
+                            placeholder="example. 7">
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+
+                <div class="my-4">
+                    <h4 class="lead">Show pie tips</h4>
+                    <div class="form-check">
+                        <input name="pietips" id="pietipstrue" type="radio" class="form-check-input" required checked>
+                        <label for="pietipstrue">True</label>
+                    </div>
+                    <div class="form-check">
+                        <input name="pietips" id="pietipsfalse" type="radio" class="form-check-input">
+                        <label for="pietipsfalse">False</label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="my-4">
+                    <h4 class="lead">Restore original mouse position <span class="badge bg-info">restore mouse postion
+                            to pie menu open position after a pie has been selected or activated</span></h4>
+
+                    <div class="form-check">
+                        <input name="mouse pos" id="mouse pos true" type="radio" class="form-check-input" required
+                            checked>
+                        <label for="mouse pos true">True</label>
+                    </div>
+                    <div class="form-check">
+                        <input name="mouse pos" id="mouse pos false" type="radio" class="form-check-input">
+                        <label for="mouse pos false">False</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- <hr class="my-5"> -->
+
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="my-4">
+                    <h4 class="lead">Show trigger key Hint on pies</h4>
+                    <div class="form-check">
+                        <input name="triggerkeyhint" id="tkeyhint true" type="radio" class="form-check-input" required
+                            checked>
+                        <label for="tkeyhint true">True</label>
+                    </div>
+                    <div class="form-check">
+                        <input name="triggerkeyhint" id="tkeyhint false" type="radio" class="form-check-input">
+                        <label for="tkeyhint false">False</label>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-sm-6">
+
+                <div class="my-4">
+                    <h4 class="lead">Show icons on pies</h4>
+                    <div class="form-check">
+                        <input name="showicons" id="showicons true" type="radio" class="form-check-input" required
+                            checked>
+                        <label for="showicons true">True</label>
+                    </div>
+                    <div class="form-check">
+                        <input name="showicons" id="showicons false" type="radio" class="form-check-input">
+                        <label for="showicons false">False</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-sm-6">
+
+                <div class="my-4">
+                    <h4 class="lead">Show Maya like follow rope</h4>
+                    <div class="form-check">
+                        <input name="mayarope" id="mayarope true" type="radio" class="form-check-input" required
+                            checked>
+                        <label for="mayarope true">True</label>
+                    </div>
+                    <div class="form-check">
+                        <input name="mayarope" id="mayarope false" type="radio" class="form-check-input">
+                        <label for="mayarope false">False</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+
+                <div class="my-4">
+                    <h4 class="lead">Show Blender like follow slice</h4>
+                    <div class="form-check">
+                        <input name="blenderslice" id="blenderslice true" type="radio" class="form-check-input"
+                            required>
+                        <label for="blenderslice true">True</label>
+                    </div>
+                    <div class="form-check">
+                        <input name="blenderslice" id="blenderslice false" type="radio" class="form-check-input"
+                            checked>
+                        <label for="blenderslice false">False</label>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        
+        <div class="row">
+            <div class="col-sm-6">
+                <div class=" my-4">
+                    <form novalidate>
+                        <!-- <h4>Custom Scripts Directory</h4> -->
+                        <label for="globalfont" class="form-label">latency</label>
+                        <input id="globalfont" type="text" class="form-control" placeholder="example. 300 ms">
+                    </form>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="container my-4">
+                    <form novalidate>
+                        <!-- <h4>Custom Scripts Directory</h4> -->
+                        <label for="globalfont" class="form-label">Hotkey held latency</label>
+                        <input id="globalfont" type="text" class="form-control"
+                        placeholder="example. 400 ms">
+                        <span class="badge bg-danger">Danger/ how many ms to wait to check whether key held or not, DO NOT CHANGE WITHOUT KNOWLEDGE</span>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+
+        <hr class="my-5">
+        <div class="">
+            <span class="badge bg-danger">DangerZONE, These settings not required to be changed, change only if you really need to.</span>
+
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class=" my-4">
+                    <form novalidate>
+                        <!-- <h4>Custom Scripts Directory</h4> -->
+                        <label for="globalfont" class="form-label">Save Padding</label>
+                        <span class="badge bg-info text-dark ">padding in px from edges of monitor, technically app window</span>
+                        <input id="globalfont" type="text" class="form-control" placeholder="example. 300 ms">
+                    </form>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="container my-4">
+                    <form novalidate>
+                        <!-- <h4>Custom Scripts Directory</h4> -->
+                        <label for="globalfont" class="form-label">DPI Scale factor</label>
+                        <span class="badge bg-info text-dark">scale entire app by given factor</span>
+                        <input id="globalfont" type="text" class="form-control"
+                        placeholder="example. 400 ms">
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- <div class="app_profiles_content">
+        <div >app profile content m of a document or a typeface without relying on meaningful content.
+            Lorem ipsum may be used as a placeholder before final copy is available.
+        </div>
+    </div> -->
+    </div>
+
+</body>
+
+</html>
