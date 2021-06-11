@@ -35,3 +35,7 @@ Screenshots:
 
 ## want to *Support* the project ##
 <p align = "left"><a href = "https://www.buymeacoffee.com/HimanshuChauhan"><img src="https://github.com/Himanshu-Singh-Chauhan/Pie-Menus/blob/main/resources/buymeacoffee.png" alt="Donation Link to Buy Me a Coffee"></a></p>
+
+
+
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FHimanshu-Singh-Chauhan%2FPie-Menus&count_bg=%23020202&title_bg=%23EC095B&icon=&icon_color=%23E7E7E7&title=visitor+count&edge_flat=false)](https://hits.seeyoufarm.com)

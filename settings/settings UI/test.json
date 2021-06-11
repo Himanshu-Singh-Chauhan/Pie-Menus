@@ -1,0 +1,39 @@
+{
+    "globalSettings": {
+        "scriptsPath": "C:\\Place\\Path\\Here\\custom scripts",
+        "pieTips": false,
+        "restoreOriginalPosition": false,
+        "globalFont": false,
+        "globalFontSize": 14,
+        "showIcons": false,
+        "globalInRadius": false,
+        "globalOutRadius": false,
+        "--this latency is after how many ms pies should show up, so that if user is making fast gestures, pies does not get into way--": "__comment__",
+        "latency": false,
+        
+        "useArcOnHover": false,
+        "useLineOnHover": true,
+        "showTKeyHint": false,
+        
+        "---- Not sure what these do -----": "__comment__",
+        "returnMousePosOverride": false,
+        "functionLaunchMode": 0,
+        "lazyHold": false,
+        "---- /Not sure what these do -----": "__comment__",
+        
+        "---- ******************* DANGER ZONE ********************": "__comment__",
+        
+        "---- READ BELOW COMMENT BEFORE CHANGING -----": "__comment__",
+        "Do Not Touch these settings until you know what you are doing": "__comment__",
+        
+        "padding from window edges, ultimately monitor screen edges": "__comment__",
+        "savePadding" : 10,
+        "scale up entire app by given factor": "__comment__",
+        "ScaleFactor" : false,
+        "how many ms to wait to check for key held latency": "__comment__",
+        "hotkeyIsHeldLatency": false,
+        
+        "---- ******************* /DANGER ZONE ********************": "__comment__"
+
+    }
+}

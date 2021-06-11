@@ -8,7 +8,7 @@
 
     <!-- Bootstrap CSS -->
     <link href="bootstrap-5.0.1/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-    <link href='boxicons-2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <!-- <link href='boxicons-2.0.7/css/boxicons.min.css' rel='stylesheet'> -->
     <link rel="stylesheet" href="bootstrap_override.css">
 
     <title>Pie Menus Settings</title>
@@ -26,9 +26,9 @@
 
 
 
-    <div class="container py-5" id="v-pills-tabContent">
+    <div class="topmostdiv container py-5" id="v-pills-tabContent">
 
-        <div class="tab-pane fade show active container" id="global-tab" role="tabpanel" aria-labelledby="global-tab">
+        <div class="tab-pane fade show active container" id="heading" role="tabpanel" aria-labelledby="global-tab">
             <div class="text-center mb-4 mx-auto d-block">
                 <h2>Pie Menus Global Settings</h2>
                 <span class="badge bg-primary">These settings apply to every pie menus, if set.</span>
@@ -36,186 +36,162 @@
         </div>
 
         <div class="mb-4">
-            <button class="btn btn-primary btn-lg btn-block">Save Global Settings</button>
-        </div>
-        
-        <div class="">
-
-            <form novalidate>
-                <!-- <h4>Custom Scripts Directory</h4> -->
-                <label for="custom_scripts" class="form-label">Custom Scripts Directory</label>
-                <span class="badge bg-warning text-dark">Advised to not change</span>
-                <input id="custom_scripts" type="text" class="form-control"
-                    placeholder="C:/Program Files/Pie Menus/Custom Scripts">
-                <div class="invalid-feedback">this is test validation of bootstrap5 forms</div>
-
-            </form>
+            <button id="save_settings" action="" type="button" class="btn btn-outline-primary btn-lg btn-block">Save Global Settings</button>
         </div>
 
-        
+        <!-- Form starting -->
+        <form class="needs-validation" novalidate>
 
-        <div class="row">
-            <div class="col-sm-6">
-                <div class=" my-4">
-                    <form novalidate>
-                        <!-- <h4>Custom Scripts Directory</h4> -->
-                        <label for="globalfont" class="form-label">Global Font</label>
-                        <span class="badge bg-primary">Put exact font name installed in your system</span>
-                        <input id="globalfont" type="text" class="form-control" placeholder="Poppins, Sans Serif">
-                        <div class="invalid-feedback">this is test validation of bootstrap5 forms</div>
-                    </form>
-                </div>
-            </div>
-            <div class="col-sm-6">
-                <div class="container my-4">
-                    <form novalidate>
-                        <!-- <h4>Custom Scripts Directory</h4> -->
-                        <label for="globalfont" class="form-label">Font Size</label>
-                        <input id="globalfont" type="text" class="form-control"
-                            placeholder="for example. 14, font will be rounded to integer 17.7 becomes 17">
-                    </form>
-                </div>
-            </div>
-        </div>
 
-        <div class="row">
-            <div class="col-sm-6">
-                <div class=" my-4">
-                    <form novalidate>
-                        <!-- <h4>Custom Scripts Directory</h4> -->
-                        <label for="globalfont" class="form-label">Global Inner Radius</label>
-                        <input id="globalfont" type="text" class="form-control" placeholder="example. 4">
-                    </form>
-                </div>
-            </div>
-            <div class="col-sm-6">
-                <div class="container my-4">
-                    <form novalidate>
-                        <!-- <h4>Custom Scripts Directory</h4> -->
-                        <label for="globalfont" class="form-label">Global Outer Radius</label>
-                        <input id="globalfont" type="text" class="form-control"
-                            placeholder="example. 7">
-                    </form>
-                </div>
-            </div>
-        </div>
+            <label for="custom_scripts" class="form-label">Custom Scripts Directory</label>
+            <span class="badge bg-warning text-dark">Advised to not change</span>
+            <!-- <span class="badge bg-info">leave blank to reset to default.</span> -->
+            <input id="custom_scripts" type="text" class="form-control"
+                placeholder="C:/Program Files/Pie Menus/Custom Scripts // leave blank to reset to default.">
+            <div class="invalid-feedback">this is test validation of bootstrap5 forms</div>
 
-        <div class="row">
-            <div class="col-sm-6">
+
+
+
+            <div class="row my-4">
+                <div class="col-sm-6">
+                    <label for="global_font" class="form-label">Global Font</label>
+                    <span class="badge bg-primary">Put exact font name installed in your system</span>
+                    <input id="global_font" type="text" class="form-control" placeholder="Poppins, Sans Serif">
+                    <div class="invalid-feedback">the font does not exist on your system</div>
+                </div>
+                <div class="col-sm-6">
+                    <label for="font_size" class="form-label">Font Size</label>
+                    <input id="font_size" type="text" class="form-control"
+                        placeholder="for example. 14, font will be rounded to integer 17.7 becomes 17">
+                </div>
+            </div>
+
+            <div class="row my-4">
+                <div class="col-sm-6">
+                    <label for="inner_radius" class="form-label">Global Inner Radius</label>
+                    <input id="inner_radius" type="text" class="form-control" placeholder="example. 4">
+                </div>
+                <div class="col-sm-6">
+                    <label for="outer_radius" class="form-label">Global Outer Radius</label>
+                    <input id="outer_radius" type="text" class="form-control" placeholder="example. 7">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
                     <div class="form-check my-4">
-                        <label for="pietipstrue">Show pie tips</label>
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label for="pie_tips">Show pie tips</label>
+                        <input id="pie_tips" class="form-check-input" type="checkbox" value="">
                     </div>
-            </div>
-            <div class="col-sm-6">
-                <div class="form-check my-4">
-                    <label for="mouse pos true">Restore original mouse position </label>
-                    <span class="badge bg-info">restore mouse pos to pie menu open pos after a pie is activated</span>
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                 </div>
-            </div>
-        </div>
-
-        <!-- <hr class="my-5"> -->
-
-
-        <div class="row">
-            <div class="col-sm-6">
+                <div class="col-sm-6">
                     <div class="form-check my-4">
-                        <label for="tkeyhint true">Show trigger key Hint on pies</label>
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label for="restore_original_pos">Restore original mouse position </label>
+                        <span class="badge bg-info">restore mouse pos to pie menu open pos after a pie is
+                            activated</span>
+                        <input id="restore_original_pos" class="form-check-input" type="checkbox" value="">
                     </div>
-            </div>
-
-
-            <div class="col-sm-6">
-                <div class="form-check my-4">
-                    <label for="showicons true">Show icons on pies</label>
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                 </div>
             </div>
-        </div>
+
+            <!-- <hr class="my-5"> -->
 
 
-        <div class="row">
-            <div class="col-sm-6">
-                <div class="form-check my-4">
-                    <label for="mayarope true">Show Maya like follow rope</label>
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-check my-4">
+                        <label for="trigger_keys">Show trigger key Hint on pies</label>
+                        <input id="trigger_keys" class="form-check-input" type="checkbox" value="">
+                    </div>
+                </div>
+
+
+                <div class="col-sm-6">
+                    <div class="form-check my-4">
+                        <label for="show_icons">Show icons on pies</label>
+                        <input id="show_icons" class="form-check-input" type="checkbox" value="">
+                    </div>
                 </div>
             </div>
-            
-            <div class="col-sm-6">
-                <div class="form-check my-4">
-                    <label for="blenderslice true">Show Blender like follow slice</label>
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-check my-4">
+                        <label for="maya_rope">Show Maya like follow rope</label>
+                        <input id="maya_rope" class="form-check-input" type="checkbox" value="">
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-check my-4">
+                        <label for="blender_slice">Show Blender like follow slice</label>
+                        <input id="blender_slice" class="form-check-input" type="checkbox" value="">
+                    </div>
                 </div>
             </div>
-        </div>
 
 
-        
-        <div class="row">
-            <div class="col-sm-6">
-                <div class=" my-4">
-                    <form novalidate>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class=" my-4">
                         <!-- <h4>Custom Scripts Directory</h4> -->
-                        <label for="globalfont" class="form-label">latency</label>
-                        <input id="globalfont" type="text" class="form-control" placeholder="example. 300 ms">
-                    </form>
+                        <label for="latency" class="form-label">latency</label>
+                        <input id="latency" type="text" class="form-control" placeholder="example. 300 ms">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="my-4">
+                        <!-- <h4>Custom Scripts Directory</h4> -->
+                        <label for="held_latency" class="form-label">Hotkey held latency</label>
+                        <input id="held_latency" type="text" class="form-control" placeholder="example. 400 ms">
+                        <span class="badge bg-danger">Danger/ how many ms to wait to check whether key held or not, DO
+                            NOT CHANGE WITHOUT KNOWLEDGE</span>
+                    </div>
                 </div>
             </div>
-            <div class="col-sm-6">
-                <div class="container my-4">
-                    <form novalidate>
-                        <!-- <h4>Custom Scripts Directory</h4> -->
-                        <label for="globalfont" class="form-label">Hotkey held latency</label>
-                        <input id="globalfont" type="text" class="form-control"
-                        placeholder="example. 400 ms">
-                        <span class="badge bg-danger">Danger/ how many ms to wait to check whether key held or not, DO NOT CHANGE WITHOUT KNOWLEDGE</span>
-                    </form>
-                </div>
+
+
+            <hr class="my-5">
+            <div class="">
+                <span class="badge bg-danger">DangerZONE, These settings not required to be changed, change only if you
+                    really need to.</span>
+
             </div>
-        </div>
-        
 
-        <hr class="my-5">
-        <div class="">
-            <span class="badge bg-danger">DangerZONE, These settings not required to be changed, change only if you really need to.</span>
-
-        </div>
-
-        <div class="row">
-            <div class="col-sm-6">
-                <div class=" my-4">
-                    <form novalidate>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class=" my-4">
                         <!-- <h4>Custom Scripts Directory</h4> -->
-                        <label for="globalfont" class="form-label">Save Padding</label>
-                        <span class="badge bg-info text-dark ">padding in px from edges of monitor, technically app window</span>
-                        <input id="globalfont" type="text" class="form-control" placeholder="example. 300 ms">
-                    </form>
+                        <label for="padding" class="form-label">Save Padding</label>
+                        <span class="badge bg-info text-dark ">padding in px from edges of monitor, technically app
+                            window</span>
+                        <input id="padding" type="text" class="form-control" placeholder="example. 300 ms">
+                    </div>
                 </div>
-            </div>
-            <div class="col-sm-6">
-                <div class="container my-4">
-                    <form novalidate>
+                <div class="col-sm-6">
+                    <div class="my-4">
                         <!-- <h4>Custom Scripts Directory</h4> -->
-                        <label for="globalfont" class="form-label">DPI Scale factor</label>
+                        <label for="dpi_scale" class="form-label">DPI Scale factor</label>
                         <span class="badge bg-info text-dark">scale entire app by given factor</span>
-                        <input id="globalfont" type="text" class="form-control"
-                        placeholder="example. 400 ms">
-                    </form>
+                        <input id="dpi_scale" type="text" class="form-control" placeholder="example. 400 ms">
+                    </div>
                 </div>
             </div>
-        </div>
 
 
-        <!-- <div class="app_profiles_content">
-        <div >app profile content m of a document or a typeface without relying on meaningful content.
-            Lorem ipsum may be used as a placeholder before final copy is available.
-        </div>
-    </div> -->
+            <!-- <div class="app_profiles_content">
+            <div >app profile content m of a document or a typeface without relying on meaningful content.
+                Lorem ipsum may be used as a placeholder before final copy is available.
+            </div>
+        </div> -->
+        </form>
     </div>
+
+    <!-- global settings main script -->
+    <script src="globalSettings.js"></script>
 
 </body>
 
