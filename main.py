@@ -50,8 +50,6 @@ class WindowMgr:
 
 # Important Note: As of now Trigger keys cannot be same as hotkeys in a single profile
 
-WM_QUIT = 0x0012
-IS_MULTI_MONITOR_SETUP = False
 
 class ActiveProfile:
     def __init__(self) -> None:
@@ -256,6 +254,11 @@ class ActiveProfile:
            for wheather key is held down or not and quick/speedy gesture activation.
            above comments are code to test time elapsed."""
 
+        if not self.isMenuOpen:
+            # if right click is pressed immediately after opening pie menus, currentMousePos becomes None, and this causes errors over. 
+            # so better check if pie menu is open or not.
+            return  
+
         currentMousePos = QCursor.pos()
         mouseInCircle = (currentMousePos.x() - self.init_cursorpos.x())**2 + (currentMousePos.y() - self.init_cursorpos.y())**2 < self.openPieMenu["inRadius"]**2
 
@@ -302,38 +305,47 @@ class ActiveProfile:
         self.isLMBup = True
 
     def waitHKeyrelease(self):
+        if self.A_ThisHotkey == None:
+            self.HKeyLetgo = True
+            self.waitHKey.stop()
+            return
+
         if self.hkey_release_counter < 100: self.hkey_release_counter += 1
+
         if (not keyboard.is_pressed(self.A_ThisHotkey)) and self.hkey_release_counter >= 6:
             self.A_ThisHotkey = None
             self.HKeyLetgo = True
             self.waitHKey.stop()
 
     def resetAttributesOnMenuClose(self):
+
+        # stop timers 
+        self.timerKeyHeld.stop()
+
+        # stop thread and join in main thread
+        if self.mouseThread.is_alive():
+            windll.user32.PostThreadMessageW(self.mouseThread.ident, WM_QUIT, 0, 0)
+            self.mouseThread.join()
+
+        # reset attributes
         self.menu_open_time = None
         self.init_cursorpos = None
         self.isLMBup = False
         self.isRMBup = False
-        windll.user32.PostThreadMessageW(self.mouseThread.ident, WM_QUIT, 0, 0)
-        self.mouseThread.join()
         self.unloadTriggerKeys()
-        self.timerKeyHeld.stop()
         self.keyHeld = False
         self.isMenuOpen = False
         self.openPieMenu = None
         self.A_TriggerKey = None
         self.sameTKeyHKey = None
         self.HKeyLetgo = False
-        # self.A_ThisHotkey = set to None in waitHKeyrelease method
         self.hkey_release_counter = 0
         self.HKeyLetgo = False
         self.waitHKey.start(25)
+        # self.A_ThisHotkey = set to None in waitHKeyrelease method
         # window.hide() # this will hide the window after menu is closed.
 # -------------------------------Class End--------------------------------------
 
-# Global varibals:
-debugMode = False
-flag = False
-hold = False
 
 # ----Obselete method---------
 # def doNothing():
@@ -380,6 +392,22 @@ except:
 # /END Json loading ------------------
 
 
+
+
+# ------- Global varibals ----------------
+DEBUGMODE = False
+WM_QUIT = 0x0012
+IS_MULTI_MONITOR_SETUP = False
+APP_SUSPENDED = False
+WINCHANGE_latency = 100 # ms
+
+if globalSettings['winChangeLatency'] and 25 <= globalSettings['winChangeLatency'] <= 200:
+    WINCHANGE_latency = globalSettings['winChangeLatency']
+# ------- /END Global varibals ----------------
+
+
+
+
 # Qt warning message handler callback
 def qt_message_handler(mode, context, message):
 
@@ -404,6 +432,57 @@ def qt_message_handler(mode, context, message):
     print(f'{mode}: {message}')
 
 
+
+def suspend_app():
+
+    if activeProfile.isMenuOpen:
+        # toast msg close open pie menus
+        return
+
+    activeProfile.flushHotkeys()
+    keyboard.unhook_all()
+
+    # stop all timers and threads in app
+    timerWinChange.stop()
+    activeProfile.timerCheckHotkey.stop()
+
+    global APP_SUSPENDED
+    APP_SUSPENDED = True
+    # Do not call this here, it will mess up things.
+    # activeProfile.resetAttributesOnMenuClose()
+
+def resume_app():
+    # resume all timers and threads in app
+    timerWinChange.start(WINCHANGE_latency)
+    activeProfile.loadGlobal()
+    activeProfile.timerCheckHotkey.start(25)
+
+    global APP_SUSPENDED
+    APP_SUSPENDED = False
+    # do not call construction of active_profile or instanciate it agian, let's keep it clean.
+
+
+
+def get_all_refrences(with_funcs = False):
+    only_vars = {
+            "DEBUGMODE"             : DEBUGMODE,
+            "WM_QUIT"               : WM_QUIT,
+            "IS_MULTI_MONITOR_SETUP": IS_MULTI_MONITOR_SETUP,
+            "APP_SUSPENDED"         : APP_SUSPENDED,
+            "WINCHANGE_latency"     : WINCHANGE_latency
+        }
+
+    if not with_funcs:
+        return only_vars
+
+    with_funcs = {}
+    with_funcs.update(only_vars)
+    with_funcs.update({
+            "suspend_app" : suspend_app,
+            "resume_app"  : resume_app
+        })
+        
+    return with_funcs 
 
 # ------------------------------------ MAIN ---------------------------------
 
@@ -433,7 +512,7 @@ tray_icon = QtGui.QIcon(os.path.join(script_dir, "resources/icons/tray_icon.png"
 # tray icon link : https://www.flaticon.com/free-icon/pie_1411020?term=pies&related_id=1411020
 
 trayWidgetQT = QWidget()
-trayWidget = SystemTrayIcon(QtGui.QIcon(tray_icon), trayWidgetQT)
+trayWidget = SystemTrayIcon(QtGui.QIcon(tray_icon), get_all_refrences, trayWidgetQT)
 trayWidgetQT.setStyleSheet(pie_themes.QMenu)
 trayWidget.show()
 
@@ -469,7 +548,7 @@ timerWinChange = QTimer()
 timerWinChange.timeout.connect(detectWindowChange)
 
 # Timer starts
-timerWinChange.start(100)
+timerWinChange.start(WINCHANGE_latency)
 
 # ----------------------END-----------------------------
 # This statement has to stay the last line

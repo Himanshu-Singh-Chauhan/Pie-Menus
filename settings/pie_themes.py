@@ -71,7 +71,7 @@ QMenu = """
             QMenu::item {
                 padding: 8px 78px 8px 26px;
                 background-color: transparent;
-                margin: 10px 0 10px 0;
+                margin: 6px 0 6px 0;
             }
             QMenu::item:selected {
                 background-color: rgba(75, 116, 255, 130);
@@ -93,5 +93,13 @@ qmenu_danger = """
                 color: white;
                 font-weight: bold;
                 background-color: rgb(255, 0, 12);
+            }
+"""
+
+qmenu_warning = """
+            QMenu::item:selected {
+                color: black;
+                /*font-weight: bold;*/
+                background-color: rgb(249, 229, 6);
             }
 """

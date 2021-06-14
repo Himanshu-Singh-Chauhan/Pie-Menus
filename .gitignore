@@ -3,6 +3,7 @@ dist/
 build/
 setups/
 Pie Menus-SetupFiles/
+Flask/
 main.spec
 bootstrap-5.0.1-dist.zip
 *.spec

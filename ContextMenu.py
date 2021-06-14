@@ -3,8 +3,8 @@ from time import sleep
 
 
 class ContextMenu(QtWidgets.QMenu):
-    def __init__(self, parent=None):
-        QtWidgets.QMenu.__init__(self, parent)
+    def __init__(self, *args):
+        QtWidgets.QMenu.__init__(self, *args)
         self.stock_css = ""
         self.is_stock_css = True
 

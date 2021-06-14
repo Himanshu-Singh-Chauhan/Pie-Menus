@@ -21,6 +21,7 @@
         "lazyHold": false,
         "---- /Not sure what these do -----": "__comment__",
         
+        
         "---- ******************* DANGER ZONE ********************": "__comment__",
         
         "---- READ BELOW COMMENT BEFORE CHANGING -----": "__comment__",
@@ -28,10 +29,16 @@
         
         "padding from window edges, ultimately monitor screen edges": "__comment__",
         "savePadding" : 10,
+
         "scale up entire app by given factor": "__comment__",
         "ScaleFactor" : false,
+
         "how many ms to wait to check for key held latency": "__comment__",
         "hotkeyIsHeldLatency": false,
+
+        "in how many ms app should check wheather active window changed or not": "__comment__",
+        "should be between 25 and 200, if not, defaulted to 100": "__comment__",
+        "winChangeLatency": false,
         
         "---- ******************* /DANGER ZONE ********************": "__comment__"
 
