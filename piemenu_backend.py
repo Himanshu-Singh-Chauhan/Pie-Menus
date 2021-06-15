@@ -11,6 +11,7 @@ import keyboard
 import pieFunctions
 from time import sleep
 from settings import pie_themes
+from dotmap import DotMap
 
 
 transparent = QtGui.QColor(255, 255, 255, 0)
@@ -324,7 +325,8 @@ class Button(QtWidgets.QPushButton):
     def __init__(self, name, openPieMenu, i, parent=None):
         super().__init__(name, parent=parent)
         self.setMouseTracking(True)
-        self.setStyleSheet(pie_themes.dhalu_theme)
+        # self.setStyleSheet(pie_themes.dhalu_theme)
+        self.setStyleSheet(pie_themes.testing_theme)
 
         self._hoverEnabled = False
         self._pressEnabled = False

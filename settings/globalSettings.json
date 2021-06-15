@@ -14,6 +14,8 @@
         "useArcOnHover": false,
         "useLineOnHover": true,
         "showTKeyHint": false,
+        "showOnMonWithCursor": true,
+        "showOnMonWithActiveWindow": false,
         
         "---- Not sure what these do -----": "__comment__",
         "returnMousePosOverride": false,

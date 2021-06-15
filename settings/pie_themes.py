@@ -59,13 +59,77 @@ dhalu_theme = """
         """
 
 
+whatsapp_green = """
+                    QPushButton
+                    {
+                        color: rgb(6, 210, 83);
+                        background-color: white;
+                        outline: none;
+                        font-size: 16px;
+                        font-weight: 400;
+                        padding: 7px 15px 7px 15px;
+                        min-width: 10px;
+                        min-height: 10px;
+                        border: 1px solid rgb(6, 210, 83);
+                        border-radius: 4px;
+                    }
+                    QPushButton[hover=true]
+                    {
+                        color: white;
+                        background-color: rgb(6, 210, 83);
+                    }
+                    QPushButton:pressed, QPushButton[pressed=true]
+                    {
+                        background-color:rgb(6, 210, 83);
+                    }
+        
+        """
+
+
+
+simple_box_theme = """
+
+
+
+        """
+
+
+
+testing_theme = """QPushButton {
+    background-color: palegoldenrod;
+    border-width: 2px;
+    border-color: darkkhaki;
+    border-style: solid;
+    border-radius: 5;
+    padding: 3px;
+    min-width: 9ex;
+    min-height: 2.5ex;
+}
+
+QPushButton:hover {
+   background-color: khaki;
+}
+
+/* Increase the padding, so the text is shifted when the button is
+   pressed. */
+QPushButton:pressed {
+    padding-left: 5px;
+    padding-top: 5px;
+    background-color: #d0d67c;
+}
+
+QLabel, QAbstractButton {
+    font: bold;
+}
+"""
+
 # Try to apply this QMenu css to only tray qmenu and rename this style to tray_menu
 QMenu = """
             QMenu {
                 background-color: rgba(255, 255, 255, 255);
                 border: none;
                 border-radius: 10px;
-                font: 18px;
+                /*font: 18px;*/
             }
 
             QMenu::item {
@@ -91,7 +155,7 @@ QMenu = """
 qmenu_danger = """
             QMenu::item:selected {
                 color: white;
-                font-weight: bold;
+                /*font-weight: bold;*/
                 background-color: rgb(255, 0, 12);
             }
 """
