@@ -10,8 +10,8 @@ import keyboard
 # from ctypes import *
 import pieFunctions
 from time import sleep
-from settings import pie_themes
 from dotmap import DotMap
+from settings.pie_themes import pie_themes, tray_theme
 
 
 transparent = QtGui.QColor(255, 255, 255, 0)
@@ -81,8 +81,7 @@ class RadialMenu(QtWidgets.QWidget):
         self.setGeometry(self.parent().rect())
         # self._outRadius = 100
         # self._inRadius = 15
-        self._outRadius = openPieMenu["outRadius"]
-        self._inRadius = openPieMenu["inRadius"]
+        self._inRadius, self._outRadius = list(map(float, openPieMenu["in_out_radius"].split("_")))
         self._btnList = []
         self._selectedBtn = None
         self._mousePressed = False
@@ -325,8 +324,11 @@ class Button(QtWidgets.QPushButton):
     def __init__(self, name, openPieMenu, i, parent=None):
         super().__init__(name, parent=parent)
         self.setMouseTracking(True)
-        # self.setStyleSheet(pie_themes.dhalu_theme)
-        self.setStyleSheet(pie_themes.testing_theme)
+
+        if not openPieMenu["theme"]:
+            self.setStyleSheet(pie_themes.dhalu_theme)
+        else:
+            self.setStyleSheet(pie_themes[openPieMenu["theme"]])
 
         self._hoverEnabled = False
         self._pressEnabled = False

@@ -8,8 +8,8 @@
         {
           "enable": 1,
           "hotkey": "`",
-          "inRadius": 15,
-          "outRadius": 115,
+          "theme": "",
+          "in_out_radius": "15_115",
           "thickness": 5,
           "hold": 0,
           "holdOpenOverride": 0,
@@ -179,8 +179,8 @@
         {
           "enable": 1,
           "hotkey": "z",
-          "inRadius": 15,
-          "outRadius": 115,
+          "theme": "whatsapp_green",
+          "in_out_radius": "15_115",
           "thickness": 5,
           "hold": 0,
           "holdOpenOverride": 0,
@@ -357,8 +357,8 @@
         {
           "enable": true,
           "hotkey": "e",
-          "inRadius": 22,
-          "outRadius": 100,
+          "theme": "",
+          "in_out_radius": "22_100",
           "thickness": 10,
           "hold": 0,
           "holdOpenOverride": 0,

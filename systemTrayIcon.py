@@ -2,8 +2,7 @@ from PySide2.QtWidgets import QMenu, QMessageBox
 from PySide2 import QtWidgets, QtCore
 from PySide2.QtGui import QCursor
 from ContextMenu import ContextMenu
-from settings.pie_themes import QMenu as context_theme
-from settings.pie_themes import qmenu_danger, qmenu_warning
+from settings.pie_themes import tray_theme
 
 # from main import suspend_app, resume_app, APP_SUSPENDED # Just to resolve undefined vars in vscode or any editors.
 # # comment out when compiling.
@@ -28,7 +27,7 @@ class SystemTrayIcon(QtWidgets.QSystemTrayIcon):
 
         # ------------ Main context menu--------------------
             # To quit the app
-        exit_app = main_menu.add_action("Exit Pie Menus", custom_css=qmenu_danger)
+        exit_app = main_menu.add_action("Exit Pie Menus", custom_css=tray_theme.danger)
         exit_app.triggered.connect(self.exit)
         
         main_menu.addSeparator()
@@ -45,7 +44,7 @@ class SystemTrayIcon(QtWidgets.QSystemTrayIcon):
             res_app = suspend_menu.add_action("Resume Pie Menus App")
             res_app.triggered.connect(self.resume_app)
         else:
-            sus_app = suspend_menu.add_action("Suspend Pie Menus App", custom_css=qmenu_warning)
+            sus_app = suspend_menu.add_action("Suspend Pie Menus App", custom_css=tray_theme.warning)
             sus_app.triggered.connect(self.suspend_app)
             # sus_app.triggered.connect(lambda: self.showDialog("Still in development", "Sorry"))
 
@@ -56,7 +55,7 @@ class SystemTrayIcon(QtWidgets.QSystemTrayIcon):
         # ------------ /suspend sub context menu--------------------
 
 
-        main_menu.set_stock_css(context_theme)
+        main_menu.set_stock_css(tray_theme.QMenu)
         self.contextMenu = main_menu
 
         # Don't do the following line, animation problem and one right click does not work, see comments on end of this file

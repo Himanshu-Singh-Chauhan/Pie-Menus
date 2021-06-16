@@ -260,7 +260,8 @@ class ActiveProfile:
             return  
 
         currentMousePos = QCursor.pos()
-        mouseInCircle = (currentMousePos.x() - self.init_cursorpos.x())**2 + (currentMousePos.y() - self.init_cursorpos.y())**2 < self.openPieMenu["inRadius"]**2
+        inRadius = float(self.openPieMenu["in_out_radius"].split("_")[0])
+        mouseInCircle = (currentMousePos.x() - self.init_cursorpos.x())**2 + (currentMousePos.y() - self.init_cursorpos.y())**2 < inRadius**2
 
         if keyboard.is_pressed(self.A_ThisHotkey):
             self.keyHeld = True
@@ -513,7 +514,7 @@ tray_icon = QtGui.QIcon(os.path.join(script_dir, "resources/icons/tray_icon.png"
 
 trayWidgetQT = QWidget()
 trayWidget = SystemTrayIcon(QtGui.QIcon(tray_icon), get_all_refrences, trayWidgetQT)
-trayWidgetQT.setStyleSheet(pie_themes.QMenu)
+trayWidgetQT.setStyleSheet(tray_theme.QMenu)
 trayWidget.show()
 
 window = Window(settings, globalSettings)
