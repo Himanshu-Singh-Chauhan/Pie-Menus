@@ -422,3 +422,13 @@ class Button(QtWidgets.QPushButton):
             qp.drawEllipse(self.rect().center(), self._radius, self._radius)
             # qp.drawText(self.rect().center(),self.text)
             # qp.drawEllipse(QPoint(self.x, self.y), self._radius, self._radius)
+
+
+    def optional_wheelEvent(self, event, custom_event = False) -> None:
+        if not custom_event:
+            # Custom wheel events here.
+            print("whele")
+            return super().wheelEvent(event)
+
+        # Default wheel event
+        return super().wheelEvent(event)

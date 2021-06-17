@@ -88,15 +88,13 @@ class ActiveProfile:
         self.timerCheckHotkey.start(25)
 
         self.mouseThread = Thread(target = mousehook.mouseHook)
-        # mousehook.rmbUpHandlers.append(self.regRMBup)
-        # mousehook.lmbUpHandlers.append(self.regLMBup)
         mousehook.mouseHandlers.append(self.reg_low_level_mouse_event)
 
         # Timers
         self.timerKeyHeld = QTimer()
         self.timerKeyHeld.timeout.connect(self.checkHeldKeyReleased)
         self.timerKeyHeld.timeout.connect(self.isTKeyEvent)
-        self.timerKeyHeld.timeout.connect(self.lmbTrigger)
+        self.timerKeyHeld.timeout.connect(self.low_level_mouse_event)
         self.timerKeyHeld.timeout.connect(self.menuCancel)
         self.timer_checkKeyHeld = QTimer()
         self.timer_checkKeyHeld.timeout.connect(self.checkKeyHeld)
@@ -239,7 +237,11 @@ class ActiveProfile:
         self.loadTriggerKeys()
 
         self.timerKeyHeld.start(25)
-        self.mouseThread = Thread(target = mousehook.mouseHook, args = [self.keyHeld] )
+
+        # example of passing arguments to function call in different thread
+        # self.mouseThread = Thread(target = mousehook.mouseHook, args = [self.keyHeld] )
+
+        self.mouseThread = Thread(target = mousehook.mouseHook)
         self.mouseThread.start()
 
         self.menu_open_time = datetime.datetime.now()
@@ -289,39 +291,19 @@ class ActiveProfile:
             window.releasedHeldKey()
             self.resetAttributesOnMenuClose()
 
-    def lmbTrigger(self):
+    def low_level_mouse_event(self):
         if self.isLMBup:
             window.releasedHeldKey()
             self.resetAttributesOnMenuClose()
 
-    def ll_WheelUP_event(self):
         if self.isWheelup:
-            # window.releasedHeldKey()
-            # self.resetAttributesOnMenuClose()
-            print(True)
+            pass
 
     def menuCancel(self):
         if keyboard.is_pressed('esc') or self.isRMBup:
             window.killMenu()
             self.resetAttributesOnMenuClose()
 
-    # def regRMBdown(self, event):
-    #     self.isRMBdown = True
-
-    # def regRMBup(self, event):
-    #     self.isRMBup = True
-
-    # def regLMBdown(self, event):
-    #     self.isLMBdown = True
-
-    # def regLMBup(self, event):
-    #     self.isLMBup = True
-
-    # def regWheeldown(self, event):
-    #     self.isWheeldown = True
-
-    # def regWheelup(self, event):
-    #     self.isWheelup = True
 
     def reg_low_level_mouse_event(self, event):
         # register low level mouse event
@@ -342,7 +324,14 @@ class ActiveProfile:
         elif event_type == 'LButton Up' and self.keyHeld:
             return -1
 
-
+        if event_type == 'wheel':
+            # scan code === lParam[1]
+            if event.scan_code == 4287102976:
+                # Scroll down, towards user
+                self.isWheelup = True
+            elif event.scan_code == 7864320:
+                # Scroll up, away from the user
+                self.isWheeldown = True
 
 
     def waitHKeyrelease(self):

@@ -11,10 +11,8 @@ import atexit
 KeyEvents=namedtuple("KeyEvents",(['event_type', 'key_code',
                                              'scan_code', 'alt_pressed',
                                              'time']))
-# rmbUpHandlers=[]
-# lmbUpHandlers=[]
 mouseHandlers=[]
-def listener(keyHeld):
+def listener():
     """The listener listens to events and adds them to mouseHandlers"""
     
     def low_level_handler(nCode, wParam, lParam):
@@ -32,25 +30,6 @@ def listener(keyHeld):
             if returnval == -1: return -1
             if returnval == "pass_event":
                 return windll.user32.CallNextHookEx(hook_id, nCode, wParam, lParam)
-
-        # if event_types[wParam] == 'RButton Down':
-        #     return -1
-        # if event_types[wParam] == 'LButton Down':
-        #     return -1
-
-        # if event_types[wParam] == 'RButton Up':
-        #     for handle in rmbUpHandlers:
-        #         handle(event)
-        #     # windll.user32.UnhookWindowsHookEx(hook_id)
-        #     return -1
-
-        # if event_types[wParam] == 'LButton Up' and not keyHeld:
-        #     # print(event_types[wParam])
-        #     for handle in lmbUpHandlers:
-        #         handle(event)
-        #     return -1
-        # elif event_types[wParam] == 'LButton Up' and keyHeld:
-        #     return -1
 
         #Be nice, return next hook
         return windll.user32.CallNextHookEx(hook_id, nCode, wParam, lParam)
@@ -80,15 +59,16 @@ def listener(keyHeld):
 
 def print_event(e):
     print(e)
-    pass
+    wParam = e[0]
+    # pass
 
 # mouseHandlers.append(print_event)
 
 WM_QUIT = 0x0012
 HOOK_ID = None
 
-def mouseHook(keyHeld):
-    listener(keyHeld)
+def mouseHook():
+    listener()
 
 def removeMouseHook():
     global HOOK_ID

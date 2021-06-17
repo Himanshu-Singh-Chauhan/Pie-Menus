@@ -27,3 +27,18 @@ https://www.geeksforgeeks.org/handling-a-threads-exception-in-the-caller-thread-
 [This is a pure python (or as close as possible) keyboard hook module. · GitHub](https://gist.github.com/ethanhs/80f0a7cc5c7881f5921f)
 
 [python - Can't load pywin32 library win32gui - Stack Overflow](https://stackoverflow.com/questions/3956178/cant-load-pywin32-library-win32gui)
+
+[delphi - MOUSE_WHEEL delta always positive - Stack Overflow](https://stackoverflow.com/questions/18811057/mouse-wheel-delta-always-positive)
+
+[High-order word, low-order word (quickmacros.com)](https://www.quickmacros.com/help/Other/IDP_HIWORD.html)
+
+[Low-order versus high-order word. (microsoft.com)](https://social.msdn.microsoft.com/Forums/vstudio/en-US/d4765aac-c9c3-4e37-a413-82f61f3ef938/loworder-versus-highorder-word?forum=vcgeneral)
+
+[MSLLHOOKSTRUCT (winuser.h) - Win32 apps | Microsoft Docs](https://docs.microsoft.com/en-us/windows/win32/api/winuser/ns-winuser-msllhookstruct?redirectedfrom=MSDN)
+
+[LowLevelMouseProc callback function (Windows) | Microsoft Docs](https://docs.microsoft.com/en-us/previous-versions/windows/desktop/legacy/ms644986(v=vs.85)?redirectedfrom=MSDN)
+
+[hook - retrieve WHEEL_DELTA from wParam in WM_MOUSEHWHEEL msg in C# - Stack Overflow](https://stackoverflow.com/questions/9330194/retrieve-wheel-delta-from-wparam-in-wm-mousehwheel-msg-in-c-sharp)
+
+[WM_MOUSEWHEEL message (Winuser.h) - Win32 apps | Microsoft Docs](https://docs.microsoft.com/en-us/windows/win32/inputdev/wm-mousewheel)
+
