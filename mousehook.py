@@ -3,48 +3,54 @@ import ctypes
 import win32con
 from ctypes import wintypes
 from collections import namedtuple
-
 from ctypes import windll, CFUNCTYPE, POINTER, c_int, c_void_p, byref
+from key_codes import mouse_codes
 import atexit
 
 
 KeyEvents=namedtuple("KeyEvents",(['event_type', 'key_code',
                                              'scan_code', 'alt_pressed',
                                              'time']))
-rmbUpHandlers=[]
-lmbUpHandlers=[]
+# rmbUpHandlers=[]
+# lmbUpHandlers=[]
+mouseHandlers=[]
 def listener(keyHeld):
     """The listener listens to events and adds them to mouseHandlers"""
-    event_types = {512: 'mouse move', #WM_MouseMove
-                   513: 'LButton Down',
-                   514: 'LButton Up',
-                   516: 'RButton Down',
-                   517: 'RButton Up'
-                  }
+    
     def low_level_handler(nCode, wParam, lParam):
         """
         Processes a low level Windows mouse event.
         """
-        event = KeyEvents(event_types[wParam], lParam[0], lParam[1], lParam[2] == 32, lParam[3])
+        event = KeyEvents(mouse_codes[wParam], lParam[0], lParam[1], lParam[2] == 32, lParam[3])
 
-        if event_types[wParam] == 'RButton Down':
-            return -1
-        if event_types[wParam] == 'LButton Down':
-            return -1
+        if mouse_codes.get(wParam):
+            returnval = None
+            for handle in mouseHandlers:
+                # return value from last handler will be used, obviously.
+                returnval = handle(event)
 
-        if event_types[wParam] == 'RButton Up':
-            for handle in rmbUpHandlers:
-                handle(event)
-            # windll.user32.UnhookWindowsHookEx(hook_id)
-            return -1
+            if returnval == -1: return -1
+            if returnval == "pass_event":
+                return windll.user32.CallNextHookEx(hook_id, nCode, wParam, lParam)
 
-        if event_types[wParam] == 'LButton Up' and not keyHeld:
-            # print(event_types[wParam])
-            for handle in lmbUpHandlers:
-                handle(event)
-            return -1
-        elif event_types[wParam] == 'LButton Up' and keyHeld:
-            return -1
+        # if event_types[wParam] == 'RButton Down':
+        #     return -1
+        # if event_types[wParam] == 'LButton Down':
+        #     return -1
+
+        # if event_types[wParam] == 'RButton Up':
+        #     for handle in rmbUpHandlers:
+        #         handle(event)
+        #     # windll.user32.UnhookWindowsHookEx(hook_id)
+        #     return -1
+
+        # if event_types[wParam] == 'LButton Up' and not keyHeld:
+        #     # print(event_types[wParam])
+        #     for handle in lmbUpHandlers:
+        #         handle(event)
+        #     return -1
+        # elif event_types[wParam] == 'LButton Up' and keyHeld:
+        #     return -1
 
         #Be nice, return next hook
         return windll.user32.CallNextHookEx(hook_id, nCode, wParam, lParam)
@@ -59,6 +65,7 @@ def listener(keyHeld):
     # Hook both key up and key down events for common keys (non-system).
     windll.user32.SetWindowsHookExA.argtypes = (c_int, wintypes.HANDLE, wintypes.HMODULE, wintypes.DWORD)
     hook_id = windll.user32.SetWindowsHookExA(win32con.WH_MOUSE_LL, pointer, windll.kernel32.GetModuleHandleW(None), 0)
+    global HOOK_ID
     HOOK_ID = hook_id
 
     # Register to remove the hook when the interpreter exits.
@@ -84,5 +91,6 @@ def mouseHook(keyHeld):
     listener(keyHeld)
 
 def removeMouseHook():
+    global HOOK_ID
     windll.user32.UnhookWindowsHookEx(HOOK_ID)
     HOOK_ID = None

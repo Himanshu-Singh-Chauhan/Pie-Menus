@@ -1,0 +1,6 @@
+mouse_codes = {    512: 'mouse move', #WM_MouseMove
+                   513: 'LButton Down',
+                   514: 'LButton Up',
+                   516: 'RButton Down',
+                   517: 'RButton Up'
+    }

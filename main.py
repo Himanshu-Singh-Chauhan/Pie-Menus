@@ -9,6 +9,7 @@ from piemenu_backend import *
 from systemTrayIcon import SystemTrayIcon
 from threading import Thread
 import mousehook
+from key_codes import mouse_codes
 import datetime
 from re import match as re_match
 # import keyboardhook
@@ -75,6 +76,10 @@ class ActiveProfile:
         self.isRMBdown = False
         self.isLMBup = False
         self.isLMBdown = False
+        self.isMMBup = False
+        self.isMMBdown = False
+        self.isWheelup = False
+        self.isWheeldown = False
 
         # First default runs
         self.loadGlobal()
@@ -83,8 +88,9 @@ class ActiveProfile:
         self.timerCheckHotkey.start(25)
 
         self.mouseThread = Thread(target = mousehook.mouseHook)
-        mousehook.rmbUpHandlers.append(self.regRMBup)
-        mousehook.lmbUpHandlers.append(self.regLMBup)
+        # mousehook.rmbUpHandlers.append(self.regRMBup)
+        # mousehook.lmbUpHandlers.append(self.regLMBup)
+        mousehook.mouseHandlers.append(self.reg_low_level_mouse_event)
 
         # Timers
         self.timerKeyHeld = QTimer()
@@ -288,22 +294,56 @@ class ActiveProfile:
             window.releasedHeldKey()
             self.resetAttributesOnMenuClose()
 
+    def ll_WheelUP_event(self):
+        if self.isWheelup:
+            # window.releasedHeldKey()
+            # self.resetAttributesOnMenuClose()
+            print(True)
+
     def menuCancel(self):
         if keyboard.is_pressed('esc') or self.isRMBup:
             window.killMenu()
             self.resetAttributesOnMenuClose()
 
-    def regRMBdown(self, event):
-        self.isRMBdown = True
+    # def regRMBdown(self, event):
+    #     self.isRMBdown = True
 
-    def regRMBup(self, event):
-        self.isRMBup = True
+    # def regRMBup(self, event):
+    #     self.isRMBup = True
 
-    def regLMBdown(self, event):
-        self.isLMBdown = True
+    # def regLMBdown(self, event):
+    #     self.isLMBdown = True
 
-    def regLMBup(self, event):
-        self.isLMBup = True
+    # def regLMBup(self, event):
+    #     self.isLMBup = True
+
+    # def regWheeldown(self, event):
+    #     self.isWheeldown = True
+
+    # def regWheelup(self, event):
+    #     self.isWheelup = True
+
+    def reg_low_level_mouse_event(self, event):
+        # register low level mouse event
+        event_type = event.event_type
+
+        if event_type == 'RButton Down':
+            return -1 # Block rmb down
+        if event_type == 'LButton Down':
+            return -1 # Block lmb down
+        
+        if event_type == 'RButton Up':
+            self.isRMBup = True
+            return -1
+
+        if event_type == 'LButton Up' and not self.keyHeld:
+            self.isLMBup = True
+            return -1
+        elif event_type == 'LButton Up' and self.keyHeld:
+            return -1
+
+
+
 
     def waitHKeyrelease(self):
         if self.A_ThisHotkey == None:
