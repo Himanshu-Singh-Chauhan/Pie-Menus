@@ -78,8 +78,7 @@ class ActiveProfile:
         self.isLMBdown = False
         self.isMMBup = False
         self.isMMBdown = False
-        self.isWheelup = False
-        self.isWheeldown = False
+        self.isWheel = False
 
         # First default runs
         self.loadGlobal()
@@ -296,8 +295,9 @@ class ActiveProfile:
             window.releasedHeldKey()
             self.resetAttributesOnMenuClose()
 
-        if self.isWheelup:
-            pass
+        if self.isWheel:
+            window.ll_wheel_event(self.isWheel[0])
+            self.isWheel = False
 
     def menuCancel(self):
         if keyboard.is_pressed('esc') or self.isRMBup:
@@ -326,12 +326,7 @@ class ActiveProfile:
 
         if event_type == 'wheel':
             # scan code === lParam[1]
-            if event.scan_code == 4287102976:
-                # Scroll down, towards user
-                self.isWheelup = True
-            elif event.scan_code == 7864320:
-                # Scroll up, away from the user
-                self.isWheeldown = True
+            self.isWheel = (event)
 
 
     def waitHKeyrelease(self):

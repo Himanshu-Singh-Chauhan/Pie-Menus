@@ -66,6 +66,10 @@ class Window(QtWidgets.QWidget):
         self._menu.launchByGesture()
         self.killMenu()
 
+    def ll_wheel_event(self, event):
+        if self._menu is None: return
+        self._menu.ll_wheel_event(event)
+
     def isMenuOpen(self):
         if self._menu:
             return True
@@ -315,7 +319,16 @@ class RadialMenu(QtWidgets.QWidget):
         for btn in self._btnList:
             if btn.isHovered():
                 btn.animateClick()
-                break          
+                break
+
+    def ll_wheel_event(self, event):
+        for btn in self._btnList:
+            if btn.isHovered():
+                if (btn.pie.get("w_up") or btn.pie.get("w_down")) and not btn.is_actually_hovered():
+                    btn.optional_wheelEvent(custom_event = event)
+                elif btn.is_actually_hovered() and btn.pie.get("onPie_w_up") == None and btn.pie.get("onPie_w_down") == None:
+                    btn.optional_wheelEvent(custom_event = event)
+                break
                 
     def launchByTrigger(self, counter):
         self._btnList[counter].animateClick()
@@ -325,6 +338,8 @@ class Button(QtWidgets.QPushButton):
         super().__init__(name, parent=parent)
         self.setMouseTracking(True)
 
+        self.pie = openPieMenu["pies"][i]
+
         if not openPieMenu["theme"]:
             self.setStyleSheet(pie_themes.dhalu_theme)
         else:
@@ -332,6 +347,11 @@ class Button(QtWidgets.QPushButton):
 
         self._hoverEnabled = False
         self._pressEnabled = False
+        self._actual_hover = False # this determines wheather mouse is actually on button or not.
+
+        if self.pie.get("onPie_w_up") or self.pie.get("onPie_w_down"):
+            self.wheelEvent = self.optional_wheelEvent
+
         self.opacityEffect = QtWidgets.QGraphicsOpacityEffect(self, opacity=1.0)
         self.setGraphicsEffect(self.opacityEffect)
         # keep the buttons always enabled even before the animation to speed up things
@@ -423,12 +443,31 @@ class Button(QtWidgets.QPushButton):
             # qp.drawText(self.rect().center(),self.text)
             # qp.drawEllipse(QPoint(self.x, self.y), self._radius, self._radius)
 
+    
+    def enterEvent(self, event) -> None:
+        self._actual_hover = True
+        # return super().enterEvent(event)
 
-    def optional_wheelEvent(self, event, custom_event = False) -> None:
-        if not custom_event:
+    def leaveEvent(self, event) -> None:
+        self._actual_hover = False
+        # return super().leaveEvent(event)
+
+    def is_actually_hovered(self):
+        return self._actual_hover
+
+
+    def optional_wheelEvent(self, event = False, custom_event = False) -> None:
+        if custom_event:
             # Custom wheel events here.
-            print("whele")
-            return super().wheelEvent(event)
+            print("custom wheel")
+            if event.scan_code == 4287102976:
+                # Scroll down, towards user
+                ...
+            elif event.scan_code == 7864320:
+                # Scroll up, away from the user
+                ...
+            return
 
         # Default wheel event
+        print("default wheel")
         return super().wheelEvent(event)
