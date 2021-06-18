@@ -194,9 +194,13 @@
           "pies": [
             {
               "PieNumber": "1",
-              "function": "sendHotkey",
-              "params": ["ctrl+windows+right"],
-              "label": "move to desktop on right test",
+              "function": "",
+              "params": [],
+              "w_up": ["sendHotkey", ["volume up", 2]],
+              "w_down": ["sendHotkey", ["volume down", 2]],
+              "onPie_w_up": ["sendHotkey", ["volume up"]],
+              "onPie_w_down": ["sendHotkey", ["volume down"]],
+              "label": "Master volume",
               "returnMousePos": 1,
               "icon": "figurethisoutlater.svg",
               "triggerKey": "None"
@@ -205,7 +209,9 @@
               "PieNumber": "2",
               "function": "sendHotkey",
               "params": ["windows+alt+d"],
-              "label": "show Date and Time",
+              "w_up": ["sendHotkey", ["f3"]],
+              "w_down": ["sendHotkey", ["f2"]],
+              "label": "Brightness",
               "returnMousePos": 0,
               "icon": "figurethisoutlater.svg",
               "triggerKey": "None"

@@ -108,22 +108,7 @@ class RadialMenu(QtWidgets.QWidget):
     def addButton(self, name, i):
         btn = Button(name, self.openPieMenu, i, parent=self)
         self._btnList.append(btn)
-        btn.clicked.connect(self.btnAction)
-        btn.clicked.connect(self.kill)
         return btn
-
-    def btnAction(self):
-        # print("button pressed")
-        # print(self.sender().text())
-        pieFunc = self.sender().pieSlice["function"]
-        params = self.sender().pieSlice["params"]
-
-        if pieFunc.lower() == "none":
-            return
-        if pieFunc == "sendKeys": pieFunctions.sendKeys(params)
-        if pieFunc == "sendKeysAHK": pieFunctions.sendKeysTyping(params)
-        if pieFunc == "sendHotkey": pieFunctions.sendHotkey(params)
-
 
     def kill(self):
         self.animGroup.setDirection(QtCore.QAbstractAnimation.Backward)
@@ -318,10 +303,11 @@ class RadialMenu(QtWidgets.QWidget):
     def ll_wheel_event(self, event):
         for btn in self._btnList:
             if btn.isHovered():
-                if (btn.pie.get("w_up") or btn.pie.get("w_down")) and not btn.is_actually_hovered():
-                    btn.optional_wheelEvent(custom_event = event)
-                elif btn.is_actually_hovered() and btn.pie.get("onPie_w_up") == None and btn.pie.get("onPie_w_down") == None:
-                    btn.optional_wheelEvent(custom_event = event)
+                if (btn.pie.get("w_up") or btn.pie.get("w_down")):
+                    if not btn.is_actually_hovered():
+                        btn.optional_wheelEvent(custom_event = event)
+                    elif btn.is_actually_hovered() and btn.pie.get("onPie_w_up") == None and btn.pie.get("onPie_w_down") == None:
+                        btn.optional_wheelEvent(custom_event = event)
                 break
                 
     def launchByTrigger(self, counter):
@@ -346,6 +332,10 @@ class Button(QtWidgets.QPushButton):
 
         if self.pie.get("onPie_w_up") or self.pie.get("onPie_w_down"):
             self.wheelEvent = self.optional_wheelEvent
+
+        
+        self.clicked.connect(self.btnAction)
+        self.clicked.connect(self.parent().kill)
 
         self.opacityEffect = QtWidgets.QGraphicsOpacityEffect(self, opacity=1.0)
         self.setGraphicsEffect(self.opacityEffect)
@@ -416,15 +406,43 @@ class Button(QtWidgets.QPushButton):
         if custom_event:
             event = custom_event
             # Custom wheel events here.
-            print("custom wheel")
-            if event.scan_code == 4287102976:
-                # Scroll down, towards user
-                ...
-            elif event.scan_code == 7864320:
-                # Scroll up, away from the user
-                ...
+            if event.scan_code == 7864320 and self.pie.get("w_up"):
+                # Scroll up(7864320), away from the user
+                self.run_pie_function(wheel=self.pie.get("w_up"))
+            elif event.scan_code == 4287102976 and self.pie.get("w_down"):
+                # Scroll down(4287102976), towards user
+                self.run_pie_function(wheel=self.pie.get("w_down"))
             return
 
         # Default wheel event
-        print("default wheel")
+        if event.angleDelta().y() > 0 and self.pie.get("onPie_w_up"):
+            # Scroll up, away from the user
+            self.run_pie_function(wheel=self.pie.get("onPie_w_up"))
+
+        elif event.angleDelta().y() < 0 and self.pie.get("onPie_w_down"):
+            # Scroll down, towards user
+            self.run_pie_function(wheel=self.pie.get("onPie_w_down"))
+
         return super().wheelEvent(event)
+
+    def btnAction(self):
+        # print("button pressed")
+        # print(self.sender().text())
+        # pie_func = self.sender().pieSlice["function"]
+        # params = self.sender().pieSlice["params"]
+        self.run_pie_function()
+
+    def run_pie_function(self, wheel = False):
+
+        if wheel:
+            pie_func, params = wheel
+            # print(pie_func, params)
+        else:
+            pie_func = self.pieSlice["function"]
+            params = self.pieSlice["params"]
+
+        if pie_func.lower() == "none" or not pie_func:
+            return
+        if pie_func == "sendKeys": pieFunctions.sendKeys(params)
+        if pie_func == "sendKeysAHK": pieFunctions.sendKeysTyping(params)
+        if pie_func == "sendHotkey": pieFunctions.sendHotkey(params)

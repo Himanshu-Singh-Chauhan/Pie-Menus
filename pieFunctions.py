@@ -1,3 +1,4 @@
+from time import sleep
 import keyboard
 # as of now, recieving all params as one list in one var
 # receive them directly as parameters
@@ -13,11 +14,13 @@ def sendKeysTyping(params):
         keyboard.write(ch)
 
 def sendHotkey(params):
-    params = params[0]
-    keyboard.send(params)
+    hotkey = params[0]
 
+    try: repeat_count = params[1]
+    except: repeat_count = 1
+
+    for _ in range(int(repeat_count)):
+        keyboard.send(hotkey)
 
 def runScript(params):
     pass
-
-
