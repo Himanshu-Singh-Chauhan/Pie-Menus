@@ -83,8 +83,6 @@ class RadialMenu(QtWidgets.QWidget):
         self.settings = settings
         self.globalSettings = globalSettings
         self.setGeometry(self.parent().rect())
-        # self._outRadius = 100
-        # self._inRadius = 15
         self._inRadius, self._outRadius = list(map(float, openPieMenu["in_out_radius"].split("_")))
         self._btnList = []
         self._selectedBtn = None
@@ -94,7 +92,6 @@ class RadialMenu(QtWidgets.QWidget):
 
         self.openPieMenu = openPieMenu
             
-        # self._summonPosition = QtCore.QPoint(summonPosition.x(), summonPosition.y())
         self._summonPosition = self.parent().mapFromGlobal(summonPosition)
         self._currentMousePos = QtCore.QPoint(self._summonPosition)
 
@@ -113,9 +110,6 @@ class RadialMenu(QtWidgets.QWidget):
         self._btnList.append(btn)
         btn.clicked.connect(self.btnAction)
         btn.clicked.connect(self.kill)
-        # btn.animateClick()
-        # btn.gestureClick()
-        # print("yoyo")
         return btn
 
     def btnAction(self):
@@ -336,18 +330,19 @@ class RadialMenu(QtWidgets.QWidget):
 class Button(QtWidgets.QPushButton):
     def __init__(self, name, openPieMenu, i, parent=None):
         super().__init__(name, parent=parent)
-        self.setMouseTracking(True)
 
-        self.pie = openPieMenu["pies"][i]
+        self.pie = self.pieSlice = openPieMenu["pies"][i]        
+
+        self.setMouseTracking(True)
+        self._hoverEnabled = False
+        self._pressEnabled = False
+        self._actual_hover = False # this determines wheather mouse is actually on button or not.
+        self.targetPos = self.pos()
 
         if not openPieMenu["theme"]:
             self.setStyleSheet(pie_themes.dhalu_theme)
         else:
             self.setStyleSheet(pie_themes[openPieMenu["theme"]])
-
-        self._hoverEnabled = False
-        self._pressEnabled = False
-        self._actual_hover = False # this determines wheather mouse is actually on button or not.
 
         if self.pie.get("onPie_w_up") or self.pie.get("onPie_w_down"):
             self.wheelEvent = self.optional_wheelEvent
@@ -357,16 +352,6 @@ class Button(QtWidgets.QPushButton):
         # keep the buttons always enabled even before the animation to speed up things
         # so don't uncomment the following line
         # self.setEnabled(False)
-        self.targetPos = self.pos()
-
-        self.pieSlice = openPieMenu["pies"][i]
-
-        # Beta Stuff
-        self._animation = QVariantAnimation(startValue=0.0)
-        self._animation.valueChanged.connect(self._handle_valueChanged)
-        self._animation.finished.connect(self._handle_finished)
-        self._animation.setDuration(600)
-        self._radius = 0
 
 
     def setHover(self, value):
@@ -375,7 +360,6 @@ class Button(QtWidgets.QPushButton):
             self.setProperty("hover", value)            
             self.style().unpolish(self)
             self.style().polish(self)
-            # self._start_animation()
 
     def isHovered(self):
         return self._hoverEnabled
@@ -397,18 +381,18 @@ class Button(QtWidgets.QPushButton):
         self.parallelAnim = QtCore.QParallelAnimationGroup()
 
         self.posAnim = QtCore.QPropertyAnimation(self, b"pos")
-        self.posAnim.setDuration(duration)
-        self.posAnim.setEasingCurve(QtCore.QEasingCurve.InSine)
         self.posAnim.setStartValue(startPos)
         self.posAnim.setEndValue(endPos)
+        self.posAnim.setDuration(duration)
+        self.posAnim.setEasingCurve(QtCore.QEasingCurve.InSine)
+        self.posAnim.setEasingCurve(QtCore.QEasingCurve.OutQuad)
 
         self.opacityAnim = QtCore.QPropertyAnimation(self.opacityEffect, b"opacity")
-        self.opacityAnim.setDuration(duration)
-        self.posAnim.setEasingCurve(QtCore.QEasingCurve.OutQuad)
         self.opacityAnim.setStartValue(0)
         self.opacityAnim.setEndValue(1)
+        self.opacityAnim.setDuration(duration)
 
-        # self.parallelAnim.addAnimation(self.posAnim)
+        self.parallelAnim.addAnimation(self.posAnim)
         self.parallelAnim.addAnimation(self.opacityAnim)
         if start:
             self.parallelAnim.start()
@@ -416,34 +400,6 @@ class Button(QtWidgets.QPushButton):
         return [self.posAnim, self.opacityAnim]
 
 
-    # Beta Stuff
-    def _start_animation(self):
-        self._animation.setDirection(QVariantAnimation.Forward)
-        self._animation.setEndValue(self.width() / 1.0)
-        self._animation.start()
-
-    def _handle_valueChanged(self, value):
-        self._radius = value
-        self.update()
-
-        
-    def _handle_finished(self):
-        # self._animation.setDirection(QVariantAnimation.Backward)
-        # self._animation.start()
-        self._radius = 0
-        self.update()
-
-    def paintEvent(self, event):
-        super().paintEvent(event)
-        if self._radius:
-            qp = QPainter(self)
-            qp.setBrush(QColor(249, 229, 6, 45))
-            qp.setPen(Qt.NoPen)
-            qp.drawEllipse(self.rect().center(), self._radius, self._radius)
-            # qp.drawText(self.rect().center(),self.text)
-            # qp.drawEllipse(QPoint(self.x, self.y), self._radius, self._radius)
-
-    
     def enterEvent(self, event) -> None:
         self._actual_hover = True
         # return super().enterEvent(event)
@@ -458,6 +414,7 @@ class Button(QtWidgets.QPushButton):
 
     def optional_wheelEvent(self, event = False, custom_event = False) -> None:
         if custom_event:
+            event = custom_event
             # Custom wheel events here.
             print("custom wheel")
             if event.scan_code == 4287102976:

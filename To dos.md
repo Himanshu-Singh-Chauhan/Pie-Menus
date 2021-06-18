@@ -9,7 +9,8 @@
 - [ ] Android like toast messege, on errors, exceptions, volume up and down, bg tasks, way to use and limitations of pie menus.
 - [ ] wheel up and down on pie slices
 - [ ] toast messages with icons
-- [ ] if mouse is out of certain radius, kill pie menus, take care of padding. only if maya marking rope is disabled, define radius in only global, not per.
+
+  if mouse is out of certain radius, kill pie menus, take care of padding. only if maya marking rope is disabled, define radius in only global, not per.
 - [ ] if mouse goes out of certain rectangular radius of context menu, kill it. only global settings.
 - [ ] Add capslock key remaping just like that ahk script.
 - [ ] improve window change detection function, maybe its working extra stuff not required, (maybe nothing can be improved more, it is what it is.)

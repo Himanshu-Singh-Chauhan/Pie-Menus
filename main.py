@@ -296,7 +296,7 @@ class ActiveProfile:
             self.resetAttributesOnMenuClose()
 
         if self.isWheel:
-            window.ll_wheel_event(self.isWheel[0])
+            window.ll_wheel_event(self.isWheel)
             self.isWheel = False
 
     def menuCancel(self):
