@@ -42,3 +42,8 @@ https://www.geeksforgeeks.org/handling-a-threads-exception-in-the-caller-thread-
 
 [WM_MOUSEWHEEL message (Winuser.h) - Win32 apps | Microsoft Docs](https://docs.microsoft.com/en-us/windows/win32/inputdev/wm-mousewheel)
 
+[python - How to generate keyboard events? - Stack Overflow](https://stackoverflow.com/questions/13564851/how-to-generate-keyboard-events)
+
+[Basic Incremental Laptop Brightness Up/Down - AutoHotkey Community](https://www.autohotkey.com/boards/viewtopic.php?t=83382)
+
+[Windows screen brightness fine tune (autohotkey) (github.com)](https://gist.github.com/krrr/3c3f1747480189dbb71f)

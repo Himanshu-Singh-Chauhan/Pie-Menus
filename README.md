@@ -1,3 +1,5 @@
+<p align = "center"><a href = "C:\Users\S\Desktop\Project Pie Menus Qt\resources\readme_banner.png" alt="Pie menus banner"></a></p>
+
 # Pie_Menus for windows
 
 
