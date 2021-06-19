@@ -1,4 +1,4 @@
-<p align = "center"><a href = "C:\Users\S\Desktop\Project Pie Menus Qt\resources\readme_banner.png" alt="Pie menus banner"></a></p>
+<p align = "center"><a><img src="https://github.com/Himanshu-Singh-Chauhan/Pie-Menus/blob/main/resources/readme_banner.png" alt=Pie menus banner"></a></p>
 
 # Pie_Menus for windows
 
