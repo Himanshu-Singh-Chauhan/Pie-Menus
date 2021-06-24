@@ -1,0 +1,2 @@
+when taskbar groups multiple intances of single app, then click on that group shows thumbnails of all windows to choose from.
+if you click on group while holding ctrl, it will switch to last active window in group

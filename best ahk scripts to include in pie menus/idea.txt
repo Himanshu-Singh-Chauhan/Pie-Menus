@@ -1,0 +1,5 @@
+alt P is shortcut in explorer to toggle preview pane, 
+
+remap it to space, only in explorer
+
+so if someone dont want to run heavy quicklook apps, they atleast use this.

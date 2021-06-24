@@ -90,11 +90,11 @@ class ActiveProfile:
         mousehook.mouseHandlers.append(self.reg_low_level_mouse_event)
 
         # Timers
-        self.timerKeyHeld = QTimer()
-        self.timerKeyHeld.timeout.connect(self.checkHeldKeyReleased)
-        self.timerKeyHeld.timeout.connect(self.isTKeyEvent)
-        self.timerKeyHeld.timeout.connect(self.low_level_mouse_event)
-        self.timerKeyHeld.timeout.connect(self.menuCancel)
+        self.hasdf = QTimer()
+        self.hasdf.timeout.connect(self.checkHeldKeyReleased)
+        self.hasdf.timeout.connect(self.isTKeyEvent)
+        self.hasdf.timeout.connect(self.low_level_mouse_event)
+        self.hasdf.timeout.connect(self.menuCancel)
         self.timer_checkKeyHeld = QTimer()
         self.timer_checkKeyHeld.timeout.connect(self.checkKeyHeld)
         self.waitHKey = QTimer()
