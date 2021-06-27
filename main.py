@@ -90,11 +90,11 @@ class ActiveProfile:
         mousehook.mouseHandlers.append(self.reg_low_level_mouse_event)
 
         # Timers
-        self.hasdf = QTimer()
-        self.hasdf.timeout.connect(self.checkHeldKeyReleased)
-        self.hasdf.timeout.connect(self.isTKeyEvent)
-        self.hasdf.timeout.connect(self.low_level_mouse_event)
-        self.hasdf.timeout.connect(self.menuCancel)
+        self.timerKeyHeld = QTimer()
+        self.timerKeyHeld.timeout.connect(self.checkHeldKeyReleased)
+        self.timerKeyHeld.timeout.connect(self.isTKeyEvent)
+        self.timerKeyHeld.timeout.connect(self.low_level_mouse_event)
+        self.timerKeyHeld.timeout.connect(self.menuCancel)
         self.timer_checkKeyHeld = QTimer()
         self.timer_checkKeyHeld.timeout.connect(self.checkKeyHeld)
         self.waitHKey = QTimer()
@@ -229,8 +229,9 @@ class ActiveProfile:
 
         if IS_MULTI_MONITOR_SETUP:
             mon_manager.move_to_active_screen(cursorpos, window)
-        window.showFullScreen()
-        win32gui.SetForegroundWindow(self.handle_foreground) 
+            window.showFullScreen()
+            win32gui.SetForegroundWindow(self.handle_foreground)
+
         self.isMenuOpen = True
         window.showMenu(self.openPieMenu, cursorpos)
         self.loadTriggerKeys()
@@ -399,6 +400,11 @@ def detectWindowChange():
         activeProfile.changeDetected(activeWindow, activeTittle, handle_foreground)
     
 
+def detectMonitorChange():
+    if IS_MULTI_MONITOR_SETUP:
+        if mon_manager.move_to_active_screen(cursorpos, window) == "no_change":
+            return
+        window.showFullScreen()
 
 # Json settings loading
 script_dir = os.path.dirname(__file__)
@@ -542,6 +548,7 @@ trayWidgetQT.setStyleSheet(tray_theme.QMenu)
 trayWidget.show()
 
 window = Window(settings, globalSettings)
+window.showFullScreen()
 
 # Qt warning messages handler installing
 QtCore.qInstallMessageHandler(qt_message_handler)

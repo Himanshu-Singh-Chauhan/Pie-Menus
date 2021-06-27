@@ -26,6 +26,7 @@ class Monitor_Manager:
             self.primary_screen = screens[0]
         self.screens = screens
         self.active_screen = self.primary_screen
+        self.last_active_screen = self.primary_screen
         screens_count = len(screens)
 
     def get_desktop_area(self) -> int:
@@ -50,12 +51,14 @@ class Monitor_Manager:
         if not active_screen:
             active_screen = self.primary_screen
 
+        self.last_active_screen = self.active_screen
         self.active_screen = active_screen
 
         return active_screen
 
     def move_to_active_screen(self, cursorpos, window):
-        self.get_active_screen(cursorpos)
+        if self.get_active_screen(cursorpos) == self.last_active_screen:
+            return "no_change"
         top_lx, top_ly, width, height = self.active_screen.geometry().getRect()
         try:
             window.showNormal()
