@@ -153,23 +153,6 @@ class RadialMenu(QtWidgets.QWidget):
     def animFinished(self):
         self._animFinished=True
 
-    # def tempsetButtonsPositions(self):
-    #     counter = 0
-    #     for btn in self._btnList:
-    #         labelRadius = 100
-    #         labelTheta = (((counter-1)*(360/self.openPieMenu["numSlices"]))+(180/self.openPieMenu["numSlices"]+1))
-    #         x = round((labelRadius*cos((labelTheta-90)*0.01745329252)))
-    #         y = round((labelRadius*sin((labelTheta-90)*0.01745329252)))
-    #         if 0.1 < labelTheta < 179.9:
-    #             labelAnchor = "left"
-    #         elif 180.1 < labelTheta < 359.9:
-    #             labelAnchor = "right"
-    #         elif labelTheta == (labelTheta % 360):
-    #             labelAnchor = "top"
-    #         else:
-    #             labelAnchor = "bottom"
-    #             btn.move(ceil(x), ceil(y))
-    #         counter += 1
 
     def setButtonsPositions(self):
         counter = 0
@@ -193,10 +176,10 @@ class RadialMenu(QtWidgets.QWidget):
             if abs(int(line.p2().y())- self._summonPosition.y()) < 3:
                 pass
             elif int(line.p2().y()) < self._summonPosition.y():
-                if line.angle() % 90 == 0:
+                if round(line.angle() % 90) == 0:
                     pos.setY(btn.rect().height())
             else:
-                if line.angle() % 90 == 0:
+                if round(line.angle() % 90) == 0:
                     pos.setY(btn.rect().y())
 
             btn.move(line.p2().toPoint()-pos)
@@ -209,22 +192,38 @@ class RadialMenu(QtWidgets.QWidget):
         maxX = self.rect().width() - minSpaceToBorder
         maxY = self.rect().height() - minSpaceToBorder
 
-        # Guess the button position
-        # print(self._btnList[0].x())
+        angle = 360/len(self._btnList)
+        line = QtCore.QLineF(self._summonPosition, self._summonPosition - QtCore.QPoint(0, self._outRadius))
+        counter = 0
+        offset_angle = -1 * self.openPieMenu["offset_angle"]
+
         _minX = _minY = _maxX = _maxY = self._btnList[0]
+
+        self.setButtonsPositions()
+        # Guess the button position
         for btn in self._btnList:
-            if _minX.pos().x() > btn.pos().x():
-                _minX = btn
+            if counter == 0:
+                line.setAngle(line.angle() + offset_angle)
+            else:
+                line.setAngle(line.angle() + angle + offset_angle)
+
+            if line.angle() < 89 or line.angle() > 271:
+                if _maxX.pos().x() + _maxX.width() < btn.pos().x() + btn.width():
+                    _maxX = btn
+            elif line.angle() > 91 and line.angle() < 269:
+                if _minX.width() < btn.width():
+                    _minX = btn
+
+            counter += 1
+
             if _minY.pos().y() > btn.pos().y():
                 _minY = btn
-            if _maxX.pos().x() + _maxX.width() < btn.pos().x() + btn.width():
-                _maxX = btn
             if _maxY.pos().y() + _maxY.height() < btn.pos().y() + btn.height():
                 _maxY = btn
         
         minX = minSpaceToBorder + _minX.width()
         minY = minSpaceToBorder + _minY.height()
-        maxX = maxX - _minX.width()
+        maxX = maxX - _maxX.width()
         maxY = maxY - _maxY.height()
 
         if pos.x() < minX:
