@@ -17,14 +17,14 @@
           "restoreOriginalPosition": "useGlobal",
           "numSlices"              : 8,
           "offset_angle"           : 0,
-          "offset_pies"            : 2,
+          "offset_pies"            : 6,
           "triggerKeysActive"      : true,
           "pies"                   : [
             {
               "PieNumber"          : "1",
               "function"           : "sendHotkey",
               "params"             : ["ctrl+windows+right"],
-              "label"              : "move to desktop on rightasdfasdfasdfasdsdfasdfadsafasdf",
+              "label"              : "move to desktop on right",
               "returnMousePos"     : 1,
               "icon"               : "figurethisoutlater.svg",
               "triggerKey"         : "None"

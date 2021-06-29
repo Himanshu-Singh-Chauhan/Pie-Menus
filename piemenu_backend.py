@@ -1,6 +1,6 @@
 from ctypes import windll
-from PySide2.QtCore import QTimer, QVariantAnimation, Qt
-from PySide2.QtGui import QColor, QCursor, QPainter
+from PySide2.QtCore import QSize, QTimer, QVariantAnimation, Qt
+from PySide2.QtGui import QColor, QCursor, QIcon, QPainter
 from PySide2.QtWidgets import QWidget
 from PySide2 import QtGui, QtWidgets, QtCore
 import sys
@@ -137,7 +137,6 @@ class RadialMenu(QtWidgets.QWidget):
         self._summonPosition = self.fixSummonPosition(self._summonPosition)
         self._currentMousePos = QtCore.QPoint(self._summonPosition)
         self.setButtonsPositions()
-        # self.tempsetButtonsPositions()
         
         self.animGroup = QtCore.QParallelAnimationGroup()
         for btn in self._btnList:
@@ -199,7 +198,7 @@ class RadialMenu(QtWidgets.QWidget):
 
         _minX = _minY = _maxX = _maxY = self._btnList[0]
 
-        self.setButtonsPositions()
+        # self.setButtonsPositions() # uncomment this if you can't live with few pixels off in right side padding
         # Guess the button position
         for btn in self._btnList:
             if counter == 0:
@@ -372,6 +371,8 @@ class Button(QtWidgets.QPushButton):
         self._pressEnabled = False
         self._actual_hover = False # this determines wheather mouse is actually on button or not.
         self.targetPos = self.pos()
+        self.setIcon(QIcon('right_icon.svg'))
+        self.setIconSize(QSize(20, 20))
 
         if not openPieMenu["theme"]:
             self.setStyleSheet(pie_themes.dhalu_theme)
