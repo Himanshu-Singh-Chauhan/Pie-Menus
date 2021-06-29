@@ -227,10 +227,7 @@ class ActiveProfile:
         cursorpos = QCursor.pos()
         self.init_cursorpos = cursorpos
 
-        if IS_MULTI_MONITOR_SETUP:
-            mon_manager.move_to_active_screen(cursorpos, window)
-            window.showFullScreen()
-            win32gui.SetForegroundWindow(self.handle_foreground)
+        detectMonitorChange(cursorpos, self.handle_foreground)
 
         self.isMenuOpen = True
         window.showMenu(self.openPieMenu, cursorpos)
@@ -400,11 +397,13 @@ def detectWindowChange():
         activeProfile.changeDetected(activeWindow, activeTittle, handle_foreground)
     
 
-def detectMonitorChange():
+def detectMonitorChange(cursorpos, handle_foreground):
     if IS_MULTI_MONITOR_SETUP:
         if mon_manager.move_to_active_screen(cursorpos, window) == "no_change":
             return
         window.showFullScreen()
+        win32gui.SetForegroundWindow(handle_foreground)
+
 
 # Json settings loading
 script_dir = os.path.dirname(__file__)

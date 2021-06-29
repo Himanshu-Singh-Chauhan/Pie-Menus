@@ -73,9 +73,9 @@ theme.whatsapp_green = """
             color: rgb(6, 210, 83);
             background-color: white;
             outline: none;
-            font-size: 16px;
+            font-size: 19px;
             font-weight: 400;
-            padding: 7px 15px 7px 15px;
+            padding: 3px 15px 3px 15px;
             min-width: 10px;
             min-height: 10px;
             border: 1px solid rgb(6, 210, 83);
@@ -140,6 +140,7 @@ tray_theme.QMenu = """
             }
 
             QMenu::item {
+                color: black;
                 padding: 8px 78px 8px 26px;
                 background-color: transparent;
                 margin: 6px 0 6px 0;

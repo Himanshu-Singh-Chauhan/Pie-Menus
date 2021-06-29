@@ -13,12 +13,21 @@ from time import sleep
 from dotmap import DotMap
 from settings.pie_themes import pie_themes, tray_theme
 
+from math import sin, cos, ceil
 
 transparent = QtGui.QColor(255, 255, 255, 0)
 
 
 def getWidgetCenterPos(widget):
-    return QtCore.QPoint((widget.rect().width() - widget.rect().x())/2, (widget.rect().height() - widget.rect().y())/2)
+    # if widget.rect().x() > 0:
+    #     print(f"{widget.rect().x() = }")
+    # if widget.rect().y() > 0:
+    #     print(f"{widget.rect().y() = }")
+    # x() and y() are always, always zero. 🤷‍♂️🤷‍♂️ check with above if's.
+    # so I am now commenting following line and will be removed after some time.
+    # return QtCore.QPoint((widget.rect().width() - widget.rect().x())/2, (widget.rect().height() - widget.rect().y())/2)
+    print(QtCore.QPoint(widget.rect().width()/2, widget.rect().height()/2))
+    return QtCore.QPoint(widget.rect().width()/2, widget.rect().height()/2)
 
 
 class Window(QtWidgets.QWidget):
@@ -88,7 +97,7 @@ class RadialMenu(QtWidgets.QWidget):
         self._selectedBtn = None
         self._mousePressed = False
         self._animFinished = False
-        self._debugDraw = False
+        self._debugDraw = True
 
         self.openPieMenu = openPieMenu
             
@@ -123,6 +132,7 @@ class RadialMenu(QtWidgets.QWidget):
         self._summonPosition = self.fixSummonPosition(self._summonPosition)
         self._currentMousePos = QtCore.QPoint(self._summonPosition)
         self.setButtonsPositions()
+        # self.tempsetButtonsPositions()
         
         self.animGroup = QtCore.QParallelAnimationGroup()
         for btn in self._btnList:
@@ -138,11 +148,35 @@ class RadialMenu(QtWidgets.QWidget):
     def animFinished(self):
         self._animFinished=True
 
+    # def tempsetButtonsPositions(self):
+    #     counter = 0
+    #     for btn in self._btnList:
+    #         labelRadius = 100
+    #         labelTheta = (((counter-1)*(360/self.openPieMenu["numSlices"]))+(180/self.openPieMenu["numSlices"]+1))
+    #         x = round((labelRadius*cos((labelTheta-90)*0.01745329252)))
+    #         y = round((labelRadius*sin((labelTheta-90)*0.01745329252)))
+    #         if 0.1 < labelTheta < 179.9:
+    #             labelAnchor = "left"
+    #         elif 180.1 < labelTheta < 359.9:
+    #             labelAnchor = "right"
+    #         elif labelTheta == (labelTheta % 360):
+    #             labelAnchor = "top"
+    #         else:
+    #             labelAnchor = "bottom"
+    #             btn.move(ceil(x), ceil(y))
+    #         counter += 1
+
     def setButtonsPositions(self):
         counter = 0
+        offset_angle = -1 * self.openPieMenu["offset_angle"]
+        angle = 360/len(self._btnList)
+        line = QtCore.QLineF(self._summonPosition, self._summonPosition - QtCore.QPoint(0, self._outRadius))
         for btn in self._btnList:
-            line = QtCore.QLineF(self._summonPosition, self._summonPosition+QtCore.QPoint(self._outRadius, 0))
-            line.setAngle(counter*(360/len(self._btnList)))
+            if counter == 0:
+                line.setAngle(line.angle() + offset_angle)
+            else:
+                line.setAngle(line.angle() + angle + offset_angle)
+                
             pos = getWidgetCenterPos(btn)
             if abs(int(line.p2().x())- self._summonPosition.x()) < 3:
                 pass
@@ -154,9 +188,11 @@ class RadialMenu(QtWidgets.QWidget):
             if abs(int(line.p2().y())- self._summonPosition.y()) < 3:
                 pass
             elif int(line.p2().y()) < self._summonPosition.y():
-                pos.setY(btn.rect().height())
+                if line.angle() % 90 == 0:
+                    pos.setY(btn.rect().height())
             else:
-                pos.setY(btn.rect().y())
+                if line.angle() % 90 == 0:
+                    pos.setY(btn.rect().y())
 
             btn.move(line.p2().toPoint()-pos)
             btn.targetPos = line.p2().toPoint()
@@ -197,7 +233,10 @@ class RadialMenu(QtWidgets.QWidget):
         return pos
 
     def globalMouseMoveEvent(self):
+        last_pos = self._currentMousePos
         self._currentMousePos = self.parent().mapFromGlobal(QCursor.pos())
+        if last_pos == self._currentMousePos:
+            return
         self.update()
 
 
