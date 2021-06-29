@@ -1,9 +1,10 @@
 from dotmap import DotMap
 
 pie_themes = DotMap()
-theme = pie_themes # alias
-
+pie_selection_theme = DotMap()
 tray_theme = DotMap()
+
+theme = pie_themes # alias
 
 
 pie_themes.default_theme = """
@@ -98,6 +99,20 @@ theme.whatsapp_green = """
 theme.simple_box_theme = """ """
 
 
+# Inner circle and line theme
+pie_selection_theme.default = {
+    "bg_circle": "#f9e506",
+    "fg_circle": "#FF0044",
+    "thickness": 8
+}
+
+pie_selection_theme.whatsapp_green = {
+    "bg_circle": "#ffffff",
+    "fg_circle": "#00e106",
+    "thickness": 8
+}
+
+# Testing and debugging themes
 theme.testing_theme = """
         QPushButton {
             background-color: palegoldenrod;

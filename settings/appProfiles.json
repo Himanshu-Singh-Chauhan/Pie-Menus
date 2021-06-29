@@ -11,13 +11,13 @@
           "hotkey"                 : "`",
           "theme"                  : "",
           "in_out_radius"          : "15_115",
-          "thickness"              : 5,
           "hold"                   : 0,
           "holdOpenOverride"       : 0,
           "labelDelay"             : 5,
           "restoreOriginalPosition": "useGlobal",
           "numSlices"              : 8,
-          "offset_angle"           : 1,
+          "offset_angle"           : 0,
+          "offset_pies"            : 6,
           "triggerKeysActive"      : true,
           "pies"                   : [
             {
@@ -181,13 +181,13 @@
           "hotkey"                 : "z",
           "theme"                  : "whatsapp_green",
           "in_out_radius"          : "15_115",
-          "thickness"              : 5,
           "hold"                   : 0,
           "holdOpenOverride"       : 0,
           "labelDelay"             : 5,
           "restoreOriginalPosition": "useGlobal",
           "numSlices"              : 8,
-          "offset_angle"           : 1,
+          "offset_angle"           : 0,
+          "offset_pies"            : 7,
           "triggerKeysActive"      : true,
           "pies"                   : [
             {
@@ -204,12 +204,10 @@
               "triggerKey"         : "None"
             },
             {
-              "PieNumber"          : "2",
+              "PieNumber"          : "4",
               "function"           : "sendHotkey",
-              "params"             : ["windows+alt+d"],
-              "w_up"               : ["sendHotkey", ["f3"]],
-              "w_down"             : ["sendHotkey", ["f2"]],
-              "label"              : "      Brightness      ",
+              "params"             : ["f2"],
+              "label"              : "Rename - F2",
               "returnMousePos"     : 0,
               "icon"               : "figurethisoutlater.svg",
               "triggerKey"         : "None"
@@ -224,10 +222,12 @@
               "triggerKey"         : "None"
             },
             {
-              "PieNumber"          : "4",
+              "PieNumber"          : "2",
               "function"           : "sendHotkey",
-              "params"             : ["f2"],
-              "label"              : "Rename - F2",
+              "params"             : ["windows+alt+d"],
+              "w_up"               : ["sendHotkey", ["f3"]],
+              "w_down"             : ["sendHotkey", ["f2"]],
+              "label"              : "      Brightness      ",
               "returnMousePos"     : 0,
               "icon"               : "figurethisoutlater.svg",
               "triggerKey"         : "None"
@@ -283,7 +283,6 @@
           "hotkey"                 : "1",
           "theme"                  : "",
           "in_out_radius"          : "22_100",
-          "thickness"              : 10,
           "hold"                   : 0,
           "holdOpenOverride"       : 0,
           "labelDelay"             : 5,

@@ -11,7 +11,7 @@ import keyboard
 import pieFunctions
 from time import sleep
 from dotmap import DotMap
-from settings.pie_themes import pie_themes, tray_theme
+from settings.pie_themes import pie_themes, tray_theme, pie_selection_theme
 
 from math import sin, cos, ceil
 
@@ -26,7 +26,6 @@ def getWidgetCenterPos(widget):
     # x() and y() are always, always zero. 🤷‍♂️🤷‍♂️ check with above if's.
     # so I am now commenting following line and will be removed after some time.
     # return QtCore.QPoint((widget.rect().width() - widget.rect().x())/2, (widget.rect().height() - widget.rect().y())/2)
-    print(QtCore.QPoint(widget.rect().width()/2, widget.rect().height()/2))
     return QtCore.QPoint(widget.rect().width()/2, widget.rect().height()/2)
 
 
@@ -97,7 +96,7 @@ class RadialMenu(QtWidgets.QWidget):
         self._selectedBtn = None
         self._mousePressed = False
         self._animFinished = False
-        self._debugDraw = True
+        self._debugDraw = False
 
         self.openPieMenu = openPieMenu
             
@@ -108,14 +107,20 @@ class RadialMenu(QtWidgets.QWidget):
         self.global_mouse_timer.timeout.connect(self.globalMouseMoveEvent)
         self.global_mouse_timer.start(5)
 
-        for i in range(int(openPieMenu["numSlices"])):
-            pie_label = f'{openPieMenu["pies"][i]["label"]}'
-            if globalSettings["showTKeyHint"] and not (openPieMenu["pies"][i]["triggerKey"] == "None"):
-                pie_label += ' '*2 + f'( {openPieMenu["pies"][i]["triggerKey"]} )'
-            self.addButton(pie_label, i)
 
-    def addButton(self, name, i):
-        btn = Button(name, self.openPieMenu, i, parent=self)
+        pies = openPieMenu["pies"]
+        pies = pies[ : int(openPieMenu["numSlices"])]
+        if openPieMenu.get("offset_pies"):
+            pies = pies[-1*openPieMenu.get("offset_pies"): ] + pies[ : -1*openPieMenu.get("offset_pies")]
+
+        for pie in pies:
+            pie_label = f'{pie["label"]}'
+            if globalSettings["showTKeyHint"] and not (pie["triggerKey"] == "None"):
+                pie_label += ' '*2 + f'( {pie["triggerKey"]} )'
+            self.addButton(pie_label, pie)
+
+    def addButton(self, name, pie):
+        btn = Button(name, self.openPieMenu, pie, parent=self)
         self._btnList.append(btn)
         return btn
 
@@ -263,11 +268,16 @@ class RadialMenu(QtWidgets.QWidget):
         arcSize = 36
         self._selectedBtn = None
         mouseInCircle = (self._currentMousePos.x() - self._summonPosition.x())**2 + (self._currentMousePos.y() - self._summonPosition.y())**2 < self._inRadius**2
-        bgCirclePen = QtGui.QPen(QtGui.QColor("#f9e506"), 7)
-        fgCirclePen = QtGui.QPen(QtGui.QColor("#FF0044"), 7)  
+        try:
+            selectiontheme = self.openPieMenu.get("theme")
+            bgCirclePen = QtGui.QPen(QtGui.QColor(pie_selection_theme[selectiontheme]["bg_circle"]), pie_selection_theme[selectiontheme]["thickness"])
+            fgCirclePen = QtGui.QPen(QtGui.QColor(pie_selection_theme[selectiontheme]["fg_circle"]), pie_selection_theme[selectiontheme]["thickness"])
+        except:
+            bgCirclePen = QtGui.QPen(QtGui.QColor(pie_selection_theme.default["bg_circle"]), pie_selection_theme.default["thickness"])
+            fgCirclePen = QtGui.QPen(QtGui.QColor(pie_selection_theme.default["fg_circle"]), pie_selection_theme.default["thickness"])
         painter = QtGui.QPainter(self)
         painter.setRenderHint(QtGui.QPainter.Antialiasing, on=True)
-        # highqualityantialising is obselete value now and is ignored 
+        # highqualityantialising is obselete value now and is ignored
         # refer this -> https://doc.qt.io/qtforpython-5/PySide2/QtGui/QPainter.html
         # painter.setRenderHint(QtGui.QPainter.HighQualityAntialiasing, on= True)
         refLine = QtCore.QLineF(self._summonPosition, self._currentMousePos)
@@ -353,10 +363,10 @@ class RadialMenu(QtWidgets.QWidget):
         self._btnList[counter].animateClick()
 
 class Button(QtWidgets.QPushButton):
-    def __init__(self, name, openPieMenu, i, parent=None):
+    def __init__(self, name, openPieMenu, pie, parent=None):
         super().__init__(name, parent=parent)
 
-        self.pie = self.pieSlice = openPieMenu["pies"][i]        
+        self.pie = self.pieSlice = pie
 
         self.setMouseTracking(True)
         self._hoverEnabled = False
