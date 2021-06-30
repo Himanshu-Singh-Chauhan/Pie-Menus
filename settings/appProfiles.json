@@ -26,7 +26,7 @@
               "params"             : ["ctrl+windows+right"],
               "label"              : "move to desktop on right",
               "returnMousePos"     : 1,
-              "icon"               : "figurethisoutlater.svg",
+              "icon"               : "right_icon.svg",
               "triggerKey"         : "None"
             },
             {
@@ -35,7 +35,6 @@
               "params"             : ["windows+alt+d"],
               "label"              : "show Date and Time",
               "returnMousePos"     : 0,
-              "icon"               : "figurethisoutlater.svg",
               "triggerKey"         : "None"
             },
             {
@@ -44,7 +43,7 @@
               "params"             : ["windows+d"],
               "label"              : "show Desktop",
               "returnMousePos"     : 0,
-              "icon"               : "figurethisoutlater.svg",
+              "icon"               : false,
               "triggerKey"         : "None"
             },
             {
@@ -179,7 +178,7 @@
           "menu_name"              : "",
           "enable"                 : 1,
           "hotkey"                 : "z",
-          "theme"                  : "whatsapp_green",
+          "theme"                  : "testing_theme",
           "in_out_radius"          : "15_115",
           "hold"                   : 0,
           "holdOpenOverride"       : 0,
@@ -189,6 +188,7 @@
           "offset_angle"           : 0,
           "offset_pies"            : 7,
           "triggerKeysActive"      : true,
+          "svg_nohover_hover"      : "#ffffff_#000000",
           "pies"                   : [
             {
               "PieNumber"          : "1",
@@ -227,7 +227,7 @@
               "params"             : ["windows+alt+d"],
               "w_up"               : ["sendHotkey", ["f3"]],
               "w_down"             : ["sendHotkey", ["f2"]],
-              "label"              : "      Brightness      ",
+              "label"              : "Brightness",
               "returnMousePos"     : 0,
               "icon"               : "figurethisoutlater.svg",
               "triggerKey"         : "None"

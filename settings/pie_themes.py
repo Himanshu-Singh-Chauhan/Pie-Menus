@@ -68,6 +68,37 @@ theme.dhalu_theme = """
     """
 
 
+theme.partial_invisible = """
+    QPushButton
+            {
+                color: white;
+                /*background-color: rgb(255, 0, 68); this is comment is css*/
+                outline: none;
+                font-size: 16px;
+                font: "Segoe UI";
+                text-decoration: none;
+                font-weight: 400;
+                padding-top: 5px;
+                padding-bottom: 5px;
+                padding-left: 15px;
+                padding-right: 15px;
+                min-width: 10px;
+                min-height: 10px;
+                border-radius: 6px;
+                border: 0px solid;
+            }
+            QPushButton[hover=true]
+            {
+                background-color: #f9e506;
+                color: #000;
+            }
+            QPushButton:pressed, QPushButton[pressed=true]
+            {
+                background-color: #F2FC82;
+            }
+    """
+
+
 theme.whatsapp_green = """
         QPushButton
         {
@@ -114,31 +145,37 @@ pie_selection_theme.whatsapp_green = {
 
 # Testing and debugging themes
 theme.testing_theme = """
-        QPushButton {
-            background-color: palegoldenrod;
-            border-width: 2px;
-            border-color: darkkhaki;
-            border-style: solid;
-            border-radius: 5;
-            padding: 3px;
-            min-width: 9ex;
-            min-height: 2.5ex;
-        }
-
-        QPushButton:hover {
-        background-color: khaki;
-        }
-
-        /* Increase the padding, so the text is shifted when the button is
-        pressed. */
-        QPushButton:pressed {
-            padding-left: 5px;
+        QPushButton
+        {
+            color: black;
+            outline: none;
+            font-size: 16px;
+            font: "Segoe UI";
+            text-decoration: none;
+            font-weight: 400;
             padding-top: 5px;
-            background-color: #d0d67c;
+            padding-bottom: 5px;
+            padding-left: 15px;
+            padding-right: 15px;
+            min-width: 10px;
+            min-height: 10px;
+            border-radius: 6px;
+            border: 0px solid;
+            background-image: url("C:\/Users\/S\/Pictures\/2.png");
         }
-
-        QLabel, QAbstractButton {
-            font: bold;
+        QPushButton[hover=true]
+        {
+            color: white;
+            background: none;
+            background-color: #5051FB;
+        }
+        QPushButton:pressed, QPushButton[pressed=true]
+        {
+            background-color: #F2FC82;
+        }
+        QPushButton::icon {
+            padding-left: 55px;
+            padding-right: 55px;
         }
     """
 

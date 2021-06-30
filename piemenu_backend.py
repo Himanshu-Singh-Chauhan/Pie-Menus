@@ -3,6 +3,8 @@ from PySide2.QtCore import QSize, QTimer, QVariantAnimation, Qt
 from PySide2.QtGui import QColor, QCursor, QIcon, QPainter
 from PySide2.QtWidgets import QWidget
 from PySide2 import QtGui, QtWidgets, QtCore
+import os
+import iconify
 import sys
 import win32gui
 import keyboard
@@ -10,13 +12,29 @@ import keyboard
 # from ctypes import *
 import pieFunctions
 from time import sleep
+# from random import choice, randint
 from dotmap import DotMap
 from settings.pie_themes import pie_themes, tray_theme, pie_selection_theme
 
 from math import sin, cos, ceil
 
+script_dir = os.path.dirname(__file__)
+icons_dir = os.path.join(script_dir, "resources/icons/")
 transparent = QtGui.QColor(255, 255, 255, 0)
 
+
+# import string
+# def get_random_qticon():
+#     pixmap =QtGui.QPixmap(16, 16)
+#     pixmap.fill(Qt.transparent)
+#     painter = QPainter()
+#     painter.begin(pixmap)
+#     painter.setFont(QtGui.QFont('Webdings', 11))
+#     painter.setPen(Qt.GlobalColor(randint(4, 18)))
+#     painter.drawText(0, 0, 16, 16, Qt.AlignCenter,
+#                      choice(string.ascii_letters))
+#     painter.end()
+#     return QIcon(pixmap)
 
 def getWidgetCenterPos(widget):
     # if widget.rect().x() > 0:
@@ -114,13 +132,10 @@ class RadialMenu(QtWidgets.QWidget):
             pies = pies[-1*openPieMenu.get("offset_pies"): ] + pies[ : -1*openPieMenu.get("offset_pies")]
 
         for pie in pies:
-            pie_label = f'{pie["label"]}'
-            if globalSettings["showTKeyHint"] and not (pie["triggerKey"] == "None"):
-                pie_label += ' '*2 + f'( {pie["triggerKey"]} )'
-            self.addButton(pie_label, pie)
+            self.addButton(pie)
 
-    def addButton(self, name, pie):
-        btn = Button(name, self.openPieMenu, pie, parent=self)
+    def addButton(self, pie):
+        btn = Button(self.openPieMenu, pie, self.globalSettings, parent=self)
         self._btnList.append(btn)
         return btn
 
@@ -361,8 +376,12 @@ class RadialMenu(QtWidgets.QWidget):
         self._btnList[counter].animateClick()
 
 class Button(QtWidgets.QPushButton):
-    def __init__(self, name, openPieMenu, pie, parent=None):
-        super().__init__(name, parent=parent)
+    def __init__(self, openPieMenu, pie, globalSettings, parent=None):
+        pie_label = f'{pie["label"]}'
+        if globalSettings["showTKeyHint"] and not (pie["triggerKey"] == "None"):
+            pie_label += ' '*2 + f'( {pie["triggerKey"]} )'
+
+        super().__init__(pie_label, parent=parent)
 
         self.pie = self.pieSlice = pie
 
@@ -371,8 +390,16 @@ class Button(QtWidgets.QPushButton):
         self._pressEnabled = False
         self._actual_hover = False # this determines wheather mouse is actually on button or not.
         self.targetPos = self.pos()
-        self.setIcon(QIcon('right_icon.svg'))
-        self.setIconSize(QSize(20, 20))
+        self.icon = None
+
+        if pie.get("icon"):
+            icon = os.path.join(icons_dir, pie.get("icon"))
+            if not os.path.exists(icon):
+                icon = os.path.join(icons_dir, "default.svg")
+
+            self.setText(globalSettings.get("icon-padding-right") + self.text())
+            self.icon = icon
+            self.setIcon(QIcon(icon))
 
         if not openPieMenu["theme"]:
             self.setStyleSheet(pie_themes.dhalu_theme)
@@ -399,6 +426,9 @@ class Button(QtWidgets.QPushButton):
             self.setProperty("hover", value)            
             self.style().unpolish(self)
             self.style().polish(self)
+
+        if value:
+            
 
     def isHovered(self):
         return self._hoverEnabled

@@ -16,6 +16,8 @@
         "showTKeyHint": false,
         "showOnMonWithCursor": true,
         "showOnMonWithActiveWindow": false,
+        "--this is spacing between icon if set and the text of pie button--": "__comment__",
+        "icon-padding-right": "   ",
         
         "---- Not sure what these do -----": "__comment__",
         "returnMousePosOverride": false,
