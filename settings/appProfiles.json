@@ -26,7 +26,7 @@
               "params"             : ["ctrl+windows+right"],
               "label"              : "move to desktop on right",
               "returnMousePos"     : 1,
-              "icon"               : "right_icon.svg",
+              "icon"               : "arrow-bar-right.svg",
               "triggerKey"         : "None"
             },
             {
@@ -35,6 +35,7 @@
               "params"             : ["windows+alt+d"],
               "label"              : "show Date and Time",
               "returnMousePos"     : 0,
+              "icon"               : "clock.svg",
               "triggerKey"         : "None"
             },
             {
@@ -43,7 +44,7 @@
               "params"             : ["windows+d"],
               "label"              : "show Desktop",
               "returnMousePos"     : 0,
-              "icon"               : false,
+              "icon"               : "monitor.svg",
               "triggerKey"         : "None"
             },
             {
@@ -52,7 +53,7 @@
               "params"             : ["windows+a"],
               "label"              : "show Notifications center",
               "returnMousePos"     : 0,
-              "icon"               : "figurethisoutlater.svg",
+              "icon"               : "notification.svg",
               "triggerKey"         : "None"
             },
             {
@@ -61,7 +62,7 @@
               "params"             : ["ctrl+windows+left"],
               "label"              : "move to desktop on left",
               "returnMousePos"     : 0,
-              "icon"               : "figurethisoutlater.svg",
+              "icon"               : "arrow-bar-left.svg",
               "triggerKey"         : "None"
             },
             {
@@ -70,7 +71,7 @@
               "params"             : ["windows+left"],
               "label"              : "dock window left",
               "returnMousePos"     : 0,
-              "icon"               : "figurethisoutlater.svg",
+              "icon"               : "sidebar-left.svg",
               "triggerKey"         : "None"
             },
             {
@@ -79,7 +80,7 @@
               "params"             : ["F5"],
               "label"              : "Refresh (F5)",
               "returnMousePos"     : 0,
-              "icon"               : "figurethisoutlater.svg",
+              "icon"               : "refresh.svg",
               "triggerKey"         : ","
             },
             {
@@ -88,7 +89,7 @@
               "params"             : ["windows+right"],
               "label"              : "dock window right",
               "returnMousePos"     : 0,
-              "icon"               : "figurethisoutlater.svg",
+              "icon"               : "sidebar-right.svg",
               "triggerKey"         : "2"
             },
             {
@@ -97,7 +98,7 @@
               "params"             : ["Sample text"],
               "label"              : "6 Sample text",
               "returnMousePos"     : 0,
-              "icon"               : "figurethisoutlater.svg",
+              "icon"               : "bear.svg",
               "triggerKey"         : "None"
             },
             {
@@ -199,7 +200,7 @@
               "onPie_w_down"       : ["sendHotkey", ["volume down"]],
               "label"              : "Master volume",
               "returnMousePos"     : 1,
-              "icon"               : "figurethisoutlater.svg",
+              "icon"               : "volume.svg",
               "triggerKey"         : "None"
             },
             {
@@ -208,7 +209,7 @@
               "params"             : ["f2"],
               "label"              : "Rename - F2",
               "returnMousePos"     : 0,
-              "icon"               : "figurethisoutlater.svg",
+              "icon"               : "rename.svg",
               "triggerKey"         : "None"
             },
             {
@@ -217,7 +218,7 @@
               "params"             : ["windows+e"],
               "label"              : "open explorer",
               "returnMousePos"     : 0,
-              "icon"               : "figurethisoutlater.svg",
+              "icon"               : "folder.svg",
               "triggerKey"         : "None"
             },
             {
@@ -228,7 +229,7 @@
               "w_down"             : ["sendHotkey", ["brightness down", 10]],
               "label"              : "Brightness",
               "returnMousePos"     : 0,
-              "icon"               : "tray_icon.ico   ",
+              "icon"               : "brightness.svg",
               "triggerKey"         : "None"
             },
             {
@@ -237,7 +238,7 @@
               "params"             : ["ctrl+c"],
               "label"              : "copy command",
               "returnMousePos"     : 0,
-              "icon"               : "figurethisoutlater.svg",
+              "icon"               : "copy.svg",
               "triggerKey"         : "None"
             },
             {
@@ -246,7 +247,7 @@
               "params"             : ["ctrl+v"],
               "label"              : "paste command",
               "returnMousePos"     : 0,
-              "icon"               : "figurethisoutlater.svg",
+              "icon"               : "clipboard.svg",
               "triggerKey"         : "None"
             },
             {
@@ -255,7 +256,7 @@
               "params"             : ["windows+m"],
               "label"              : "minimise window",
               "returnMousePos"     : 0,
-              "icon"               : "figurethisoutlater.svg",
+              "icon"               : "minimise.svg",
               "triggerKey"         : ","
             },
             {
@@ -264,7 +265,7 @@
               "params"             : ["windows+tab"],
               "label"              : "window and desktop switcher",
               "returnMousePos"     : 0,
-              "icon"               : "figurethisoutlater.svg",
+              "icon"               : "apps.svg",
               "triggerKey"         : "2"
             }
           ]
