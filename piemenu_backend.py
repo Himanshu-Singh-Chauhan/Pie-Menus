@@ -391,13 +391,25 @@ class Button(QtWidgets.QPushButton):
         self._actual_hover = False # this determines wheather mouse is actually on button or not.
         self.targetPos = self.pos()
         self.icon = None
+        self.svg_changes_color = False
 
         if pie.get("icon"):
-            icon = os.path.join(icons_dir, pie.get("icon"))
+            icon = os.path.join(icons_dir, pie.get("icon").strip())
             if not os.path.exists(icon):
                 icon = os.path.join(icons_dir, "default.svg")
 
             self.setText(globalSettings.get("icon-padding-right") + self.text())
+            if pie.get("icon").strip()[-4:] == ".svg":
+                try:
+                    svg_nohover_hover = pie_selection_theme.get(openPieMenu.get("theme")).get("svg_nohover_hover")
+                    nohover_col, hover_col = svg_nohover_hover.strip().split("_")
+                    self.nohover_icon = iconify.Icon(icon, color = QtGui.QColor(nohover_col))
+                    self.hover_icon = iconify.Icon(icon, color = QtGui.QColor(hover_col))
+                    self.svg_changes_color = True
+                    icon = self.nohover_icon
+                except:
+                    icon = iconify.Icon(icon)
+
             self.icon = icon
             self.setIcon(QIcon(icon))
 
@@ -427,7 +439,11 @@ class Button(QtWidgets.QPushButton):
             self.style().unpolish(self)
             self.style().polish(self)
 
-        if value:
+        if self.svg_changes_color:
+            if value:
+                self.setIcon(self.nohover_icon)
+            else:
+                self.setIcon(self.hover_icon)
             
 
     def isHovered(self):

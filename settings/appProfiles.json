@@ -188,7 +188,6 @@
           "offset_angle"           : 0,
           "offset_pies"            : 7,
           "triggerKeysActive"      : true,
-          "svg_nohover_hover"      : "#ffffff_#000000",
           "pies"                   : [
             {
               "PieNumber"          : "1",
@@ -229,7 +228,7 @@
               "w_down"             : ["sendHotkey", ["f2"]],
               "label"              : "Brightness",
               "returnMousePos"     : 0,
-              "icon"               : "figurethisoutlater.svg",
+              "icon"               : "tray_icon.ico   ",
               "triggerKey"         : "None"
             },
             {

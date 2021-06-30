@@ -226,8 +226,9 @@ class ActiveProfile:
     def launch_pie_menus(self):
         cursorpos = QCursor.pos()
         self.init_cursorpos = cursorpos
-
-        detectMonitorChange(cursorpos, self.handle_foreground)
+        
+        if IS_MULTI_MONITOR_SETUP:
+            detectMonitorChange(cursorpos, self.handle_foreground)
 
         self.isMenuOpen = True
         window.showMenu(self.openPieMenu, cursorpos)

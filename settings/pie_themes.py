@@ -1,4 +1,5 @@
 from dotmap import DotMap
+import os
 
 pie_themes = DotMap()
 pie_selection_theme = DotMap()
@@ -6,6 +7,8 @@ tray_theme = DotMap()
 
 theme = pie_themes # alias
 
+script_dir = os.path.dirname(__file__)
+pie_bgs = os.path.join(os.path.split(script_dir)[0], "resources/pie_bgs/")
 
 pie_themes.default_theme = """
         QPushButton
@@ -99,6 +102,38 @@ theme.partial_invisible = """
     """
 
 
+theme.layan = """
+QPushButton
+        {{
+            color: black;
+            outline: none;
+            font-size: 16px;
+            font: "Segoe UI";
+            text-decoration: none;
+            font-weight: 400;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            padding-left: 15px;
+            padding-right: 15px;
+            min-width: 10px;
+            min-height: 10px;
+            border-radius: 6px;
+            border: 0px solid;
+            background-image: url("{0}");
+        }}
+        QPushButton[hover=true]
+        {{
+            color: white;
+            background: none;
+            background-color: #5051FB;
+        }}
+        QPushButton:pressed, QPushButton[pressed=true]
+        {{
+            background-color: #5051FB;
+        }}
+    """.format(os.path.join(pie_bgs, "layan.png").replace("\\", "\/").replace("/", "\/"))
+
+    
 theme.whatsapp_green = """
         QPushButton
         {
@@ -126,27 +161,9 @@ theme.whatsapp_green = """
     """
 
 
-
-theme.simple_box_theme = """ """
-
-
-# Inner circle and line theme
-pie_selection_theme.default = {
-    "bg_circle": "#f9e506",
-    "fg_circle": "#FF0044",
-    "thickness": 8
-}
-
-pie_selection_theme.whatsapp_green = {
-    "bg_circle": "#ffffff",
-    "fg_circle": "#00e106",
-    "thickness": 8
-}
-
-# Testing and debugging themes
-theme.testing_theme = """
+theme.windows_11 = """
         QPushButton
-        {
+        {{
             color: black;
             outline: none;
             font-size: 16px;
@@ -161,23 +178,87 @@ theme.testing_theme = """
             min-height: 10px;
             border-radius: 6px;
             border: 0px solid;
-            background-image: url("C:\/Users\/S\/Pictures\/2.png");
-        }
+            background-image: url("{0}");
+        }}
         QPushButton[hover=true]
-        {
-            color: white;
-            background: none;
-            background-color: #5051FB;
-        }
+        {{
+            color: #363437;
+        }}
         QPushButton:pressed, QPushButton[pressed=true]
-        {
-            background-color: #F2FC82;
-        }
-        QPushButton::icon {
-            padding-left: 55px;
-            padding-right: 55px;
-        }
-    """
+        {{
+            background-color: #5051FB;
+        }}
+    """.format(os.path.join(pie_bgs, "windows11.png").replace("\\", "\/").replace("/", "\/"))
+
+
+# SELECTION THEMES
+# Inner circle and line theme and svg hovers
+pie_selection_theme.default = {
+    # ------ these three should be defined together 
+    # or else this default selection theme will be used.
+    "bg_circle": "#f9e506",
+    "fg_circle": "#FF0044",
+    "thickness": 8
+    # ------ these above three --------------------
+}
+
+pie_selection_theme.whatsapp_green = {
+    "bg_circle": "#ffffff",
+    "fg_circle": "#00e106",
+    "thickness": 8
+}
+
+pie_selection_theme.windows_11 = {
+    "bg_circle": "#D9246A",
+    "fg_circle": "#D4608E",
+    "thickness": 8,
+    "svg_nohover_hover"      : "#ffffff_#000000"
+}
+
+
+
+
+# --------------- TESTING THEME ----------------------
+# Testing and debugging themes
+
+pie_selection_theme.testing_theme = {
+    "bg_circle": "#D9246A",
+    "fg_circle": "#D4608E",
+    "thickness": 8,
+    "svg_nohover_hover"      : "#ffffff_#000000"
+}
+
+theme.testing_theme = """
+        QPushButton
+        {{
+            color: black;
+            outline: none;
+            font-size: 16px;
+            font: "Segoe UI";
+            text-decoration: none;
+            font-weight: 400;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            padding-left: 15px;
+            padding-right: 15px;
+            min-width: 10px;
+            min-height: 10px;
+            border-radius: 6px;
+            border: 0px solid;
+            background-image: url("{0}");
+        }}
+        QPushButton[hover=true]
+        {{
+            color: #363437;
+        }}
+        QPushButton:pressed, QPushButton[pressed=true]
+        {{
+            background-color: #5051FB;
+        }}
+    """.format(os.path.join(pie_bgs, "windows11.png").replace("\\", "\/").replace("/", "\/"))
+
+# -----------/END TESTING THEME ----------------------
+
 
 
 
