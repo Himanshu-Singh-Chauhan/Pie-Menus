@@ -191,6 +191,36 @@ theme.windows_11 = """
     """.format(os.path.join(pie_bgs, "windows11.png").replace("\\", "\/").replace("/", "\/"))
 
 
+theme.macy = """
+        QPushButton
+        {{
+            color: white;
+            outline: none;
+            font-size: 16px;
+            font: "Segoe UI";
+            text-decoration: none;
+            font-weight: 400;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            padding-left: 15px;
+            padding-right: 15px;
+            min-width: 10px;
+            min-height: 10px;
+            border-radius: 6px;
+            border: 0px solid;
+            background-image: url("{0}");
+        }}
+        QPushButton[hover=true]
+        {{
+            color: #363437;
+        }}
+        QPushButton:pressed, QPushButton[pressed=true]
+        {{
+            background-color: #5051FB;
+        }}
+    """.format(os.path.join(pie_bgs, "macy.png").replace("\\", "\/").replace("/", "\/"))
+
+
 # SELECTION THEMES
 # Inner circle and line theme and svg hovers
 pie_selection_theme.default = {
@@ -215,6 +245,10 @@ pie_selection_theme.windows_11 = {
     "svg_nohover_hover"      : "#ffffff_#000000"
 }
 
+pie_selection_theme.macy = {
+    "svg_nohover_hover"      : "#000000_#ffffff"
+}
+
 
 
 
@@ -231,7 +265,7 @@ pie_selection_theme.testing_theme = {
 theme.testing_theme = """
         QPushButton
         {{
-            color: black;
+            color: white;
             outline: none;
             font-size: 16px;
             font: "Segoe UI";
@@ -255,7 +289,7 @@ theme.testing_theme = """
         {{
             background-color: #5051FB;
         }}
-    """.format(os.path.join(pie_bgs, "windows11.png").replace("\\", "\/").replace("/", "\/"))
+    """.format(os.path.join(pie_bgs, "purple.png").replace("\\", "\/").replace("/", "\/"))
 
 # -----------/END TESTING THEME ----------------------
 

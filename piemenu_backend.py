@@ -541,3 +541,4 @@ class Button(QtWidgets.QPushButton):
         if pie_func == "sendKeys": pieFunctions.sendKeys(params)
         if pie_func == "sendKeysAHK": pieFunctions.sendKeysTyping(params)
         if pie_func == "sendHotkey": pieFunctions.sendHotkey(params)
+        if "brightness" in pie_func: pieFunctions.sendHotkey([pie_func, params[0]])

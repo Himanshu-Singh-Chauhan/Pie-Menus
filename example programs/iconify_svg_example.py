@@ -5,6 +5,7 @@ from PySide2.QtCore import *
 import sys
 import os
 import iconify as ico
+import subprocess
 from iconify.qt import QtGui, QtWidgets
 script_dir = os.path.dirname(__file__)
 
@@ -54,6 +55,8 @@ class Window(QMainWindow):
 
         # printing pressed
         print("pressed")
+        subprocess.Popen([__file__])
+        sys.exit(0)
 
 # create pyqt5 app
 App = QApplication(sys.argv)
