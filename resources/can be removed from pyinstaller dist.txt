@@ -2,7 +2,7 @@ qt5pdf
 qt5virtualkeyboard
 qmlmodels
 Dbus
-Svg
+
 websockets.dll
 opengl32sw.dll
 Qt5Quick.dll

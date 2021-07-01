@@ -8,6 +8,6 @@ main.spec
 bootstrap-5.0.1-dist.zip
 to dos.jpg
 *.spec
-
-
+*.cab
+Pie Menus-cache
 git_ignore_private

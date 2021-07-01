@@ -16,6 +16,7 @@ from re import match as re_match
 from fastIO import *
 
 # allow only single instance to run
+os.environ["PBR_VERSION"] = "4.0.2" # this remove tendo/pbr error after pyinstaller compiles it.
 from tendo import singleton
 me = singleton.SingleInstance() # will sys.exit(-1) if other instance is running
 

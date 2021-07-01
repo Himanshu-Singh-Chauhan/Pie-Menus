@@ -47,3 +47,8 @@ https://www.geeksforgeeks.org/handling-a-threads-exception-in-the-caller-thread-
 [Basic Incremental Laptop Brightness Up/Down - AutoHotkey Community](https://www.autohotkey.com/boards/viewtopic.php?t=83382)
 
 [Windows screen brightness fine tune (autohotkey) (github.com)](https://gist.github.com/krrr/3c3f1747480189dbb71f)
+
+[python - Windows- Pyinstaller Error "failed to execute script " When App Clicked - Stack Overflow](https://stackoverflow.com/questions/40716346/windows-pyinstaller-error-failed-to-execute-script-when-app-clicked)
+
+[tendo pbr error after comipiling using pyinstaller](https://blog.csdn.net/wzh200x/article/details/111185209)
+
