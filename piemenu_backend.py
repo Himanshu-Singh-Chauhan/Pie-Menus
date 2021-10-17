@@ -17,6 +17,7 @@ from dotmap import DotMap
 from settings.pie_themes import pie_themes, tray_theme, pie_selection_theme
 
 from math import sin, cos, ceil
+from pympler import muppy, summary
 
 script_dir = os.path.dirname(__file__)
 icons_dir = os.path.join(script_dir, "resources/icons/")
@@ -68,6 +69,15 @@ class Window(QtWidgets.QWidget):
             return
         self._menu = RadialMenu(self, summonPosition, openPieMenu, self.settings, self.globalSettings)
         self._menu.show()
+
+
+        all_objects = muppy.get_objects()
+        # print(all_objects)
+        print(len(all_objects))
+        # Prints out a summary of the large objects
+        # sum1 = summary.summarize(all_objects)
+        # summary.print_(sum1)
+
 
     def killMenu(self):
         if self._menu:
@@ -144,6 +154,11 @@ class RadialMenu(QtWidgets.QWidget):
         self.animGroup.finished.connect(self.hide)
         self.animGroup.start()
         self.parent()._menu = None
+        for btn in self._btnList:
+            btn.deleteLater()
+
+        self.deleteLater()
+        del self
 
 
     def show(self):
