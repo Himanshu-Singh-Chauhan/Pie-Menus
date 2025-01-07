@@ -1,3 +1,5 @@
+This Project is no longer maintained. But I am proud of my work done on this project.
+---
 <p align = "center"><a><img src="https://github.com/Himanshu-Singh-Chauhan/Pie-Menus/blob/main/resources/readme_banner.png" alt=Pie menus banner"></a></p>
 
 ###### there is still a lot to do in pie menus, go easy on it, and keep an eye on updates. 😉
